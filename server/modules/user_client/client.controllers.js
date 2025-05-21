@@ -1,5 +1,10 @@
-import { hashString } from "../../utils/hashUtils.js";
+import { compareString, hashString } from "../../utils/hashUtils.js";
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
 import clientDal from "./client.dal.js";
+
+dotenv.config();
+
 
 class ClientControllers {
 
@@ -23,6 +28,60 @@ class ClientControllers {
     catch (error) {
       console.log(error);
       res.status(500).json({message: "tururu"});
+    }
+  }
+
+  login = async(req, res)=>{
+    try {
+      const {email, password} = req.body;
+
+      const result = await clientDal.findUserByEmailLogin(email);
+      
+      console.log("LOOOGINRESULLT", result)
+
+      if(result.length === 0){
+        res.status(401).json({message:"El usuario no existe o está bloqueado"});
+      }else{
+        let match = await compareString(password, result[0].password);
+
+        if(!match){
+          res.status(401).json({message:"Contraseña no válida"})
+        }else{
+          const token = jwt.sign({user_id:result[0].user_id}, process.env.TOKEN_KEY, {expiresIn:'1d'});
+          res.status(200).json({token})
+        }
+      }
+      
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({message:"ups, esto es un error 500"})
+    }
+
+  }
+
+  userById = async (req, res) =>{
+    try {
+      console.log("REEEEEQ", req)
+      const {user_id} = req;
+      console.log("**********", user_id)
+      let result = await clientDal.findUserById(user_id)
+
+      let userData = {
+        user_id: result[0].user_id,
+        user_name: result[0].user_name,
+        lastname: result[0].lastname,
+        email: result[0].email,
+        phone: result[0].phone,
+        user_type: result[0].user_type,
+        avatar: result[0].avatar,
+        birth_date: result[0].birth_date,
+        registered_date: result[0].registered_date
+      }
+      res.status(200).json(userData)
+
+    } catch (error) {
+      console.log(error);      
+      res.status(500).json({message:"ups, error 500"})
     }
   }
 }
