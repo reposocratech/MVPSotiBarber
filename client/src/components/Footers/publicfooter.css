@@ -10,3 +10,28 @@
   padding-left: 0;          
   margin-bottom: 0;
 }
+
+.enlaces .nav-link {
+  color: var(--color-blanco);
+  text-decoration: none;
+}
+
+.enlaces .nav-link:hover {
+  color: var(--color-azul);
+}
+
+.footer-divider {
+  height: 1px;
+  background-color: var(--color-blanco); 
+  opacity: 0.3;
+  
+}
+
+.contact-info p {
+  margin-bottom: 0.5rem;
+}
+
+.footer-copy {
+  text-align: center;
+  padding: 1rem 0;
+}
