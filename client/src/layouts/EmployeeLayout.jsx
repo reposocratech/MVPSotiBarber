@@ -1,21 +1,23 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import { AdminEmployeFooter } from '../components/Footers/AdminEmployeFooter'
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import { AdminEmployeFooter } from '../components/Footers/AdminEmployeFooter';
+
+import './commonLayout.css';
 
 export const EmployeeLayout = () => {
   return (
     <>
-    <header>
-    </header>
-      
-     <main>
-     <Outlet/>
-    </main>
+      <div className="prueba">
+        <header></header>
 
-    <footer>
-      <AdminEmployeFooter />
-    </footer>
-    
+        <main>
+          <Outlet />
+        </main>
+
+        <footer>
+          <AdminEmployeFooter />
+        </footer>
+      </div>
     </>
-  )
-}
+  );
+};

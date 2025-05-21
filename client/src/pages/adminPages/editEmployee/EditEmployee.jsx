@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ModalEditEmployee = () => {
+const EditEmployee = () => {
   return (
     <div>EditEmployee</div>
   )
 }
 
-export default ModalEditEmployee
+export default EditEmployee
