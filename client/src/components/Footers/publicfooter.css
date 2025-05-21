@@ -1,0 +1,12 @@
+.public-footer{
+  background-color: var(--color-negro);
+  width: 100vw;       
+  margin: 0;         
+  padding: 0;
+}
+
+.enlaces {
+  list-style: none;        
+  padding-left: 0;          
+  margin-bottom: 0;
+}

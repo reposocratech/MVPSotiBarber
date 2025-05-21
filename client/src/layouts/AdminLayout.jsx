@@ -1,5 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import { AdminEmployeFooter } from '../components/Footers/AdminEmployeFooter'
 
 export const AdminLayout = () => {
   return (
@@ -12,7 +13,7 @@ export const AdminLayout = () => {
     </main>
 
     <footer>
-
+    <AdminEmployeFooter />
     </footer>
     
     </>
