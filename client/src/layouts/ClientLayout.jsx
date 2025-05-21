@@ -1,5 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import { PublicClientFooter } from '../components/Footers/PublicClientFooter'
 
 export const ClientLayout = () => {
   return (
@@ -12,7 +13,7 @@ export const ClientLayout = () => {
     </main>
 
     <footer>
-
+    <PublicClientFooter />
     </footer>
     
     </>
