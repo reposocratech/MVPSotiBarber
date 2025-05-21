@@ -1,6 +1,6 @@
 
 .navPublic {
-  background-color: #222831;
+  background-color: var(--color-negro);
 
   Button {
     background-color: transparent;

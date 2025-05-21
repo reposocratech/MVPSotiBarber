@@ -1,0 +1,10 @@
+.profile-icon{
+  border: 2px solid white;
+  border-radius: 100%;
+  padding: 5px;
+
+  h2{
+    color: white;
+    font-size: 20px;
+  }
+}
