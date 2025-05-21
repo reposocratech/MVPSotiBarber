@@ -1,17 +1,14 @@
 import React from 'react'
 import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
-
-import "./publicNavbar.css"
 import { Link, useNavigate } from 'react-router-dom';
 
 
-export const PublicNavbar = () => {
-  
-  const navigate = useNavigate();
 
+export const ClientNavbar = () => {
+
+  const navigate = useNavigate();
   return (
-    <>
-      <Navbar  className='navPublic'  expand="lg" collapseOnSelect>
+          <Navbar  className='navPublic'  expand="lg" collapseOnSelect>
       <Container>
         <Navbar.Brand className='titleNav' onClick={()=>navigate("/")}>SOTI</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -28,9 +25,5 @@ export const PublicNavbar = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-
-
-  
-    </>
   )
 }

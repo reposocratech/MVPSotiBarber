@@ -1,0 +1,47 @@
+
+.navPublic {
+  background-color: #222831;
+
+  Button {
+    background-color: transparent;
+    border: 2px solid white;
+
+     &:hover {
+     background-color: var(--color-azul);
+     border: 2px solid white;
+  }
+  }
+}
+
+
+.navPublic .navbar-brand {
+  color: white ;
+  cursor: pointer;
+  &:hover {
+    color: var(--color-azul);
+  }
+}
+
+
+.navPublic .nav-link,
+.navPublic .navbar-toggler-icon {
+  color: white ;
+    &:hover {
+    color: var(--color-azul);
+  }
+}
+
+
+.navPublic .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+
+
+@media (max-width: 991.98px) {
+  .custom-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center 
+  }
+}
