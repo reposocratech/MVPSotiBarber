@@ -1,0 +1,9 @@
+:root {
+  --color-negro: #212121;
+  --color-fondo: #3D3D3D;
+  --color-componente: #282828;
+  --color-azul: #607D8B;
+  --color-blanco: #FFFFFF;
+}
+
+/* var, se abre el parentesis --color */
