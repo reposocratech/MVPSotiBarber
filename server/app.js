@@ -4,6 +4,7 @@ import path from 'path';
 import logger from 'morgan';
 import { fileURLToPath } from 'url';
 import cors from "cors";
+import clientRouter from "./modules/user_client/client.routes.js"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/client', clientRouter);
+app.use('/client', clientRouter);
 // app.use('/employee', employeeRouter);
 // app.use('/admin', adminRouter);
 
