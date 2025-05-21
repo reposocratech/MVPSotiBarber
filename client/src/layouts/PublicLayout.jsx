@@ -1,7 +1,20 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 export const PublicLayout = () => {
   return (
-    <div>PublicLayout</div>
+    <>
+    <header>
+    </header>
+
+     <main>
+     <Outlet />
+    </main>
+
+    <footer>
+
+    </footer>
+    
+    </>
   )
 }
