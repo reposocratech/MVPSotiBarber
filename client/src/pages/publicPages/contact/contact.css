@@ -1,0 +1,45 @@
+.contact-section {
+  background-color:var(--color-fondo);
+  color: var(--color-blanco);
+  padding: 50px 0;
+}
+.contact-divider {
+  width: 55px;
+  height: 3px;
+  background-color: var(--color-azul);
+  margin: 0 auto 2rem;
+ 
+}
+
+.contact-form {
+  background-color: var(--color-negro);
+  border: none;
+  padding: 1.5rem;
+  color: var(--color-blanco);
+}
+
+.contact-card {
+  background-color: var(--color-negro);
+  border: none;
+  padding: 1.5rem;
+  color: var(--color-blanco);
+}
+
+.contact-icon {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+
+.ubicacion {
+  display: flex;
+  justify-content: center;
+  
+}
+
+.ubicacion iframe {
+  border: 0;
+  max-width: 768px;
+  width: 100%;
+  height: 21.875rem;
+}

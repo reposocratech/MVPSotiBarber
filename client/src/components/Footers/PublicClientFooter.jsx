@@ -6,7 +6,7 @@ import "./publicfooter.css"
 export const PublicClientFooter = () => {
 
   return (
-  <footer className="public-footer text-light pt-5 pb-3 mt-5">
+  <footer className="public-footer text-light">
       <Container>
         <Row className="justify-content-center text-center">
           <Col xs={12} md={4}>
