@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { PublicRoutes } from './PublicRoutes';
 import { PublicLayout } from '../layouts/PublicLayout';
@@ -30,6 +30,8 @@ import AdminClientList from '../pages/adminPages/clientList/AdminClientList';
 import Service from '../pages/adminPages/service/Service';
 import { EditService } from '../pages/adminPages/editService/EditService';
 
+//Usuario del context
+import { AuthContext } from '../context/AuthContextProvider';
 //componentes públicos
 
 //componentes Client
@@ -39,6 +41,14 @@ import { EditService } from '../pages/adminPages/editService/EditService';
 //componentes Admin
 
 export const AppRoutes = () => {
+
+ const {user} = useContext(AuthContext);
+
+ console.log("userrrr", user);
+ 
+ 
+  
+
   return (
     <>
       <BrowserRouter>
@@ -55,7 +65,7 @@ export const AppRoutes = () => {
             </Route>
           </Route>
           {/* Rutas Cliente */}
-          <Route element={<PrivateRoutes />}>
+          <Route element={<PrivateRoutes userType={user?.type} requiredUser={3} />}>
             <Route element={<ClientLayout />}>
               <Route path="/client" element={<ClientDashboard />} />
               <Route
@@ -67,7 +77,7 @@ export const AppRoutes = () => {
           </Route>
 
           {/* Rutas Empleado */}
-          <Route element={<PrivateRoutes />}>
+          <Route element={<PrivateRoutes userType={user?.type} requiredUser={2} />}>
             <Route element={<EmployeeLayout />}>
               <Route path="/employee" element={<EmployeeDashboard />} />
               <Route path="/employee/clientList" element={<ClientList />} />
@@ -88,7 +98,7 @@ export const AppRoutes = () => {
           </Route>
 
           {/* Rutas Admin */}
-          <Route element={<PrivateRoutes />}>
+          <Route element={<PrivateRoutes userType={user?.type} requiredUser={1} />}>
             <Route element={<AdminLayout />}>
               <Route path="/admin" element={<AdminDashboard />} />
               <Route
