@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react'
 import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import { loginSchema } from "../../../schemas/loginSchema.js"
 import './login.css'
 import { AuthContext } from '../../../context/AuthContextProvider';
+import { ZodError } from "zod";
 
 const initialValue = {
   email:"",
@@ -11,6 +13,7 @@ const initialValue = {
 const Login = () => {
   const [loginData, setLoginData] = useState(initialValue);
   const [errorMsg, setErrorMsg] = useState("");
+  const [valErrors, setValErrors] = useState("");
 
   const {logIn} = useContext(AuthContext)
 
@@ -22,9 +25,29 @@ const Login = () => {
   
   const onSubmit = async()=>{
     try {
-      logIn(loginData)
-    } catch (error) {
-      console.log("LOOGIN", error);
+      if(!loginData.email || !loginData.password){
+        setErrorMsg("Rellena todos los campos")
+      }else{
+        setErrorMsg("");
+        setValErrors("");
+        loginSchema.parse(loginData)
+        logIn(loginData)
+      }
+
+    }catch (error) {
+      if(error instanceof ZodError){
+            let objTemp = {}
+            error.errors.forEach((er)=>{
+              objTemp[er.path[0]]=er.message
+            })
+            setValErrors(objTemp)
+
+            if(error.response){
+              setErrorMsg(error.response.data.message)
+            }else{
+              setErrorMsg("")
+            }
+      }    
     }
   }
 
@@ -37,7 +60,11 @@ const Login = () => {
       <Container>
         <Row>
           <Col>
-            <Form>
+            <Form className="formLogin">
+              <div className='d-flex flex-column align-items-center justify-content-center'>
+                <h2 >Inicia sesión</h2>
+                <div className='blue-line'></div>
+              </div>
             <Form.Group className="mb-3">
                 <Form.Label htmlFor="emailInput">
                   Email
@@ -47,23 +74,30 @@ const Login = () => {
                   name="email"
                   value={loginData.email}
                   onChange={handleChange}
+                  placeholder='ejemplo@ejemplo.com'
                   />
+                  {valErrors.email && <p>{valErrors.email}</p>}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="passwordInput">
-                  Password
+                  Contraseña
                 </Form.Label>
                 <Form.Control
                   id="passwordInput"
                   name="password"
                   value={loginData.password}
                   onChange={handleChange}
+                  placeholder='Introduce contraseña'
                   />
+                  {valErrors.password && <p>{valErrors.password}</p>}                  
               </Form.Group>
-              <p>{errorMsg}</p>
-              <Button onClick={onSubmit}>Entrar</Button>
-              <p>¿No estas registrado? <Link to="/register">Registrate aquí</Link></p>
+              <Link className='text-decoration-none' to="/forgetPassword"> <p className='text-end forgot-password'>¿Has olvidado tu contraseña?</p></Link>
+              <p className='text-center'>{errorMsg}</p>
+              <div className='d-flex justify-content-center align-items-center'>
+                <Button className='btn' onClick={onSubmit}>Entrar</Button>
+              </div>
             </Form>
+              <p className='text-center'>¿No estas registrado? <Link className='register-here' to="/register">Registrate aquí</Link></p>
           </Col>
         </Row>
       </Container>

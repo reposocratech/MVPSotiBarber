@@ -40,7 +40,7 @@ class ClientControllers {
       console.log("LOOOGINRESULLT", result)
 
       if(result.length === 0){
-        res.status(401).json({message:"El usuario no existe o está bloqueado"});
+        res.status(401).json({message:"Email no existe"});
       }else{
         let match = await compareString(password, result[0].password);
 
