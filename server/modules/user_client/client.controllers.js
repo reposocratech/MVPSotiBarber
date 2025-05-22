@@ -2,6 +2,7 @@ import { compareString, hashString } from "../../utils/hashUtils.js";
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import clientDal from "./client.dal.js";
+import sendMail from "../../services/nodemailer.js";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ class ClientControllers {
         const hashedPassword = await hashString(password);
         const data = {email, hashedPassword};
         await clientDal.register(data);
+        sendMail(email)
         res.status(201).json({message: "creado correctamente"});
       }
     } 

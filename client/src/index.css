@@ -3,7 +3,12 @@
   --color-fondo: #3D3D3D;
   --color-componente: #282828;
   --color-azul: #607D8B;
-  --color-blanco: #FFFFFF;
+  --color-blanco: rgb(223, 221, 221);
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-blanco);
 }
 
 .blue-line{
