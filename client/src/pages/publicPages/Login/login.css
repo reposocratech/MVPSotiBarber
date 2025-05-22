@@ -1,0 +1,33 @@
+.formLogin {
+  background-color: var(--color-componente);
+  color: var(--color-blanco);
+  padding: 2rem;
+  border-radius: 1.25rem;
+  width: 31.25rem;
+
+  .btn{
+    background-color: var(--color-azul);
+    border: 0;
+    padding: 0.5rem 1.25rem;
+
+    &:hover{
+      background-color: var(--color-azul);
+      filter: brightness(80%);
+    }
+  }
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-here{
+ color: var(--color-azul) 
+}
+
+p{
+  color: var(--color-blanco)
+}
+
