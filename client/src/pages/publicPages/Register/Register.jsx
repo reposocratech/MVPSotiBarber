@@ -52,9 +52,10 @@ const Register = () => {
   return (
     <section className='register'>
       <Container>
-        <Row>
-          <Col md={12} lg={6} className='formRegister'>
-            <Form>
+        <Row className='engloba'>
+          <Col md={12} lg={6} className='cols'>
+            <Form className='formRegister'>
+              <h2 className='text-center'>Regístrate</h2>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='EmailTextInput'>
                   Email
@@ -95,9 +96,11 @@ const Register = () => {
                 {valErrors.repPassword && <p>{valErrors.repPassword}</p>}
               </Form.Group>
               <p>{errorMsg}</p>
-              <Button onClick={onSubmit}>Registrar</Button>
+              <div className='d-flex justify-content-center'>
+                <Button className='boton' onClick={onSubmit}>Registrar</Button>
+              </div>
             </Form>
-            <p>Si ya estás registrado <Link to="/login">inicia sesión aquí</Link></p>
+            <p>¿Ya estás registrado? <Link className='inicio' to="/login">Inicia sesión aquí</Link></p>
           </Col>
         </Row>
       </Container>
