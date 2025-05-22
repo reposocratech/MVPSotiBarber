@@ -6,6 +6,11 @@
   --color-blanco: #FFFFFF;
 }
 
-
+.blue-line{
+  width: 5rem;
+  border-top: 0.3125rem;
+  border: 2px solid var(--color-azul);
+  margin-bottom: 1rem;
+}
 
 /* var, se abre el parentesis --color */
