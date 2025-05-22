@@ -25,11 +25,9 @@ export const PublicClientFooter = () => {
 
           <Col xs={12} md={4} className="d-none d-md-block">
             <h5 className="contacto fw-bold">Contacto</h5>
-           <div className="contact-info">
               <p>Calle Daniel Vázquez Díaz, 5</p>
               <p>Teléfono: 601530639</p>
-              <p>Email: info@sotti.com</p>
-           </div>
+              <p>Email: info@soti.com</p>
           </Col>
         </Row>
 
