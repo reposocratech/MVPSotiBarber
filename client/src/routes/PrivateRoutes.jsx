@@ -8,7 +8,7 @@ export const PrivateRoutes = ({userType, requiredUser}) => {
     if(userType !== requiredUser){
       navigate('/')
     }
-  },[]) */
+  },[]) */  
 
   return (
     <>

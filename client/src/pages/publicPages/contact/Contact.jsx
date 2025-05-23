@@ -1,24 +1,25 @@
 import React from 'react'
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import phoneIcon from '../../../assets/icons/phone.png';
 import mailIcon from '../../../assets/icons/mail.png';
 import ubicationIcon from '../../../assets/icons/ubication.png';
 import "./contact.css"
 
+
 const Contact = () => {
   return (
     <div className="contact-section">
       <Container>
-        <h2 className="text-center mb-2">Contacto</h2>
-        <hr className="contact-divider" />
-        <p className="text-center mb-5">
+        <h2 className="text-center ">Contacto</h2>
+        <div className='blue-line'></div>
+        <p className="text-center contact-separation">
           ¿Tienes alguna pregunta o deseas reservar una cita? No dudes en
           contactarnos
         </p>
 
-        <Row className="mb-5">
+        <Row className="mb-5 align-items-stretch">
           <Col md={6}>
-            <Card className="contact-form">
+            <div className="contact-form">
               <h5 className="mb-4">Envíanos un mensaje</h5>
               <Form>
                 <Form.Group controlId="formName" className="mb-3">
@@ -46,17 +47,17 @@ const Contact = () => {
                   />
                 </Form.Group>
 
-                <Button variant="secondary" className="w-100">
-                  Enviar mensaje
-                </Button>
+                 <div className="d-flex justify-content-center">
+                  <Button className="boton">Enviar mensaje</Button>
+                </div>
               </Form>
-            </Card>
+            </div>
           </Col>
 
           <Col md={6}>
             <Row className="gy-4">
               <Col xs={12}>
-                <Card className="contact-card">
+                <div className="contact-card">
                   <div className="d-flex align-items-center gap-3">
                     <img
                       src={phoneIcon}
@@ -68,11 +69,11 @@ const Contact = () => {
                       <p className="mb-0">601530639</p>
                     </div>
                   </div>
-                </Card>
+                </div>
               </Col>
 
               <Col xs={12}>
-                <Card className="contact-card">
+                <div className="contact-card">
                   <div className="d-flex align-items-center gap-3">
                     <img src={mailIcon} alt="Email" className="contact-icon" />
                     <div>
@@ -80,11 +81,11 @@ const Contact = () => {
                       <p className="mb-0">info@soti.com</p>
                     </div>
                   </div>
-                </Card>
+                </div>
               </Col>
 
               <Col xs={12}>
-                <Card className="contact-card">
+                <div className="contact-card">
                   <div className="d-flex align-items-center gap-3">
                     <img
                       src={ubicationIcon}
@@ -98,14 +99,15 @@ const Contact = () => {
                       </p>
                     </div>
                   </div>
-                </Card>
+                </div>
               </Col>
             </Row>
           </Col>
         </Row>
 
-        <div className="text-center mb-3">
+        <div className="text-center contact-separation">
           <h4>Nuestra Ubicación</h4>
+          <div className='blue-line'></div>
           <p>
             Nos encontramos en una ubicación de fácil acceso, ¡ven a visitarnos!
           </p>
