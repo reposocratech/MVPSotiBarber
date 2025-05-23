@@ -6,6 +6,10 @@
   height: 100%;
 }
 
+.register {
+  padding-block: 3rem;
+}
+
 .cols {
   display: flex;
   flex-direction: column;

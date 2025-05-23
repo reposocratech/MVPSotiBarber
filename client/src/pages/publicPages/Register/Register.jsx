@@ -26,10 +26,19 @@ const Register = () => {
 
   const onSubmit = async() => {
     try {
-      registerSchema.parse(registerData);
-      await fetchData ("client/register", "post", registerData);
-  
-      navigate("/login")
+      if (!registerData.email || !registerData.password || !registerData.repPassword){
+        setErrorMsg("Rellena todos los campos")
+      }
+      else {
+        setErrorMsg("");
+        setValErrors("");
+        registerSchema.parse(registerData);
+        let res = await fetchData ("client/register", "post", registerData);
+        console.log(res)
+        // let tokencf = res.data.tokenconfirm;
+    
+        navigate("/login")
+      }
     } 
     
     catch (error) {
@@ -100,7 +109,7 @@ const Register = () => {
                 <Button className='boton' onClick={onSubmit}>Registrar</Button>
               </div>
             </Form>
-            <p>¿Ya estás registrado? <Link className='inicio' to="/login">Inicia sesión aquí</Link></p>
+            <p className='pe-5 text-center'>¿Ya estás registrado? <Link className='inicio' to="/login">Inicia sesión aquí</Link></p>
           </Col>
         </Row>
       </Container>

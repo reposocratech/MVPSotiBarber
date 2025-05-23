@@ -44,6 +44,14 @@ class ClientDal {
       throw {message: "error de bd"}
     }
   }
+
+  confirmAccount = async () => {
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
 }
 
 export default new ClientDal();

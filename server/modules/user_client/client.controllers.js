@@ -105,6 +105,16 @@ class ClientControllers {
       console.log("errForgetPassword", error)
     }
   }
+
+  confirmAccount = async(req, res) => {
+    try {
+      const tokenconf = req;
+      console.log("tokenconf", tokenconf)
+      // await clientDal.confirmAccount
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export default new ClientControllers();
