@@ -12,7 +12,8 @@ export const PrivateRoutes = ({userType, requiredUser}) => {
     if(userType !== requiredUser){
       navigate('/')
     }
-  },[user])  
+ },[user])  
+
 
   return (
     <>

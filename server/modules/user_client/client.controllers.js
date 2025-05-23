@@ -21,9 +21,12 @@ class ClientControllers {
       else {
         const hashedPassword = await hashString(password);
         const data = {email, hashedPassword};
+        const result = await clientDal.findUserByEmail(email);
         await clientDal.register(data);
-        sendMail(email)
-        res.status(201).json({message: "creado correctamente"});
+        const tokenconfirm = jwt.sign({user_id:result[0]?.user_id},process.env.TOKEN_KEY_CONFIRM)
+        sendMail(email, tokenconfirm)
+        console.log(tokenconfirm);
+        res.status(201).json({tokenconfirm, message: "creado correctamente"});
       }
     } 
 
