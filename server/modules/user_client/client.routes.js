@@ -11,5 +11,6 @@ const router = express.Router();
 router.post("/register", validateRegister(registerSchema), clientControllers.register);
 router.post("/login", validateLogin(loginSchema), clientControllers.login);
 router.get("/userById", verifyToken, clientControllers.userById)
+router.post("/forgetPassword", clientControllers.forgetPassword)
 
 export default router;
