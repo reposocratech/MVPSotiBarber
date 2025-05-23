@@ -29,15 +29,19 @@ export const AuthContextProvider = ({children}) => {
   console.log("userrrrConteext", user);
   
   const logIn = async(loginData)=>{
-    const responseToken = await fetchData("client/login", "post", loginData);
+
+    
+      const responseToken = await fetchData("client/login", "post", loginData);
     let tokenBack = responseToken.data.token;
 
     const responseUser = await fetchData("client/userById", "get", null, tokenBack);
-
+    
     let userBack = responseUser.data.user;
     localStorage.setItem("token", tokenBack)
     setToken(tokenBack);
     setUser(userBack);
+  
+    
   }
 
   const logOut = () =>{
