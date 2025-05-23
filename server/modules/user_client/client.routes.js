@@ -12,5 +12,6 @@ router.post("/register", validateRegister(registerSchema), clientControllers.reg
 router.post("/login", validateLogin(loginSchema), clientControllers.login);
 router.get("/userById", verifyToken, clientControllers.userById)
 router.post("/forgetPassword", clientControllers.forgetPassword)
+router.put("/confirmAccount", clientControllers.confirmAccount)
 
 export default router;
