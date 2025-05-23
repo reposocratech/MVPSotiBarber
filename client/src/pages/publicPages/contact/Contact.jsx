@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react';
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import phoneIcon from '../../../assets/icons/phone.png';
 import mailIcon from '../../../assets/icons/mail.png';
@@ -6,7 +6,26 @@ import ubicationIcon from '../../../assets/icons/ubication.png';
 import "./contact.css"
 
 
+
 const Contact = () => {
+
+ const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+
+  const handleChange = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+
+
+
+
   return (
     <div className="contact-section">
       <Container>
@@ -22,7 +41,7 @@ const Contact = () => {
             <div className="contact-form">
               <h5 className="mb-4">Envíanos un mensaje</h5>
               <Form>
-                <Form.Group controlId="formName" className="mb-3">
+                <Form.Group  className="mb-3">
                   <Form.Label>Nombre</Form.Label>
                   <Form.Control
                     type="text"
@@ -30,7 +49,7 @@ const Contact = () => {
                   />
                 </Form.Group>
 
-                <Form.Group controlId="formEmail" className="mb-3">
+                <Form.Group  className="mb-3">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
@@ -38,7 +57,7 @@ const Contact = () => {
                   />
                 </Form.Group>
 
-                <Form.Group controlId="formMessage" className="mb-3">
+                <Form.Group  className="mb-3">
                   <Form.Label>Mensaje</Form.Label>
                   <Form.Control
                     as="textarea"
@@ -106,7 +125,7 @@ const Contact = () => {
         </Row>
 
         <div className="text-center contact-separation">
-          <h4>Nuestra Ubicación</h4>
+          <h3>Nuestra Ubicación</h3>
           <div className='blue-line'></div>
           <p>
             Nos encontramos en una ubicación de fácil acceso, ¡ven a visitarnos!
@@ -125,5 +144,5 @@ const Contact = () => {
   );
 };
  
-
+}
 export default Contact
