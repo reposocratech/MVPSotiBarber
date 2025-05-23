@@ -19,5 +19,9 @@ body {
 }
 
 
+.padding-y-section{
+  padding-block: 3rem;
+}
+
 
 /* var, se abre el parentesis --color */
