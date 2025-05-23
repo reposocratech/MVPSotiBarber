@@ -67,7 +67,7 @@ export const AppRoutes = () => {
             </Route>
           </Route>
           {/* Rutas Cliente */}
-          <Route element={<PrivateRoutes userType={user?.type} requiredUser={3} />}>
+          <Route element={<PrivateRoutes userType={user?.user_type} requiredUser={3} />}>
             <Route element={<ClientLayout />}>
               <Route path="/client" element={<ClientDashboard />} />
               <Route
@@ -79,7 +79,7 @@ export const AppRoutes = () => {
           </Route>
 
           {/* Rutas Empleado */}
-          <Route element={<PrivateRoutes userType={user?.type} requiredUser={2} />}>
+          <Route element={<PrivateRoutes userType={user?.user_type} requiredUser={2} />}>
             <Route element={<EmployeeLayout />}>
               <Route path="/employee" element={<EmployeeDashboard />} />
               <Route path="/employee/clientList" element={<ClientList />} />
@@ -100,7 +100,7 @@ export const AppRoutes = () => {
           </Route>
 
           {/* Rutas Admin */}
-          <Route element={<PrivateRoutes userType={user?.type} requiredUser={1} />}>
+          <Route element={<PrivateRoutes userType={user?.user_type} requiredUser={1} />}>
             <Route element={<AdminLayout />}>
               <Route path="/admin" element={<AdminDashboard />} />
               <Route

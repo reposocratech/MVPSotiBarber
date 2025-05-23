@@ -25,16 +25,17 @@ const Login = () => {
   
   const onSubmit = async()=>{
     try {
-      if(!loginData.email || !loginData.password){
-        setErrorMsg("Rellena todos los campos")
-      }else{
+     
+      
         setErrorMsg("");
         setValErrors("");
         loginSchema.parse(loginData)
-        logIn(loginData)
-      }
+       await logIn(loginData)
+      
 
     }catch (error) {
+      console.log("++++++++++",error);
+      
       if(error instanceof ZodError){
             let objTemp = {}
             error.errors.forEach((er)=>{
