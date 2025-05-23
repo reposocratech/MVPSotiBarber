@@ -53,7 +53,7 @@ const Home = () => {
         <section className="section-services padding-y-section">
           <Row>
                 <div className="d-flex flex-column align-items-start">
-                  <h2>Nuestros Servicios</h2>
+                  <h3>Nuestros Servicios</h3>
                   <div className="blue-line"></div>
                 </div>
             <Col>
