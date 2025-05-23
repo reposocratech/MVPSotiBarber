@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 
+
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
@@ -10,7 +11,7 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-function sendMail(email){
+function sendMail(email, tokenconfirm){
   let mensaje = `
     <!DOCTYPE html>
   <html lang="en">
@@ -23,6 +24,8 @@ function sendMail(email){
     <div style='background-color: yellow';>
       <h1>Bienvenid@ a nuestra aplicación</h1>
       <h2>que tal estas?</h2>
+      <p>Confirma tu email en este enlace: </p>
+      <a href="http://localhost:5173/accountConfirm/?tokenconfirm=${tokenconfirm}">Verifica aqui</a>  
     </div>
   </body>
   </html> 
@@ -35,6 +38,13 @@ function sendMail(email){
     text: "hola", /* si hay un fallo al mandar el html se manda este texto */
     html: mensaje
   })
+
+  
+
+
+
+
+
 }
 
 export default sendMail;
