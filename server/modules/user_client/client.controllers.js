@@ -72,15 +72,18 @@ class ClientControllers {
       let result = await clientDal.findUserById(user_id)
 
       let userData = {
-        user_id: result[0].user_id,
-        user_name: result[0].user_name,
-        lastname: result[0].lastname,
-        email: result[0].email,
-        phone: result[0].phone,
-        user_type: result[0].user_type,
-        avatar: result[0].avatar,
-        birth_date: result[0].birth_date,
-        registered_date: result[0].registered_date
+        user:{
+             user_id: result[0].user_id,
+           user_name: result[0].user_name,
+           lastname: result[0].lastname,
+           email: result[0].email,
+           phone: result[0].phone,
+           user_type: result[0].user_type,
+           avatar: result[0].avatar,
+           birth_date: result[0].birth_date,
+           registered_date: result[0].registered_date
+        }
+     
       }
       res.status(200).json(userData)
 

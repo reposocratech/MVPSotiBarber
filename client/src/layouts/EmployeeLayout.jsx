@@ -1,9 +1,9 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { AdminEmployeFooter } from '../components/Footers/AdminEmployeFooter';
+import { EmployeeNavbar } from '../components/Navbars/employeeNavbar/EmployeeNavbar';
 
 import './commonLayout.css';
-import { EmployeeNavbar } from '../components/Navbars/employeeNavbar/EmployeeNavbar';
 
 export const EmployeeLayout = () => {
   return (
