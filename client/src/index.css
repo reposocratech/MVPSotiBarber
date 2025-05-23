@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
   --color-negro: #212121;
   --color-fondo: #3D3D3D;
@@ -9,6 +13,7 @@
 body {
     background-color: var(--color-fondo);
     color: var(--color-blanco);
+    font-family: 'Montserrat';
 }
 
 .blue-line{
@@ -22,6 +27,13 @@ body {
 .padding-y-section{
   padding-block: 3rem;
 }
+
+/* tipografías */
+
+h1, h2, h3{
+  font-family: 'Playfair';
+}
+
 
 
 /* var, se abre el parentesis --color */
