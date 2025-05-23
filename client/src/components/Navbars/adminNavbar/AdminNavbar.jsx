@@ -1,28 +1,31 @@
-import React from 'react';
+import React from 'react'
+
 
 import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
-export const EmployeeNavbar = () => {
+
+export const AdminNavbar = () => {
+
   const navigate = useNavigate();
 
   return (
     <Navbar className="navPublic" expand="lg" collapseOnSelect>
       <Container>
-        <Navbar.Brand className="titleNav" onClick={() => navigate('/')}>
+        <Navbar.Brand className="titleNav" onClick={() => navigate('/admin')}>
           SOTI
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto custom-nav d-flex gap-2">
-            <Nav.Link as={Link} to="/employee">
-              Inicio
-            </Nav.Link>
-            <Nav.Link as={Link} to="/clientList">
+            <Nav.Link as={Link} to="/admin/clientlist">
               Clientes
             </Nav.Link>
-            <Nav.Link as={Link} to="/employee/calendar">
-              Citas
+            <Nav.Link as={Link} to="/admin/employeelist">
+              Empleados
+            </Nav.Link>
+            <Nav.Link as={Link} to="/admin/service">
+              Servicios
             </Nav.Link>
 
             <div className="profile-icon">
@@ -35,5 +38,5 @@ export const EmployeeNavbar = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  );
-};
+  )
+}

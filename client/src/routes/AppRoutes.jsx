@@ -32,6 +32,7 @@ import { EditService } from '../pages/adminPages/editService/EditService';
 
 //Usuario del context
 import { AuthContext } from '../context/AuthContextProvider';
+import { AccountConfirm } from '../pages/publicPages/accountConfirm/AccountConfirm';
 //componentes públicos
 
 //componentes Client
@@ -62,6 +63,7 @@ export const AppRoutes = () => {
               <Route path="/services" element={<ServiceList />} />
               <Route path="/forgetPassword" element={<ForgetPassword />} />
               <Route path="/changePassword" element={<ChangePassword />} />
+              <Route path="/accountConfirm" element={<AccountConfirm/>} />
             </Route>
           </Route>
           {/* Rutas Cliente */}

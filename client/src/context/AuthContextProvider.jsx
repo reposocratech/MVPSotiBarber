@@ -6,8 +6,28 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({children}) => {
   const [user, setUser] = useState();
   const [token, setToken] = useState();
-
-
+  
+  
+  useEffect(()=>{
+    let tokenLS = localStorage.getItem("token")
+    if(tokenLS){
+      const fetchUser = async () =>{
+        try {
+          const res = await fetchData("client/userById", "get", null, tokenLS)
+          console.log("conteeeext",res);
+          
+          setUser(res.data.user)
+          setToken(tokenLS)
+        } catch (error) {
+          console.log(error);
+          
+        }
+      }
+      fetchUser();
+    }
+  },[])
+  console.log("userrrrConteext", user);
+  
   const logIn = async(loginData)=>{
     const responseToken = await fetchData("client/login", "post", loginData);
     let tokenBack = responseToken.data.token;
@@ -30,7 +50,8 @@ export const AuthContextProvider = ({children}) => {
   return (
     <AuthContext.Provider value={{
                   logIn, 
-                  logOut
+                  logOut,
+                  user
                   }}> 
       {children}
     </AuthContext.Provider>
