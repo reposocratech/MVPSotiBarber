@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { AuthContext } from '../../../context/AuthContextProvider';
+import { fetchData } from '../../../helpers/axiosHelpers';
 
 const initialValue = {
   email: ""
@@ -17,7 +18,7 @@ const ForgetPassword = () => {
   }
 
   const onSubmit = async() => {
-
+    await fetchData("client/forgetPassword", "post", changePasswordEmail)
   }
 
   return (

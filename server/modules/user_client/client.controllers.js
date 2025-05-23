@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import clientDal from "./client.dal.js";
 import sendMail from "../../services/nodemailer.js";
+import sendMailPassword from "../../services/passwordNodemailer.js";
 
 dotenv.config();
 
@@ -90,6 +91,18 @@ class ClientControllers {
     } catch (error) {
       console.log(error);      
       res.status(500).json({message:"ups, error 500"})
+    }
+  }
+
+  forgetPassword = async(req, res) => {
+    try {
+      const {email} = req.body;
+      const result = await clientDal.findUserByEmail(email)
+      const tokenFP = jwt.sign({user_id: result[0].user_id}, process.env.TOKEN_KEY_FORGETPASSWORD)
+      sendMailPassword(email, tokenFP)
+      // console.log("tokenFP", tokenFP)
+    } catch (error) {
+      console.log("errForgetPassword", error)
     }
   }
 }
