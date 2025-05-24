@@ -57,13 +57,13 @@ const Login = () => {
 
 
   return (
-    <section>
+    <section className='padding-y-section'>
       <Container>
         <Row>
           <Col>
             <Form className="formLogin">
               <div className='d-flex flex-column align-items-center justify-content-center'>
-                <h2 >Inicia sesión</h2>
+                <h3 >Inicia sesión</h3>
                 <div className='blue-line'></div>
               </div>
             <Form.Group className="mb-3">
