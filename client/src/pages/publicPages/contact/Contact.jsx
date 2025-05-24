@@ -1,28 +1,43 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
+import axios from "axios";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import phoneIcon from '../../../assets/icons/phone.png';
 import mailIcon from '../../../assets/icons/mail.png';
 import ubicationIcon from '../../../assets/icons/ubication.png';
+import { AuthContext } from '../../../context/AuthContextProvider';
 import "./contact.css"
 
 
 
 const Contact = () => {
 
+  const {user} = useContext(AuthContext)
+
+ const [confirmMessage, setconfirmMessage] = useState("");
  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    name: user?.user_name || "",
+    email: user?.email || "",
     message: ""
   });
 
   const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+     const {name, value} = e.target
+    setFormData({...formData, [name]:value})
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
+const onSubmit = async (e) => {
+  e.preventDefault();
 
+  try {
+    const { data } = await axios.post("http://localhost:4000/client/contact", formData);
+    setconfirmMessage(data.message);
+    setFormData({ name: user?.user_name || "", email: user?.email || "", message: "" });
+  } catch (error) {
+    console.error("Error:", error);
+    setconfirmMessage("Error al enviar el mensaje");
+  }
+};
 
 
 
@@ -32,8 +47,9 @@ const Contact = () => {
         <h2 className="text-center ">Contacto</h2>
         <div className='blue-line'></div>
         <p className="text-center contact-separation">
-          ¿Tienes alguna pregunta o deseas reservar una cita? No dudes en
-          contactarnos
+           {user
+            ? `Hola ${user.user_name}, ¿en qué podemos ayudarte?`
+            : "¿Tienes alguna pregunta o deseas reservar una cita? No dudes en contactarnos"}
         </p>
 
         <Row className="mb-5 align-items-stretch">
@@ -42,33 +58,43 @@ const Contact = () => {
               <h5 className="mb-4">Envíanos un mensaje</h5>
               <Form>
                 <Form.Group  className="mb-3">
-                  <Form.Label>Nombre</Form.Label>
+                  <Form.Label htmlFor='NameTextInput'>Nombre</Form.Label>
                   <Form.Control
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     placeholder="Escribe tu nombre..."
                   />
                 </Form.Group>
 
                 <Form.Group  className="mb-3">
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label htmlFor='EmailTextInput'>Email</Form.Label>
                   <Form.Control
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="Escribe tu email..."
                   />
                 </Form.Group>
 
                 <Form.Group  className="mb-3">
-                  <Form.Label>Mensaje</Form.Label>
+                  <Form.Label htmlFor='TextareaTextInput'>Mensaje</Form.Label>
                   <Form.Control
                     as="textarea"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     rows={4}
                     placeholder="Escribe tu mensaje..."
                   />
                 </Form.Group>
 
                  <div className="d-flex justify-content-center">
-                  <Button className="boton">Enviar mensaje</Button>
+                  <Button className="boton" onClick={onSubmit}>Enviar mensaje</Button>
                 </div>
+                {confirmMessage && (<p className="text-center mt-3">{confirmMessage}</p>)}
               </Form>
             </div>
           </Col>
@@ -144,5 +170,4 @@ const Contact = () => {
   );
 };
  
-}
 export default Contact

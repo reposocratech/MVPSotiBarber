@@ -1,4 +1,4 @@
-/*import nodemailer from "nodemailer";
+import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -22,11 +22,10 @@ function sendContactEmail(name, email, message) {
 
   return transporter.sendMail({
     from: "Javi <javisanchez800@gmail.com>",
-    to: email,
+    to: "javisanchez800@gmail.com", //luego poner simplemente email
     subject: "Nuevo mensaje desde el formulario de contacto",
-    //text:  te ha enviado un mensaje`, // fallback
     html: contenidomensaje
   });
 }
 
-export default sendContactEmail; */
+export default sendContactEmail; 

@@ -1,29 +1,33 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './clientNavbar.css'
+import { AuthContext } from '../../../context/AuthContextProvider';
+import { UserIcon } from '../../userIcon/UserIcon';
 
 
 
 export const ClientNavbar = () => {
 
+  const {logOut, user} = useContext(AuthContext);
   const navigate = useNavigate();
+
   return (
           <Navbar  className='navPublic'  expand="lg" collapseOnSelect>
       <Container>
         <Navbar.Brand className='titleNav' onClick={()=>navigate("/")}>SOTI</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto custom-nav d-flex gap-2">
-            <Nav.Link as={Link} to="/" >Inicio</Nav.Link>
-            <Nav.Link as={Link} to="/services">Servicios</Nav.Link>
-            <Nav.Link as={Link} to="/">Horario</Nav.Link>
-            <Nav.Link as={Link} to="/contact">Contacto</Nav.Link>
-            <div className='profile-icon' >
-               <h2>CR</h2>
+          <Nav className="ms-auto custom-nav d-flex align-items-center gap-2">
+            <Nav.Link as={Link} to="/client/inicio" >Inicio</Nav.Link>
+            <Nav.Link as={Link} to="/client/services">Servicios</Nav.Link>
+            <Nav.Link as={Link} to="/client/horario">Horario</Nav.Link>
+            <Nav.Link as={Link} to="/client/contact">Contacto</Nav.Link>
+            <div className='nav-icon' onClick={()=>navigate("/client")} >
+               <UserIcon/>
             </div>
-            <Button className='btn-nav' onClick={()=>navigate("/logOut")} >Salir</Button>
+            <Button className='btn-nav' onClick={logOut} >Salir</Button>
       
           </Nav>
         </Navbar.Collapse>

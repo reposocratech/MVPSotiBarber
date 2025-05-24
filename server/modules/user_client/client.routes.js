@@ -19,5 +19,6 @@ router.post("/forgetPassword", validateForgetPassword(forgetPasswordSchema), cli
 router.put("/passRecovery", /* validateChangePassword(changePasswordSchema), */ clientControllers.passRecovery)
 router.put("/confirmAccount", clientControllers.confirmAccount)
 router.put("/completeFormRegister", clientControllers.completeFormRegister)
+router.post('/contact', clientControllers.contactForm);
 
 export default router;

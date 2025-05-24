@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({children}) => {
   const [user, setUser] = useState();
   const [token, setToken] = useState();
+  const [services, setServices] = useState([]);
   
   
   useEffect(()=>{
@@ -18,15 +19,28 @@ export const AuthContextProvider = ({children}) => {
           
           setUser(res.data.user)
           setToken(tokenLS)
-        } catch (error) {
+        } catch (error){
           console.log(error);
           
         }
       }
       fetchUser();
     }
+
+    const fetchServices = async () =>{
+      try {
+        const resServices = await fetchData("admin/services", "get")
+        setServices(resServices.data.services)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchServices();
   },[])
+
   console.log("userrrrConteext", user);
+
+  console.log("servicesCONTEXT", services)
   
   const logIn = async(loginData)=>{
 
@@ -55,7 +69,9 @@ export const AuthContextProvider = ({children}) => {
                   logIn, 
                   logOut,
                   user,
-                  token
+                  token,
+                  services,
+                  setServices
                   }}> 
       {children}
     </AuthContext.Provider>
