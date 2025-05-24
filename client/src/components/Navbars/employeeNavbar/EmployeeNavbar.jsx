@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthContextProvider';
 
 export const EmployeeNavbar = () => {
   const navigate = useNavigate();
+  const {logOut, user} = useContext(AuthContext);
 
   return (
     <Navbar className="navPublic" expand="lg" collapseOnSelect>
@@ -28,7 +30,7 @@ export const EmployeeNavbar = () => {
             <div className="profile-icon">
               <h2>CR</h2>
             </div>
-            <Button className="btn-nav" onClick={() => navigate('/logOut')}>
+            <Button className="btn-nav" onClick={logOut}>
               Salir
             </Button>
           </Nav>
