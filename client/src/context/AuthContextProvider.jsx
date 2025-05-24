@@ -50,12 +50,12 @@ export const AuthContextProvider = ({children}) => {
     setToken();
   }
 
-
   return (
     <AuthContext.Provider value={{
                   logIn, 
                   logOut,
-                  user
+                  user,
+                  token
                   }}> 
       {children}
     </AuthContext.Provider>

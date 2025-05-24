@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { AuthContext } from '../../../context/AuthContextProvider';
 import { fetchData } from '../../../helpers/axiosHelpers';
+import { forgetPasswordSchema } from '../../../schemas/forgetPasswordSchema';
+import { ZodError } from "zod"
 
 const initialValue = {
   email: ""
@@ -18,9 +19,30 @@ const ForgetPassword = () => {
   }
 
   const onSubmit = async() => {
-    await fetchData("client/forgetPassword", "post", changePasswordEmail)
-  }
+    try {
+      setErrorMsg("");
+      setValErrors("");
 
+      forgetPasswordSchema.parse(changePasswordEmail);
+
+      await fetchData("client/forgetPassword", "post", changePasswordEmail)
+    } catch (error) {
+      if(error instanceof ZodError){
+            let objTemp = {}
+            error.errors.forEach((er)=>{
+              objTemp[er.path[0]]=er.message
+            })
+            setValErrors(objTemp)
+
+            if(error.response){
+              setErrorMsg(error.response.data.message)
+            }else{
+              setErrorMsg("")
+            }
+      }    
+    }
+  }
+  
   return (
     <section className='register'>
       <Container>

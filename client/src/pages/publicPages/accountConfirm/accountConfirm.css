@@ -1,0 +1,11 @@
+.botonConf {
+  background-color: var(--color-azul);
+    border: none;
+    padding: 8px 20px;
+
+    &:hover {
+      background-color: var(--color-azul);
+      /* background-color: #3e505a; */
+      filter:brightness(80%)
+    }
+}

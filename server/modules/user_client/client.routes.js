@@ -5,13 +5,19 @@ import { validateLogin } from "../../middleware/validateLogin.js";
 import { registerSchema } from "../../schemas/registerSchema.js";
 import { loginSchema } from "../../schemas/loginSchema.js";
 import { verifyToken } from "../../middleware/verifyToken.js";
+import { validateForgetPassword } from "../../middleware/validateForgetPassword.js";
+import { forgetPasswordSchema } from "../../schemas/forgetPasswordSchema.js";
+/* import { validateChangePassword } from "../../middleware/validateChangePassword.js";
+import { changePasswordSchema } from "../../schemas/changePasswordSchema.js"; */
 
 const router = express.Router();
 
 router.post("/register", validateRegister(registerSchema), clientControllers.register);
 router.post("/login", validateLogin(loginSchema), clientControllers.login);
 router.get("/userById", verifyToken, clientControllers.userById)
-router.post("/forgetPassword", clientControllers.forgetPassword)
+router.post("/forgetPassword", validateForgetPassword(forgetPasswordSchema), clientControllers.forgetPassword)
+router.put("/passRecovery", /* validateChangePassword(changePasswordSchema), */ clientControllers.passRecovery)
 router.put("/confirmAccount", clientControllers.confirmAccount)
+router.put("/completeFormRegister", clientControllers.completeFormRegister)
 
 export default router;

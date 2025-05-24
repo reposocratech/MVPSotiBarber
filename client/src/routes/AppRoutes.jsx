@@ -12,7 +12,6 @@ import ChangePassword from '../pages/publicPages/changePassword/ChangePassword';
 import { PrivateRoutes } from './PrivateRoutes';
 import { ClientLayout } from '../layouts/ClientLayout';
 import ClientDashboard from '../pages/clientPages/dashboard/ClientDashboard';
-import CompleteRegister from '../pages/clientPages/completeRegister/CompleteRegister';
 import EditProfile from '../pages/clientPages/editProfile/EditProfile';
 import { EmployeeLayout } from '../layouts/EmployeeLayout';
 import EmployeeDashboard from '../pages/employeePages/dashboard/EmployeeDashboard';
@@ -70,10 +69,6 @@ export const AppRoutes = () => {
           <Route element={<PrivateRoutes userType={user?.user_type} requiredUser={3} />}>
             <Route element={<ClientLayout />}>
               <Route path="/client" element={<ClientDashboard />} />
-              <Route
-                path="/client/completeRegister"
-                element={<CompleteRegister />}
-              />
               <Route path="/client/editClient" element={<EditProfile />} />
             </Route>
           </Route>
