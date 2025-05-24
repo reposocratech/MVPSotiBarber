@@ -45,11 +45,41 @@ class ClientDal {
     }
   }
 
-  confirmAccount = async () => {
+  findPasswordById = async(user_id) => {
     try {
-      
+      let sql = "select password from user where user_id = ? and user_is_deleted = 0"
+      return await executeQuery(sql, [user_id])
     } catch (error) {
-      
+      throw error;
+    }
+  }
+
+  passRecovery = async(hashedPassword, user_id) => {
+    try {
+      let sql = "update user set password = ? where user_id = ?";
+      await executeQuery(sql, [hashedPassword, user_id]);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  confirmAccount = async(user_id) => {
+    try {
+      let sql = "update user set user_is_confirmed = 1 where user_id = ?";
+      await executeQuery(sql, [user_id])
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  completeFormRegister = async(data, user_id) => {
+    const {name, lastname, birthdate, phone} = data;
+    let values = [name, lastname, birthdate, phone, user_id]
+    try {
+      let sql = "update user set user_name = ?, lastname = ?, birth_date = ?, phone = ? where user_id = ? ";
+      await executeQuery(sql, values);
+    } catch (error) {
+      throw error;
     }
   }
 }

@@ -25,7 +25,7 @@ function sendMail(email, tokenconfirm){
       <h1>Bienvenid@ a nuestra aplicación</h1>
       <h2>que tal estas?</h2>
       <p>Confirma tu email en este enlace: </p>
-      <a href="http://localhost:5173/accountConfirm/?tokenconfirm=${tokenconfirm}">Verifica aqui</a>  
+      <a href="http://localhost:5173/accountConfirm/?token=${tokenconfirm}">Verifica aqui</a>  
     </div>
   </body>
   </html> 

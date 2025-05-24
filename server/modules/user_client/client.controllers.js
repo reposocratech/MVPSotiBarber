@@ -23,8 +23,8 @@ class ClientControllers {
       else {
         const hashedPassword = await hashString(password);
         const data = {email, hashedPassword};
-        const result = await clientDal.findUserByEmail(email);
         await clientDal.register(data);
+        const result = await clientDal.findUserByEmail(email);
         const tokenconfirm = jwt.sign({user_id:result[0]?.user_id},process.env.TOKEN_KEY_CONFIRM)
         sendMail(email, tokenconfirm)
         console.log(tokenconfirm);
@@ -98,22 +98,87 @@ class ClientControllers {
   forgetPassword = async(req, res) => {
     try {
       const {email} = req.body;
+      // console.log("emaaaaiiiiil", email)
       const result = await clientDal.findUserByEmail(email)
-      const tokenFP = jwt.sign({user_id: result[0].user_id}, process.env.TOKEN_KEY_FORGETPASSWORD)
+      // console.log("resuuuult", result)
+
+      const tokenFP = jwt.sign({user_id: result[0]?.user_id}, process.env.TOKEN_KEY_FORGETPASSWORD)
       sendMailPassword(email, tokenFP)
+
+      // console.log("user_id", user_id)
       // console.log("tokenFP", tokenFP)
     } catch (error) {
       console.log("errForgetPassword", error)
     }
   }
 
+  passRecovery = async(req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      const token = authHeader && authHeader.split(" ")[1];
+      const {newPassword} = req.body;
+      // console.log("tokensitoooo", token)
+
+      const decoded = jwt.verify(token, process.env.TOKEN_KEY_FORGETPASSWORD)
+      const user_id = decoded.user_id;
+
+      const result = await clientDal.findPasswordById(user_id)
+      let prevpass = result[0].password;
+      // console.log("antigua contra", prevpass)
+
+      if(!prevpass) {
+        res.status(401).json({message: "no autorizado"})
+      } else {
+        let newPasswordHashed = await hashString(newPassword)
+        await clientDal.passRecovery(newPasswordHashed, user_id);
+        res.status(200).json({message: "contraseña actualiza correctamente"})
+      }
+
+      console.log("tokensitoooo", req.body)
+    } catch (error) {
+      res.status(400).json({message: "token inválido"})
+    }
+  }
+
   confirmAccount = async(req, res) => {
     try {
-      const tokenconf = req;
-      console.log("tokenconf", tokenconf)
-      // await clientDal.confirmAccount
+      const authHeader = req.headers.authorization;
+      const token = authHeader && authHeader.split(" ")[1];
+
+      const decoded = jwt.verify(token, process.env.TOKEN_KEY_CONFIRM)
+      console.log("tokensito", token)
+      const user_id = decoded.user_id;
+      console.log("user_id", user_id)
+
+      await clientDal.confirmAccount(user_id)
+
+      return res.status(200).json({message: "cuenta confirmada correctamente"})
+      
     } catch (error) {
       console.log(error)
+      return res.status(500).json({message: "error al confirmar la cuenta"})
+    }
+  }
+
+  completeFormRegister = async(req, res) => {
+    try {
+      // console.log("req.body", req.body)
+      const {name, lastname, birthdate, phone} = req.body;
+      const data = {name, lastname, birthdate, phone}
+
+      // console.log("recupero token", req.headers.authorization)
+      const authHeader = req.headers.authorization;
+      const token = authHeader && authHeader.split(" ")[1];
+
+      const decoded = jwt.verify(token, process.env.TOKEN_KEY)
+      const user_id = decoded.user_id;
+      // console.log("user_idddd", user_id)
+
+      await clientDal.completeFormRegister(data, user_id);
+
+      return res.status(200).json({message: "formulario completado con exito"})
+    } catch (error) {
+      return res.status(500).json({message: "ups, error 500"})
     }
   }
 
