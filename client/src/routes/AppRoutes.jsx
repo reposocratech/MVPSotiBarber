@@ -70,11 +70,11 @@ export const AppRoutes = () => {
           <Route element={<PrivateRoutes userType={user?.user_type} requiredUser={3} />}>
             <Route element={<ClientLayout />}>
               <Route path="/client" element={<ClientDashboard />} />
-              <Route
-                path="/client/completeRegister"
-                element={<CompleteRegister />}
-              />
+              <Route path="/client/completeRegister" element={<CompleteRegister />} />
               <Route path="/client/editClient" element={<EditProfile />} />
+              <Route path="/client/contact" element={<Contact />} />
+
+
             </Route>
           </Route>
 

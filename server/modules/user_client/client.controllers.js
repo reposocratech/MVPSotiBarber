@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import clientDal from "./client.dal.js";
 import sendMail from "../../services/nodemailer.js";
 import sendMailPassword from "../../services/passwordNodemailer.js";
+import sendContactEmail from "../../services/contactNodemailer.js";
 
 dotenv.config();
 
@@ -115,6 +116,18 @@ class ClientControllers {
       console.log(error)
     }
   }
+
+  contactForm = async (req, res) => {
+    try {
+      const { name, email, message } = req.body;
+      await sendContactEmail(name, email, message);
+      res.status(200).json({ message: "Mensaje enviado" });
+    } catch (error) {
+      console.error("Error al enviar mensaje de contacto:", error);
+      res.status(500).json({ message: "Error al enviar el mensaje" });
+    }
+  };
+
 }
 
 export default new ClientControllers();
