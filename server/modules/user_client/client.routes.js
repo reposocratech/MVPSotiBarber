@@ -7,6 +7,7 @@ import { loginSchema } from "../../schemas/loginSchema.js";
 import { verifyToken } from "../../middleware/verifyToken.js";
 import { validateForgetPassword } from "../../middleware/validateForgetPassword.js";
 import { forgetPasswordSchema } from "../../schemas/forgetPasswordSchema.js";
+import { uploadImage } from "../../middleware/multer.js";
 /* import { validateChangePassword } from "../../middleware/validateChangePassword.js";
 import { changePasswordSchema } from "../../schemas/changePasswordSchema.js"; */
 
@@ -20,5 +21,7 @@ router.put("/passRecovery", /* validateChangePassword(changePasswordSchema), */ 
 router.put("/confirmAccount", clientControllers.confirmAccount)
 router.put("/completeFormRegister", clientControllers.completeFormRegister)
 router.post('/contact', clientControllers.contactForm);
+router.put('/editClient',verifyToken, uploadImage("users"), clientControllers.editClient)
+
 
 export default router;

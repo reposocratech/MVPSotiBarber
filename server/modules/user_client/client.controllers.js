@@ -192,6 +192,18 @@ class ClientControllers {
       res.status(500).json({ message: "Error al enviar el mensaje" });
     }
   };
+  
+  editClient = async (req, res) => {
+    try {
+      console.log("bodyyyyy", req.body);
+      console.log("fileeeeee", req.file);
+      
+      res.status(200).json({ message: "Estoy en editar cliente" });
+      
+    } catch (error) {
+      res.status(500).json({message:"Error al editar usuario"})
+    }
+  }
 
 }
 

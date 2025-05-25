@@ -82,6 +82,14 @@ class ClientDal {
       throw error;
     }
   }
+
+  editClient = async(data) => {
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
 }
 
 export default new ClientDal();
