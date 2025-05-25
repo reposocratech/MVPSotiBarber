@@ -1,0 +1,28 @@
+.service-list{
+  background-color: var(--color-componente);
+  padding: 2rem;
+  border-radius: 20px;
+
+  table td{
+    padding: 3rem;
+  }
+  
+  table tr:not(:last-child) {
+    border-bottom: 1px solid var(--color-fondo);
+  }
+
+}
+
+.filter{
+  text-decoration: none;
+  color: var(--color-blanco);
+  margin-inline: 1rem;
+
+
+  &:hover{
+    font-weight: bold;
+  }
+  &:active{
+    font-weight: bold;
+  }
+}
