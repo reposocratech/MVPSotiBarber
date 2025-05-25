@@ -1,0 +1,10 @@
+.edit-form{
+  background-color: var(--color-componente);
+  padding: 2rem;
+  border-radius: 20px;
+
+  input, textarea{
+    background-color: var(--color-blanco);
+
+  }
+}

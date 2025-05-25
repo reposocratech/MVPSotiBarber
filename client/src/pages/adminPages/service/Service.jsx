@@ -18,7 +18,7 @@ const Service = () => {
   const navigate = useNavigate();
   const [service, setService] = useState(initialValue);
   const [isMobile, setIsMobile] = useState(false)
-  const [modalEditService, setModalEditService] = useState(null)
+  const [modalService, setModalService] = useState(null)
   const [showModal, setShowModal] = useState(false);
   const { token, services, setServices } = useContext(AuthContext);
 
@@ -96,10 +96,10 @@ const Service = () => {
 
   const editService = async(service)=>{
     if(isMobile){
-      navigate(`/admin/editService/${service.service_id}`)
+      navigate(`/admin/editService/${service.service_id}`, {state: {service}})
     }else{
       setShowModal(true)
-      setModalEditService(service)
+      setModalService(service)
     }
   }
 
@@ -225,7 +225,7 @@ const Service = () => {
         </Col>
       </Row>
 
-    {!isMobile && modalEditService && <ModalEditService show={showModal} handleClose={handleClose}></ModalEditService>}
+    {!isMobile && modalService && <ModalEditService show={showModal} handleClose={handleClose} service={modalService}></ModalEditService>}
 
     </section>
   );

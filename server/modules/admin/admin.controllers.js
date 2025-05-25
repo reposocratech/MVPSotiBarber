@@ -54,6 +54,17 @@ class AdminControllers {
       res.status(500).json({message:"ups, hay algún problema"})
     }
   }
+
+  editService = async(req, res)=>{
+    try {
+      let result = await adminDal.editService(req.body)
+      console.log(result)
+      res.status(200).json({result})
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({message:"ups, hay algún problema"})
+    }
+  }
 }
 
 export default new AdminControllers();

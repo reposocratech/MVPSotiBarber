@@ -7,6 +7,7 @@ const router = express.Router();
 router.post("/createService", verifyToken, adminControllers.createService);
 router.get("/services", adminControllers.getAllServices);
 router.put("/enabledService/:id", verifyToken, adminControllers.enabledService)
+router.put("/editService", verifyToken, adminControllers.editService)
 
 
 

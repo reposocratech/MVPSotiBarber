@@ -34,6 +34,16 @@ h1, h2, h3{
   font-family: 'Playfair';
 }
 
+.btn{
+  background-color: var(--color-azul);
+  border: 0;
+  padding: 0.5rem 1.25rem;
+
+  &:hover{
+    background-color: var(--color-azul);
+    filter: brightness(80%);
+  }
+}
 
 
 /* var, se abre el parentesis --color */
