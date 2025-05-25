@@ -98,3 +98,48 @@
 
 }
 
+.modal-edit-service .modal-content{
+  background-color: var(--color-componente);
+  color: var(--color-blanco);
+  border-radius: 20px;
+
+}
+
+.modal-edit-service .modal-title{
+  font-family: 'Playfair';
+  width: 100%;
+  text-align: center;
+  border-bottom: none;
+}
+
+.modal-edit-service .modal-header{
+  border-bottom: none;
+  
+}
+
+.modal-edit-service .btn-close{
+  /* hay que hacerlo con filter porque la x es un svg */
+  filter: invert(100%) sepia(100%) saturate(7500%) hue-rotate(180deg);
+  
+}
+
+
+.modal-edit-service .modal-body{
+  input{
+    background-color: var(--color-blanco);
+  }
+  span{
+    background-color: var(--color-blanco);
+    filter: brightness(80%);
+  }
+}
+
+.modal-edit-service .modal-footer{
+  border-top: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+

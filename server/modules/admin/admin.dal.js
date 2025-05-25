@@ -45,6 +45,23 @@ class AdminDal {
 
   }
 
+  editService = async(editService)=>{
+
+    const {service_name, price, estimated_time, service_description, promo_name, promo_price, promo_start_date, promo_end_date, service_id} = editService
+
+    try {
+      
+      let sql = 'UPDATE service SET service_name = ?, price = ?, estimated_time = ?, service_description = ?, promo_name = ?, promo_price = ?, promo_start_date = ?, promo_end_date = ? WHERE service_id = ?'
+      let values = [service_name, price, estimated_time, service_description, promo_name, promo_price, promo_start_date, promo_end_date, service_id]
+
+      await executeQuery(sql, values)
+
+    } catch (error) {
+      console.log(error)
+      throw error;
+    }
+  }
+
 }
 
 export default new AdminDal();

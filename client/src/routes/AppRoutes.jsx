@@ -27,7 +27,7 @@ import EmployeeList from '../pages/adminPages/EmployeeList/EmployeeList';
 import EditEmployee from '../pages/adminPages/editEmployee/EditEmployee';
 import AdminClientList from '../pages/adminPages/clientList/AdminClientList';
 import Service from '../pages/adminPages/service/Service';
-import { EditService } from '../pages/adminPages/editService/EditService';
+import EditService from '../pages/adminPages/editService/EditService.jsx';
 
 //Usuario del context
 import { AuthContext } from '../context/AuthContextProvider';
@@ -115,7 +115,7 @@ export const AppRoutes = () => {
               <Route path="/admin/editEmployee" element={<EditEmployee />} />
               <Route path="/admin/clientList" element={<AdminClientList />} />
               <Route path="/admin/service" element={<Service />} />
-              <Route path="/admin/editService" element={<EditService />} />
+              <Route path="/admin/editService/:id" element={<EditService/>} />
             </Route>
           </Route>
         </Routes>
