@@ -11,11 +11,11 @@ const initialValue = {
   phone: ""
 }
 
-const CompleteRegister = () => {
+const CompleteRegister = ({onCompletar}) => {
   const [completeRegister, setCompleteRegister] = useState(initialValue);
   const [errorMsg, setErrorMsg] = useState("");
   const [valErrors, setValErrors] = useState({});
-  const {token} = useContext(AuthContext);
+  const {token, setUser} = useContext(AuthContext);
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -25,6 +25,10 @@ const CompleteRegister = () => {
   const onSubmit = async() => {
     try {
       await fetchData("client/completeFormRegister", "put", completeRegister, token);
+      //actualizo el contexto sumando los nuevos datos del cliente
+      setUser(prevUser => ({...prevUser, ...completeRegister}))
+
+      onCompletar()
     } catch (error) {
       console.log(error)
     }
@@ -74,7 +78,7 @@ const CompleteRegister = () => {
                   name="birthdate"
                   value={completeRegister.birthdate}
                   onChange={handleChange}
-                  placeholder='DD/MM/AA'
+                  type='date'
                 />
                 <div className='d-flex justify-content-end'>
                   <p>y tendrás un regalo el día de tu cumpleaños</p>
