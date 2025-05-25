@@ -1,5 +1,5 @@
 import CompleteRegister from '../../../components/completeRegister/CompleteRegister';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { UserIcon } from '../../../components/userIcon/UserIcon';
@@ -9,16 +9,27 @@ import { useNavigate } from 'react-router-dom';
 const ClientDashboard = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [mostrarModal, setMostrarModal] = useState(false)
+
+  const perfilIncompleto = !user.user_name || !user.lastname || !user.phone || !user.birth_date;
+
+  useEffect(()=>{
+    if(perfilIncompleto) {
+      setMostrarModal(true);
+    }
+  },[perfilIncompleto]);
+
+  const handleCompletado = () => {
+    setMostrarModal(false);
+  }
 
   console.log('+++++++++', user);
 
   return (
     <>
-      <div>
-        {/* aqui se tendria que cargar el modal de completa tus datos primero (pero solo si los datos estan vacíos) */}
-        <CompleteRegister />
-        perfil del cliente
-      </div>
+      {mostrarModal && <div>
+        <CompleteRegister onCompletar={handleCompletado}/>
+      </div>}
 
       <Container>
         <section>

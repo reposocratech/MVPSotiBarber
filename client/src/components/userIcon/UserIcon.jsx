@@ -10,13 +10,13 @@ export const UserIcon = () => {
       <div>
         {user.avatar ? (
           <div className="user-image">
-            <img src={`${import.meta.env.VITE_SERVER_URL}/images/users/${user.avatar}`} alt="img user profile" />
+            <img src={`${import.meta.env.VITE_SERVER_URL}/images/users/${user?.avatar}`} alt="img user profile" />
           </div>
         ) : (
           <div className="user-letter">
             <h2>
-              {user.user_name.at(0).toUpperCase()}
-              {user.lastname.at(0).toUpperCase()}
+              {user?.user_name?.at(0).toUpperCase()}
+              {user?.lastname?.at(0).toUpperCase()}
             </h2>
           </div>
         )}
