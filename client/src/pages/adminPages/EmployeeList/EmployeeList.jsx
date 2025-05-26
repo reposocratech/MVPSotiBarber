@@ -10,6 +10,7 @@ const EmployeeList = () => {
       <h2 className='text-center'>Empleados</h2>
       <div className='blue-line'></div>
       <Button onClick={()=>navigate("/admin/createEmployee")}>Crear empleados</Button>
+      <Button onClick={()=>navigate("/admin/editEmployee")}>Editar empleados</Button>
     </section>
   )
 }

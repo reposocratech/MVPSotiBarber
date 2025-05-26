@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { fetchData } from '../../../helpers/axiosHelpers'
+import { ZodError } from "zod";
+import { changePasswordSchema } from '../../../schemas/changePasswordSchema';
 
 const initialValue = {
   newPassword: "",
@@ -27,6 +29,7 @@ const ChangePassword = () => {
 
   const onSubmit = async() => {
     try {
+      changePasswordSchema.parse(changePassword)
       await fetchData("client/passRecovery", "put", changePassword, token)
 
       navigate("/login")
