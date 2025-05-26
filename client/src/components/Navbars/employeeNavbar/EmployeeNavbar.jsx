@@ -20,7 +20,7 @@ export const EmployeeNavbar = () => {
             <Nav.Link as={Link} to="/employee">
               Inicio
             </Nav.Link>
-            <Nav.Link as={Link} to="/clientList">
+            <Nav.Link as={Link} to="/employee/clientList">
               Clientes
             </Nav.Link>
             <Nav.Link as={Link} to="/employee/calendar">
