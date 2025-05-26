@@ -10,7 +10,7 @@ const EditService = () => {
   const location = useLocation();
   const service = location.state?.service;
   const [editedService, setEditedService] = useState(service)
-    const {token} = useContext(AuthContext)
+    const {token, setServices} = useContext(AuthContext)
   
     useEffect(()=>{
       if(service){
@@ -28,6 +28,15 @@ const EditService = () => {
     const onSubmit = async ()=>{
       try {
         let res = await fetchData('admin/editService', "put", editedService, token)
+        
+        //seteo el services del context con el servicio que he editado
+        setServices(prev =>
+          prev.map(service =>
+            service.service_id === editedService.service_id ? editedService : service
+          )
+        );
+
+        navigate("/admin/service")
         console.log(res);
 ;
       } catch (error) {
@@ -38,8 +47,6 @@ const EditService = () => {
     const cancel = async ()=>{
       navigate('/admin/service')
     }
-
-  console.log("service en el location",service)
 
   return (
     <section className='padding-y-section'>

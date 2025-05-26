@@ -3,7 +3,7 @@ import { Button, Form, InputGroup, Modal } from 'react-bootstrap'
 import { fetchData } from '../../helpers/axiosHelpers'
 import { AuthContext } from '../../context/AuthContextProvider'
 
-const ModalEditService = ({service, show, handleClose}) => {
+const ModalEditService = ({service, show, handleClose, onUpdated}) => {
   const [editedService, setEditedService] = useState(service)
   const {token} = useContext(AuthContext)
 
@@ -12,6 +12,8 @@ const ModalEditService = ({service, show, handleClose}) => {
       setEditedService(service)
     }
   }, [])
+
+
 
   const handleChange = (e)=>{
     const {name, value} = e.target;
@@ -24,6 +26,7 @@ const ModalEditService = ({service, show, handleClose}) => {
     try {
       let res = await fetchData('admin/editService', "put", editedService, token)
       console.log(res);
+      onUpdated(editedService)
       handleClose();
     } catch (error) {
       console.log(error)
