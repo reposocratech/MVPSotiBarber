@@ -23,7 +23,7 @@ export const ClientNavbar = () => {
       <Nav className="ms-auto custom-nav d-flex align-items-center gap-3">
         <Nav.Link as={Link} to="/client/inicio">Inicio</Nav.Link>
         <Nav.Link as={Link} to="/client/services">Servicios</Nav.Link>
-        <Nav.Link as={Link} to="/client/horario">Horario</Nav.Link>
+        <Nav.Link onClick={() => navigate("/client/inicio#horarios")}>Horario</Nav.Link>
         <Nav.Link as={Link} to="/client/contact">Contacto</Nav.Link>
 
  

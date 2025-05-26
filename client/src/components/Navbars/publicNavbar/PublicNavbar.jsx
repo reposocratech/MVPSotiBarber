@@ -20,7 +20,7 @@ export const PublicNavbar = () => {
           <Nav className="ms-auto custom-nav d-flex gap-2">
             <Nav.Link as={Link} to="/" onClick={()=>setIsOpen(false)} >Inicio</Nav.Link>
             <Nav.Link as={Link} to="/services" onClick={()=>setIsOpen(false)}>Servicios</Nav.Link>
-            <Nav.Link as={Link} to="/" onClick={()=>setIsOpen(false)}>Horario</Nav.Link>
+            <Nav.Link onClick={() => navigate("/#horarios")}>Horario</Nav.Link>
             <Nav.Link as={Link} to="/contact" onClick={()=>setIsOpen(false)}>Contacto</Nav.Link>
               <Button className='btn-nav' onClick={() => { navigate("/register"); setIsOpen(false); }}>Registro</Button>
             <Button className='btn-nav' onClick={() => { navigate("/login"); setIsOpen(false); }}>Acceder</Button>
