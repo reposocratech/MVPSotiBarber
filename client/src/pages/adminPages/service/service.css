@@ -9,11 +9,13 @@
   height: 33.5294rem;
   display: block; 
 
+
   .table-scroll-wrapper{
     max-height: calc(6 * 2.6rem);
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--color-fondo) var(--color-componente);
+    padding: 1rem;
   }
   
   
@@ -125,7 +127,7 @@
 
 
 .modal-edit-service .modal-body{
-  input{
+  input, textarea{
     background-color: var(--color-blanco);
   }
   span{

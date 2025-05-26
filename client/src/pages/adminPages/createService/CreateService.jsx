@@ -18,14 +18,32 @@ const CreateService = () => {
   const [errorMsg, setErrorMsg] = useState("")
   const {token, services, setServices} = useContext(AuthContext)
   const navigate = useNavigate();
+  const [maxLength, setMaxLength] = useState(0)
 
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setService({ ...service, [name]: value });
+    let { name, value } = e.target;
+    
+    const regex = /^\d*([.,]?\d{0,2})?$/;
+    if(name !== "price" || name === "price" && regex.test(value) || name==="price" && value === ""){
+      if(name === "price" ){
+        value = value.trim().replace(",",".")
+      }else{
+        value = value.trim()
+      }
+      if(name === "service_description" && value.length < 251){
+        setMaxLength(value.length)
+        setService({ ...service, [name]: value });
+      }else if (name !== "service_description"){
+        setService({ ...service, [name]: value });
+      }
+    }
   };
   console.log('SERVICIO', service);
+
+  const cancel = ()=>{
+    navigate("/admin/service")
+  }
 
   const onSubmit = async () => {
       try {
@@ -83,9 +101,7 @@ const CreateService = () => {
                 id="durationInput"
                 name="estimated_time"
                 value={service.estimated_time}
-                type="number"
-                min="1"
-                step="1"
+                type="text"
                 onChange={handleChange}
                 placeholder="Duración"
               />
@@ -99,9 +115,7 @@ const CreateService = () => {
                   id="priceInput"
                   name="price"
                   value={service.price}
-                  type="number"
-                  step="0.50"
-                  min="0"
+                  type="text"
                   onChange={handleChange}
                   placeholder="Precio"
                 />
@@ -109,7 +123,7 @@ const CreateService = () => {
                 {valErrors.price && <p>{valErrors.price}</p>}
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="descriptionInput">Descripción</Form.Label>
+              <Form.Label htmlFor="descriptionInput">Descripción {maxLength}/250</Form.Label>
               <Form.Control
                 id="descriptionInput"
                 name="service_description"
@@ -135,9 +149,13 @@ const CreateService = () => {
             <div className="d-flex flex-column justify-content-center align-items-center">
             <p className='text-center'>{errorMsg}</p>  
 
-              <Button className="btn" onClick={onSubmit}>
-                Añadir
-              </Button>
+              <div className='d-flex justify-content-center align-items-center'>
+                <Button onClick={cancel} className='btn me-3'>Cancelar</Button>
+                <Button className="btn" onClick={onSubmit}>
+                  Añadir
+                </Button>
+              </div>
+              
             </div>
           </Form>
         </Col>

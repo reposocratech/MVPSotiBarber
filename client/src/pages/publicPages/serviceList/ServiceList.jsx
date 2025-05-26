@@ -6,15 +6,16 @@ import { Link } from 'react-router-dom'
 
 const ServiceList = () => {
   const {services} = useContext(AuthContext)
+  console.log("SERVICIOS EN LA LISTA", services)
 
   return (
     <section className='padding-y-section'>
       <Container fluid="xxl">
+        {services.length !== 0 && <Row>
         <div className='d-flex flex-column align-items-center justify-content-center'>
         <h3>Precios y Servicios</h3>
         <div className='blue-line'></div>
         </div>
-        <Row>
           <Col>
             <div className='service-list'>
           <table>
@@ -43,8 +44,8 @@ const ServiceList = () => {
           </table>
             </div>
           </Col>
-        </Row>
-        <Row>
+        </Row>}
+        {services.length !== 0 && <Row>
           <section className='padding-y-section'>
             <div className='d-flex flex-column justify-content-center align-items-center'>
               <h3>Conoce nuestros trabajos</h3>
@@ -58,7 +59,11 @@ const ServiceList = () => {
               })}
             </div>
           </section>
-        </Row>
+        </Row>}
+        {services.length === 0 && 
+        <section>
+        <h3>En construcción</h3>
+        </section>}
       </Container>
 
     </section>
