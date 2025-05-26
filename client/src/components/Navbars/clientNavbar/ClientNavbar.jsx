@@ -14,24 +14,27 @@ export const ClientNavbar = () => {
   const navigate = useNavigate();
 
   return (
-          <Navbar  className='navPublic'  expand="lg" collapseOnSelect>
-      <Container>
-        <Navbar.Brand className='titleNav' onClick={()=>navigate("/")}>SOTI</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto custom-nav d-flex align-items-center gap-2">
-            <Nav.Link as={Link} to="/client/inicio" >Inicio</Nav.Link>
-            <Nav.Link as={Link} to="/client/services">Servicios</Nav.Link>
-            <Nav.Link as={Link} to="/client/horario">Horario</Nav.Link>
-            <Nav.Link as={Link} to="/client/contact">Contacto</Nav.Link>
-            <div className='nav-icon' onClick={()=>navigate("/client")} >
-               <UserIcon/>
-            </div>
-            <Button className='btn-nav' onClick={logOut} >Salir</Button>
-      
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+<Navbar className='navPublic' expand="lg" collapseOnSelect>
+  <Container>
+    <Navbar.Brand className='titleNav' onClick={() => navigate("/")}>SOTI</Navbar.Brand>
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+    <Navbar.Collapse id="basic-navbar-nav">
+      <Nav className="ms-auto custom-nav d-flex align-items-center gap-3">
+        <Nav.Link as={Link} to="/client/inicio">Inicio</Nav.Link>
+        <Nav.Link as={Link} to="/client/services">Servicios</Nav.Link>
+        <Nav.Link as={Link} to="/client/horario">Horario</Nav.Link>
+        <Nav.Link as={Link} to="/client/contact">Contacto</Nav.Link>
+
+ 
+        <div className='nav-icon nav-icon d-none d-lg-flex' onClick={() => navigate("/client")}>
+          <UserIcon />
+        </div>
+
+        <Button className='btn-nav' onClick={logOut}>Salir</Button>
+      </Nav>
+    </Navbar.Collapse>
+  </Container>
+</Navbar>
   )
 }

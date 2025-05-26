@@ -4,6 +4,7 @@ import React, { useContext } from 'react'
 import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContextProvider';
+import { UserIcon } from '../../userIcon/UserIcon';
 
 
 export const AdminNavbar = () => {
@@ -18,7 +19,7 @@ export const AdminNavbar = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto custom-nav d-flex gap-2">
+          <Nav className="ms-auto custom-nav d-flex  align-items-center gap-2">
             <Nav.Link as={Link} to="/admin/clientlist">
               Clientes
             </Nav.Link>
@@ -29,9 +30,9 @@ export const AdminNavbar = () => {
               Servicios
             </Nav.Link>
 
-            <div className="profile-icon">
-              <h2>CR</h2>
-            </div>
+                 <div className='nav-icon nav-icon d-none d-lg-flex' onClick={() => navigate("/admin")}>
+                   <UserIcon />
+                 </div>
             <Button className="btn-nav" onClick={logOut}>
               Salir
             </Button>
