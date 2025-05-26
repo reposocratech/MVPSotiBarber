@@ -15,7 +15,7 @@ const ClientDashboard = () => {
 
   useEffect(()=>{
     if(perfilIncompleto) {
-      setMostrarModal(true);
+      setMostrarModal(perfilIncompleto);
     }
   },[perfilIncompleto]);
 

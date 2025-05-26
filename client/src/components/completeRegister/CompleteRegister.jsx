@@ -49,7 +49,7 @@ const CompleteRegister = ({onCompletar}) => {
                 </Form.Label>
                 <Form.Control 
                   id="NameTextImput"
-                  name="name"
+                  name="user_name"
                   value={completeRegister.user_name}
                   onChange={handleChange}
                   placeholder='Introduce tu nombre'

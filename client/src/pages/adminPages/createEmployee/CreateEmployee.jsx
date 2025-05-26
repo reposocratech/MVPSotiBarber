@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { fetchData } from '../../../helpers/axiosHelpers';
+import image from "../../../assets/icons/uploadimage.svg"
 
 const initialValue = {
   user_name: "",
@@ -131,12 +132,13 @@ const CreateEmployee = () => {
                 {valErrors.description && <p>{valErrors.description}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
-                <Form.Label htmlFor='ImageInput'>
-                  Subir Imágen
+                <Form.Label htmlFor='ImageInput' className='cursor-pointer'>
+                  <img src={image}/> Subir Imágen
                 </Form.Label>
                 <Form.Control 
                   id="ImageInput"
                   type='file'
+                  hidden
                   onChange={handleChangeFile}
                 />
               </Form.Group>
