@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { fetchData } from '../../../helpers/axiosHelpers';
 import { ZodError } from 'zod';
 
+import image from "../../../assets/icons/uploadimage.svg"
+
 const EditProfile = () => {
   const { user, setUser, token } = useContext(AuthContext);
   const [editData, setEditData] = useState(user);
@@ -110,11 +112,12 @@ const EditProfile = () => {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label htmlFor="ImageInput">Subir imagen</Form.Label>
+                <Form.Label htmlFor="ImageInput" className='cursor-pointer'> <img src={image}/>Subir imagen</Form.Label>
                 <Form.Control
                   id="ImageImput"
                   name="avatar"
                   type="file"
+                  hidden
                   onChange={handleChangeFile}
                 />
               </Form.Group>
