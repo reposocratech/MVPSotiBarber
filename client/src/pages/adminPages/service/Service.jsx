@@ -6,6 +6,8 @@ import './service.css';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { fetchData } from '../../../helpers/axiosHelpers';
 import ModalEditService from '../../../components/modalEditService/ModalEditService';
+import { createServiceSchema } from '../../../schemas/createServiceSchema';
+import { ZodError } from 'zod';
 
 const initialValue = {
   service_name: '',
@@ -15,12 +17,14 @@ const initialValue = {
 };
 
 const Service = () => {
-  const navigate = useNavigate();
   const [service, setService] = useState(initialValue);
   const [isMobile, setIsMobile] = useState(false)
   const [modalService, setModalService] = useState(null)
   const [showModal, setShowModal] = useState(false);
   const { token, services, setServices } = useContext(AuthContext);
+  const [valErrors, setValErrors] = useState({});
+  const [errorMsg, setErrorMsg] = useState("");
+  const navigate = useNavigate();
 
   //comprobar anchura de pantalla para elegir modal o vista neuva en el editService
   useEffect(()=>{
@@ -53,19 +57,29 @@ const Service = () => {
 
   const onSubmit = async () => {
     try {
-      if (service) {
-        let res = await fetchData(
-          'admin/createService',
-          'post',
-          service,
-          token
-        );
+      createServiceSchema.parse(service)
+      let res = await fetchData('admin/createService', 'post', service, token)
+       
         console.log('reees', res);
-      }
+    
       //seteo services con el nuevo servicio y le pongo el campo de habilitado
+      setErrorMsg(res.data.message)
+      setValErrors({})
       setServices([...services, {...service, service_is_enabled:0}])
       setService(initialValue);
+
     } catch (error) {
+      if(error instanceof ZodError){
+        let objTemp = {}
+        error.errors.forEach((er)=>{
+          objTemp[er.path[0]]=er.message
+        })
+        setValErrors(objTemp)
+      } else if(error.response){
+        setErrorMsg(error.response.data.message)
+      } else{
+        setErrorMsg("error")
+      }
       console.log(error);
     }
   };
@@ -107,6 +121,10 @@ const Service = () => {
     setShowModal(false)
   }
 
+  const handleButton = ()=>{
+    navigate("/admin/createService")
+  }
+
   return (
     <section className="padding-y-section">
       <div className="d-flex flex-column align-items-center justify-content-center py-4">
@@ -115,7 +133,7 @@ const Service = () => {
       </div>
       <Row>
         <Col className="d-flex justify-content-center align-items-center">
-          <div className="table-services d-flex align-items-center justify-content-center">
+          <div className="table-services d-flex flex-column align-items-center justify-content-center">
           <div className="table-scroll-wrapper">
             <table>
               <tbody>
@@ -144,9 +162,10 @@ const Service = () => {
               </tbody>
             </table>
             </div>
+            {isMobile && <Button onClick={handleButton} className='mt-3'>Añadir servicio</Button>}
           </div>
         </Col>
-        <Col className="d-flex justify-content-center align-items-center">
+        {!isMobile && <Col className="d-flex justify-content-center align-items-center">
           <Form className="formLogin">
             <div className="d-flex flex-column align-items-center justify-content-center">
               <h3>Añade un servicio</h3>
@@ -160,6 +179,7 @@ const Service = () => {
                 onChange={handleChange}
                 placeholder="Nombre"
               />
+              {valErrors.service_name && <p>{valErrors.service_name}</p>}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="durationInput">
@@ -175,6 +195,7 @@ const Service = () => {
                 onChange={handleChange}
                 placeholder="Duración"
               />
+              {valErrors.estimated_time && <p>{valErrors.estimated_time}</p>}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="priceInput">Precio</Form.Label>
@@ -191,6 +212,7 @@ const Service = () => {
                   placeholder="Precio"
                 />
               </InputGroup>
+                {valErrors.price && <p>{valErrors.price}</p>}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="descriptionInput">Descripción</Form.Label>
@@ -204,6 +226,7 @@ const Service = () => {
                 onChange={handleChange}
                 placeholder="Descripción"
               />
+              {valErrors.service_description && <p>{valErrors.service_description}</p>}
             </Form.Group>
             {/* <Form.Group className="mb-3">
               
@@ -215,14 +238,15 @@ const Service = () => {
                 onChange={handleChangeFile}
               />
             </Form.Group> */}
-            {/* <p className='text-center'>{errorMsg}</p> */}   
-            <div className="d-flex justify-content-center align-items-center">
+            <div className="d-flex flex-column justify-content-center align-items-center">
+            <p className='text-center'>{errorMsg}</p>  
+
               <Button className="btn" onClick={onSubmit}>
                 Añadir
               </Button>
             </div>
           </Form>
-        </Col>
+        </Col>}
       </Row>
 
     {!isMobile && modalService && <ModalEditService show={showModal} handleClose={handleClose} service={modalService}></ModalEditService>}

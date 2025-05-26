@@ -20,7 +20,7 @@ class AdminControllers {
 
       let result = await adminDal.createService(data);
       console.log("RESUUULT", result)
-      res.status(200).json(result)
+      res.status(200).json({result, message:"creado correctamente"})
 
 
       
