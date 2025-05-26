@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import cors from "cors";
 import clientRouter from "./modules/user_client/client.routes.js"
 import adminRouter from "./modules/admin/admin.routes.js"
+import employeeRouter from "./modules/employee/employee.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,7 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/client', clientRouter);
-// app.use('/employee', employeeRouter);
+app.use('/employee', employeeRouter);
 app.use('/admin', adminRouter);
 
 app.use(function(req, res, next) {
