@@ -84,10 +84,22 @@ class ClientDal {
   }
 
   editClient = async(data) => {
+  
+   const {user_id, user_name, lastname, birth_date, phone} = data.data;
+    
     try {
-      
+      let sql = 'UPDATE user SET user_name=?, lastname=?, birth_date=?,phone=? WHERE user_id = ?'
+      let values = [user_name, lastname, birth_date, phone, user_id];
+
+      if (data.avatar){
+         sql = 'UPDATE user SET user_name=?, lastname=?, birth_date=?, phone=?, avatar=? WHERE user_id = ?'
+         values = [user_name, lastname, birth_date, phone, data.avatar.filename, user_id, ];
+      }
+
+      await executeQuery(sql, values);
+
     } catch (error) {
-      
+      throw error;
     }
   }
 }

@@ -4,21 +4,16 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import './editProfile.css';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { fetchData } from '../../../helpers/axiosHelpers';
+import { ZodError } from 'zod';
 
 const EditProfile = () => {
-  const [imagenPreview, setImagenPreview] = useState(null);
   const { user, setUser, token } = useContext(AuthContext);
   const [editData, setEditData] = useState(user);
   const [file, setFile] = useState();
-
-  console.log("----------", token);
-  
+  const [valErrors, setValErrors] = useState({})
 
   const navigate = useNavigate();
-
-  console.log('editdataaa', editData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,21 +29,30 @@ const EditProfile = () => {
     setFile(e.target.files[0]);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     try {
       const newFormData = new FormData();
 
       newFormData.append('editData', JSON.stringify(editData));
       newFormData.append('file', file);
-      let res = fetchData("client/editClient", "put", newFormData, {Authorization: `Bearer ${token}`});
 
-      console.log("reeeeeeeesssss", res);
-      
+      let res = await fetchData('client/editClient', 'put', newFormData, token);
 
-      setUser(editData);
+      if (!res.data.img) {
+        setUser(editData);
+      } else {
+        setUser({ ...editData, avatar: res.data.img });
+      }
+
       navigate('/client');
     } catch (error) {
-
+      if (error instanceof ZodError) {
+        let objTemp = {};
+        error.errors.forEach((er) => {
+          objTemp[er.path[0]] = er.message;
+        });
+        setValErrors(objTemp);
+      }
     }
   };
 
@@ -67,10 +71,11 @@ const EditProfile = () => {
                   onChange={handleChange}
                   value={editData.user_name ? editData.user_name : ''}
                 />
+                 {valErrors.user_name && <p>{valErrors.user_name}</p>}
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label htmlFor="NameInput">Apellidos:</Form.Label>
+                <Form.Label htmlFor="LastNameInput">Apellidos:</Form.Label>
                 <Form.Control
                   id="LastNameImput"
                   name="lastname"
@@ -81,7 +86,7 @@ const EditProfile = () => {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label htmlFor="NameInput">
+                <Form.Label htmlFor="DateInput">
                   Fecha de nacimiento:
                 </Form.Label>
                 <Form.Control
@@ -94,7 +99,7 @@ const EditProfile = () => {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label htmlFor="NameInput">Teléfono:</Form.Label>
+                <Form.Label htmlFor="PhoneInput">Teléfono:</Form.Label>
                 <Form.Control
                   id="PhoneImput"
                   name="phone"
