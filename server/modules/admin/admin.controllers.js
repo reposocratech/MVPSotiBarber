@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import adminDal from "./admin.dal.js"
 import { hashString } from "../../utils/hashUtils.js"
 
+dotenv.config();
 
 class AdminControllers {
 
@@ -80,6 +81,14 @@ class AdminControllers {
     } catch (error) {
       res.status(500).json({message: "ups, error 500"})
       console.log(error)
+    }
+  }
+
+  editEmployee = async(req, res) => {
+    try {
+      console.log("req.body", req.body)
+    } catch (error) {
+      res.status(500).json({message: "error 500"})
     }
   }
 }
