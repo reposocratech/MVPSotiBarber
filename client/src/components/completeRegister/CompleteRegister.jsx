@@ -5,7 +5,7 @@ import { fetchData } from '../../helpers/axiosHelpers'
 import { AuthContext } from '../../context/AuthContextProvider'
 
 const initialValue = {
-  name: "",
+  user_name: "",
   lastname: "",
   birthdate: "",
   phone: ""
@@ -50,11 +50,11 @@ const CompleteRegister = ({onCompletar}) => {
                 <Form.Control 
                   id="NameTextImput"
                   name="name"
-                  value={completeRegister.name}
+                  value={completeRegister.user_name}
                   onChange={handleChange}
                   placeholder='Introduce tu nombre'
                 />
-                {valErrors.name && <p>{valErrors.name}</p>}
+                {valErrors.user_name && <p>{valErrors.user_name}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='LastNameTextInput'>

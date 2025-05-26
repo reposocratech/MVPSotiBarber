@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 import adminDal from "./admin.dal.js"
+import { hashString } from "../../utils/hashUtils.js"
 
 
 class AdminControllers {
@@ -63,6 +64,22 @@ class AdminControllers {
     } catch (error) {
       console.log(error)
       res.status(500).json({message:"ups, hay algún problema"})
+    }
+  }
+
+  createEmployee = async(req, res) => {
+    try {
+      const data = {
+        data: JSON.parse(req.body.employeeData),
+        img: req.file
+      }
+
+      console.log("data en el back", data)
+      await adminDal.createEmployee(data)
+      res.status(200).json({message: "creado correctamente", img: req.file?.filename})
+    } catch (error) {
+      res.status(500).json({message: "ups, error 500"})
+      console.log(error)
     }
   }
 }

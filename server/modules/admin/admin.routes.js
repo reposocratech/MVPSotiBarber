@@ -1,6 +1,7 @@
 import express from "express";
 import { verifyToken } from "../../middleware/verifyToken.js";
 import adminControllers from "./admin.controllers.js";
+import { uploadImage } from "../../middleware/multer.js";
 
 const router = express.Router();
 
@@ -8,6 +9,7 @@ router.post("/createService", verifyToken, adminControllers.createService);
 router.get("/services", adminControllers.getAllServices);
 router.put("/enabledService/:id", verifyToken, adminControllers.enabledService)
 router.put("/editService", verifyToken, adminControllers.editService)
+router.post("/createEmployee", uploadImage("employee"), adminControllers.createEmployee)
 
 
 

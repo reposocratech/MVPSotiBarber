@@ -15,8 +15,8 @@ export const UserIcon = () => {
         ) : (
           <div className="user-letter">
             <h2>
-              {user?.user_name?.at(0).toUpperCase()}
-              {user?.lastname?.at(0).toUpperCase()}
+              {(user?.user_name?.at(0) || "").toUpperCase()}
+              {(user?.lastname?.at(0) || "").toUpperCase()}
             </h2>
           </div>
         )}
