@@ -54,8 +54,8 @@ const Home = () => {
       </Container>
 
       {/* SECTION 3 */}
-      <Container fluid="xxl">
         <section className="section-services padding-y-section">
+        <Container fluid="xxl">
           <Row>
             <div className="d-flex flex-column align-items-start">
               <h3>Nuestros Servicios</h3>
@@ -77,8 +77,8 @@ const Home = () => {
               Imagen
             </Col>
           </Row>
-        </section>
       </Container>
+        </section>
 
       {/* SECTION 3 */}
 
