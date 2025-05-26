@@ -12,6 +12,7 @@ router.get("/services", adminControllers.getAllServices);
 router.put("/enabledService/:id", verifyToken, adminControllers.enabledService)
 router.put("/editService", verifyToken, adminControllers.editService)
 router.post("/createEmployee", uploadImage("employee"), adminControllers.createEmployee)
+router.put("/editEmployee", verifyToken, adminControllers.editEmployee)
 
 
 

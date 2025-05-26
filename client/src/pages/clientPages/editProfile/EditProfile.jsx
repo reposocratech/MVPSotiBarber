@@ -8,10 +8,12 @@ import { fetchData } from '../../../helpers/axiosHelpers';
 import { ZodError } from 'zod';
 
 import image from "../../../assets/icons/uploadimage.svg"
+import { editClientSchema } from '../../../schemas/editClientSchema';
 
 const EditProfile = () => {
   const { user, setUser, token } = useContext(AuthContext);
   const [editData, setEditData] = useState(user);
+  const [errorMsg, setErrorMsg] = useState("")
   const [file, setFile] = useState();
   const [valErrors, setValErrors] = useState({})
 
@@ -33,10 +35,14 @@ const EditProfile = () => {
 
   const onSubmit = async () => {
     try {
-      const newFormData = new FormData();
+      
+      editClientSchema.parse(editData)
 
+      const newFormData = new FormData();
+      
       newFormData.append('editData', JSON.stringify(editData));
       newFormData.append('file', file);
+
 
       let res = await fetchData('client/editClient', 'put', newFormData, token);
 
@@ -48,12 +54,19 @@ const EditProfile = () => {
 
       navigate('/client');
     } catch (error) {
+      console.log("errooooorr", error);
+      
       if (error instanceof ZodError) {
         let objTemp = {};
         error.errors.forEach((er) => {
           objTemp[er.path[0]] = er.message;
         });
         setValErrors(objTemp);
+        if(error.response){
+              setErrorMsg(error.response.data.message)
+            }else{
+              setErrorMsg("")
+            }
       }
     }
   };
@@ -121,6 +134,7 @@ const EditProfile = () => {
                   onChange={handleChangeFile}
                 />
               </Form.Group>
+              <p>{errorMsg}</p>
               <div className="d-flex gap-2 justify-content-center">
                 <Button onClick={onSubmit}>Editar</Button>
                 <Button type="button" onClick={cancelEdit}>

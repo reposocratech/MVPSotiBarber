@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './home.css';
 import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Element } from 'react-scroll';
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
+  
+  const location = useLocation();
+
+ useEffect(() => {
+  const hash = location.hash;
+
+  if (hash) {
+ 
+    setTimeout(() => {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100); 
+  }
+}, [location]);
+
   return (
     <div>
           {/* SECTION 1 */}
@@ -82,7 +102,7 @@ const Home = () => {
 
       {/* SECTION 3 */}
 
-        <section className="section-schedule padding-y-section">
+        <section className="section-schedule padding-y-section" id='horarios'>
           <Container fluid="xxl"></Container>
         <Row>
           <Col xs={12} md={6} className="d-flex flex-column align-items-center justify-content-center">
@@ -114,6 +134,8 @@ const Home = () => {
 
           {/* ESTO NO ESTA BIEN ASI */}
           <Col xs={12} md={6} className="d-flex flex-column align-items-center justify-content-center">
+    
+
             <h2>Nuestro Horario</h2>
             <div className="blue-line"></div>
             <div className="information">
@@ -151,6 +173,7 @@ const Home = () => {
                 </tbody>
               </table>
             </div>
+   
           </Col>
         </Row>
       </section>

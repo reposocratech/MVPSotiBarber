@@ -3,6 +3,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { fetchData } from '../../../helpers/axiosHelpers';
 import { forgetPasswordSchema } from '../../../schemas/forgetPasswordSchema';
 import { ZodError } from "zod"
+import { useNavigate } from "react-router-dom"
 
 const initialValue = {
   email: ""
@@ -12,6 +13,7 @@ const ForgetPassword = () => {
   const [changePasswordEmail, setChangePasswordEmail] = useState(initialValue)
   const [errorMsg, setErrorMsg] = useState("");
   const [valErrors, setValErrors] = useState({})
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -65,9 +67,11 @@ const ForgetPassword = () => {
                 {valErrors.email && <p>{valErrors.email}</p>}
               </Form.Group>
               <p>{errorMsg}</p>
-              <div className='d-flex justify-content-center'>
+              <div className='d-flex justify-content-center gap-3'>
                 <Button className='boton' onClick={onSubmit}>Enviar</Button>
+                <Button className='boton' onClick={()=>navigate("/login")}>Cancelar</Button>
               </div>
+              <p className='text-center pt-3'>Revisa tu email</p>
             </Form>
           </Col>
         </Row>

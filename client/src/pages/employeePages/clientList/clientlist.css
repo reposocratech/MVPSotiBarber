@@ -1,13 +1,15 @@
-.client-section {
-  background-color:var(--color-fondo);
-  color: var(--color-blanco);
-  padding: 50px 1rem;
-  overflow-x: clip;
-  max-width: 100vw;       
-  box-sizing: border-box; 
+
+.table-clients {
+  background-color: var(--color-componente);
+  padding: 2rem;
+  border-radius: 20px;
+  width: 100%;
+  max-width: none;           
+  height: 30rem;
 }
-.blue-line {
-  margin: 0 auto 2rem;
+
+.search-bar-wrapper {
+  max-width: 300px;
 }
 
 .search-input {
@@ -15,6 +17,7 @@
   padding: 10px 40px 10px 20px;
   background-color: #e5dceb;
   border: none;
+  width: 100%;
 }
 
 .search-input:focus {
@@ -22,4 +25,36 @@
   box-shadow: none;
 }
 
+.table-scroll-wrapper {
+  max-height: 40rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-fondo) var(--color-componente);
+  width: 100%;
+}
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  border-block: 1px solid var(--color-blanco);
+  padding: 10px 40px;
+  vertical-align: middle;
+}
+
+.client-name {
+  width: 100%;
+}
+
+.view-button {
+  background-color: var(--color-azul);
+  border: none;
+  padding: 0.5rem 1.25rem;
+}
+
+.view-button:hover {
+  background-color: var(--color-azul);
+  filter: brightness(80%);
+}

@@ -26,10 +26,6 @@ const Register = () => {
 
   const onSubmit = async() => {
     try {
-      if (!registerData.email || !registerData.password || !registerData.repPassword){
-        setErrorMsg("Rellena todos los campos")
-      }
-      else {
         setErrorMsg("");
         setValErrors("");
         registerSchema.parse(registerData);
@@ -38,7 +34,6 @@ const Register = () => {
         // let tokencf = res.data.tokenconfirm;
     
         navigate("/login")
-      }
     } 
     
     catch (error) {

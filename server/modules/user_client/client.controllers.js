@@ -82,6 +82,7 @@ class ClientControllers {
           user_type: result[0].user_type,
           avatar: result[0].avatar,
           birth_date: result[0].birth_date,
+          decription: result[0].description,
           registered_date: result[0].registered_date,
         },
       };

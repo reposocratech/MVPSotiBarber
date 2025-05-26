@@ -8,7 +8,8 @@ const initialValue = {
   user_name: "",
   lastname: "",
   birthdate: "",
-  phone: ""
+  phone: "",
+  description: ""
 }
 
 const CompleteRegister = ({onCompletar}) => {

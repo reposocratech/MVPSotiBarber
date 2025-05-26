@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { fetchData } from '../../../helpers/axiosHelpers';
 import image from "../../../assets/icons/uploadimage.svg"
+import "./createemployee.css"
 
 const initialValue = {
   user_name: "",
@@ -122,6 +123,7 @@ const CreateEmployee = () => {
                   Descripción
                 </Form.Label>
                 <Form.Control 
+                  className='inputDesc'
                   id="DescriptionTextImput"
                   name="description"
                   value={employeeData.description}
@@ -133,7 +135,7 @@ const CreateEmployee = () => {
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='ImageInput' className='cursor-pointer'>
-                  <img src={image}/> Subir Imágen
+                  <img src={image}/> Subir Imagen
                 </Form.Label>
                 <Form.Control 
                   id="ImageInput"
