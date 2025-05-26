@@ -35,6 +35,7 @@
 }
 
 .section-services{
+  background-color: var(--color-fondo);
 
   .btn{
     background-color: var(--color-azul);
