@@ -1,4 +1,5 @@
 import executeQuery from "../../config/db.js";
+import { hashString } from "../../utils/hashUtils.js";
 
 class AdminDal {
 
@@ -62,6 +63,22 @@ class AdminDal {
     }
   }
 
+  createEmployee = async(data) => {
+    const {user_name, lastname, phone, email, password, description, user_type} = data.data;
+    try {
+      const hashedPassword = await hashString(password)
+
+      let sql = "insert into user (user_name, lastname, email, phone, password, description, user_type) values (?,?,?,?,?,?)"
+      let values = [user_name, lastname, email, phone, hashedPassword, description, user_type]
+      if(data.img){
+        sql = "insert into user (user_name, lastname, email, phone, password, description, user_type, avatar) values (?,?,?,?,?,?,?,?)";
+        values = [user_name, lastname, email, phone, hashedPassword, description, user_type, data.img.filename]
+        await executeQuery(sql, values);
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default new AdminDal();

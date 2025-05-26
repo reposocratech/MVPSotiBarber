@@ -72,8 +72,7 @@ export const AuthContextProvider = ({children}) => {
                   setUser,
                   token,
                   services,
-                  setServices,
-                  setUser
+                  setServices
                   }}> 
       {children}
     </AuthContext.Provider>
