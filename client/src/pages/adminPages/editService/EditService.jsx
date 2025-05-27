@@ -10,7 +10,7 @@ const EditService = () => {
   const location = useLocation();
   const service = location.state?.service;
   const [editedService, setEditedService] = useState(service)
-    const {token, setServices} = useContext(AuthContext)
+  const {token, setServices} = useContext(AuthContext)
   
     useEffect(()=>{
       if(service){

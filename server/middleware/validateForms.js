@@ -5,6 +5,7 @@ export const validateForms = (schema) => (req, res, next) => {
     schema.parse(req.body);
     next();
   } catch (error) {
+    console.log(error);
      res.status(401).json("error de validación")
   }
 }
