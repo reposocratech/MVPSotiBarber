@@ -9,7 +9,6 @@ class AdminControllers {
 
   createService = async (req, res)=>{
     try {
-      console.log(req.body)
       const {service_name, estimated_time, price, service_description} = req.body
 
       let data ={
@@ -20,8 +19,7 @@ class AdminControllers {
       }
 
       let result = await adminDal.createService(data);
-      console.log("RESUUULT", result)
-      res.status(200).json({result, message:"creado correctamente"})
+      res.status(200).json({result, message:"creado correctamente", service:result})
 
 
       

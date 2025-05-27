@@ -5,5 +5,6 @@ import { verifyToken } from "../../middleware/verifyToken.js";
 const router = express.Router();
 
 router.get("/clientList", verifyToken, employeeControllers.getAllClients);
+router.get("/clientProfile/:id", verifyToken, employeeControllers.getClientByEmployee);
 
 export default router;
