@@ -98,6 +98,7 @@ const EditProfile = () => {
                   onChange={handleChange}
                   value={editData.lastname ? editData.lastname : ''}
                 />
+                {valErrors.lastname && <p>{valErrors.lastname}</p>}
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -122,6 +123,7 @@ const EditProfile = () => {
                   onChange={handleChange}
                   value={editData.phone ? editData.phone : ''}
                 />
+                {valErrors.phone && <p>{valErrors.phone}</p>}
               </Form.Group>
 
               <Form.Group className="mb-3">

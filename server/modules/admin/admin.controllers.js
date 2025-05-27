@@ -96,6 +96,49 @@ class AdminControllers {
       res.status(500).json({message: "error 500"})
     }
   }
+
+    getAllEmployees = async(req, res)=>{
+    try {
+      let result = await adminDal.getAllEmployees();
+      console.log(result)
+      res.status(200).json({employees:result});
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({message:"ups, hay algún problema"})
+    }
+  }
+
+  
+  enabledService = async(req, res)=>{
+
+    const {id} = req.params;
+    const {service_is_enabled} = req.body
+
+    try {
+      let result = await adminDal.enabledService(id, service_is_enabled);
+      console.log(result);
+      res.status(200).json({result})
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({message:"ups, hay algún problema"})
+    }
+  } 
+
+    enabledEmployee = async(req, res)=>{
+
+    const {id} = req.params;
+    const {user_is_enabled} = req.body
+
+    try {
+      let result = await adminDal.enabledEmployee(id, user_is_enabled);
+      console.log(result);
+      res.status(200).json({result})
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({message:"ups, hay algún problema"})
+    }
+  } 
+
 }
 
 export default new AdminControllers();
