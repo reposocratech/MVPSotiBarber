@@ -1,0 +1,47 @@
+.client-profile {
+  background-color: var(--color-componente);
+
+  h3{
+    font-size: 1.25rem;
+  }
+
+  .button{
+       background-color: var(--color-azul);
+    border: none;
+    padding: 8px 20px;
+    margin-top: 1rem;
+
+    &:hover {
+      background-color: var(--color-azul);
+      filter:brightness(80%)
+    }
+  }
+}
+
+.history {
+
+  background-color: var(--color-componente);
+  display: flex;
+  
+  flex-direction: column;
+
+  h3{
+    font-size: 1.25rem;
+  }
+
+  span {
+    font-size: 1rem;
+  }
+
+  .button {
+           background-color: var(--color-azul);
+    border: none;
+    padding: 8px 20px;
+    margin-top: 1rem;
+
+    &:hover {
+      background-color: var(--color-azul);
+      filter:brightness(80%)
+    }
+  }
+}

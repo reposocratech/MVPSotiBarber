@@ -25,12 +25,10 @@ const Login = () => {
   
   const onSubmit = async()=>{
     try {
-     
-      
-        setErrorMsg("");
-        setValErrors("");
-        loginSchema.parse(loginData)
-       await logIn(loginData)
+      loginSchema.parse(loginData)
+      await logIn(loginData)
+      setErrorMsg("");
+      setValErrors("");
       
 
     }catch (error) {
@@ -41,14 +39,18 @@ const Login = () => {
             error.errors.forEach((er)=>{
               objTemp[er.path[0]]=er.message
             })
+            setErrorMsg("")
             setValErrors(objTemp)
 
-            if(error.response){
-              setErrorMsg(error.response.data.message)
-            }else{
-              setErrorMsg("")
-            }
-      }    
+            
+      }
+      
+      //con esto me pinto los errores del back
+      if(error.response && error.response.data?.message){
+        setValErrors("")
+        setErrorMsg(error.response.data.message)
+      }
+      
     }
   }
 
@@ -92,7 +94,7 @@ const Login = () => {
                   />
                   {valErrors.password && <p>{valErrors.password}</p>}                  
               </Form.Group>
-              <Link className='text-decoration-none' to="/forgetPassword"> <p className='text-end forgot-password'>¿Has olvidado tu contraseña?</p></Link>
+              <p className='text-end forgot-password'> <Link className='text-decoration-none link' to="/forgetPassword">¿Has olvidado tu contraseña?</Link></p>
               <p className='text-center'>{errorMsg}</p>
               <div className='d-flex justify-content-center align-items-center'>
                 <Button className='btn' onClick={onSubmit}>Entrar</Button>

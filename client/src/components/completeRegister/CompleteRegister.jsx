@@ -3,6 +3,8 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { fetchData } from '../../helpers/axiosHelpers'
 import { AuthContext } from '../../context/AuthContextProvider'
+import { completeRegisterSchema } from "../../schemas/completeRegisterSchema"
+import { ZodError } from 'zod'
 
 const initialValue = {
   user_name: "",
@@ -25,6 +27,11 @@ const CompleteRegister = ({onCompletar}) => {
 
   const onSubmit = async() => {
     try {
+      setErrorMsg("");
+      setValErrors("");
+
+      completeRegisterSchema.parse(completeRegister)
+
       await fetchData("client/completeFormRegister", "put", completeRegister, token);
       //actualizo el contexto sumando los nuevos datos del cliente
       setUser(prevUser => ({...prevUser, ...completeRegister}))
@@ -32,6 +39,19 @@ const CompleteRegister = ({onCompletar}) => {
       onCompletar()
     } catch (error) {
       console.log(error)
+      if(error instanceof ZodError){
+              let objTemp = {}
+              error.errors.forEach((er)=>{
+                objTemp[er.path[0]]=er.message
+              })
+              setValErrors(objTemp)
+            }
+      
+            if(error.response){
+              setErrorMsg(error.response.data.message)
+            }else{
+              setErrorMsg("ups, ha habido un error")
+            }
     }
   }
 

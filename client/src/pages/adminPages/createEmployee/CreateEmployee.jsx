@@ -3,6 +3,9 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { fetchData } from '../../../helpers/axiosHelpers';
 import image from "../../../assets/icons/uploadimage.svg"
 import "./createemployee.css"
+import {createEmployeeSchema} from "../../../schemas/createEmployeeSchema";
+import { ZodError } from 'zod';
+import { useNavigate } from "react-router-dom"
 
 const initialValue = {
   user_name: "",
@@ -11,8 +14,7 @@ const initialValue = {
   email: "",
   password: "",
   description: "",
-  avatar: "",
-  user_type: 2
+  avatar: ""
 }
 
 const CreateEmployee = () => {
@@ -20,6 +22,7 @@ const CreateEmployee = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [valErrors, setValErrors] = useState({});
   const [file, setFile] = useState();
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -32,16 +35,36 @@ const CreateEmployee = () => {
 
   const onSubmit = async() => {
     try {
+
+      createEmployeeSchema.parse(employeeData)
+
       const newFormData = new FormData();
 
-      newFormData.append("employeeData", JSON.stringify(employeeData));
-      newFormData.append("file", file)
+      newFormData.append("data", JSON.stringify(employeeData));
+      if(file) {
+        newFormData.append("file", file)
+      }
 
-      await fetchData("admin/createEmployee", "post", newFormData)
+      
+      const res = await fetchData("admin/createEmployee", "post", newFormData)
+      console.log("resss", res)
 
-      setEmployeeData(initialValue);
+      // navigate("/admin/employeeList")
     } catch (error) {
       console.log(error)
+      if(error instanceof ZodError){
+              let objTemp = {}
+              error.errors.forEach((er)=>{
+                objTemp[er.path[0]]=er.message
+              })
+              setValErrors(objTemp)
+            }
+      
+            if(error.response){
+              setErrorMsg(error.response.data.message)
+            }else{
+              setErrorMsg("ups, ha habido un error")
+            }
     }
   }
 

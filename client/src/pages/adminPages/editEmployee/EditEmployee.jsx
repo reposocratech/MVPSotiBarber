@@ -5,6 +5,8 @@ import "./editEmployee.css"
 import { AuthContext } from '../../../context/AuthContextProvider'
 import { fetchData } from '../../../helpers/axiosHelpers'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { editEmployeeSchema } from '../../../schemas/editEmployeeSchema'
+import { ZodError } from 'zod'
 
 const EditEmployee = () => {
   const {user, token} = useContext(AuthContext)
@@ -19,7 +21,7 @@ const EditEmployee = () => {
     if(user) {
       setEditEmpData(user)
     }
-  },[user])
+  },[])
 
   console.log("usermimimi", user)
 
@@ -34,9 +36,32 @@ const EditEmployee = () => {
 
   const onSubmit = async() => {
     try {
-      await fetchData("admin/editEmployee", "put", editEmpData, token)
+
+      editEmployeeSchema.parse(editEmpData)
+
+      const newFormData = new FormData();
+
+      newFormData.append("data", JSON.stringify(editEmpData));
+      newFormData.append("file", file)
+
+      await fetchData("admin/editEmployee", "put", newFormData, token)
+
+      navigate("/admin/employeeList")
     } catch (error) {
       console.log(error)
+      if(error instanceof ZodError){
+              let objTemp = {}
+              error.errors.forEach((er)=>{
+                objTemp[er.path[0]]=er.message
+              })
+              setValErrors(objTemp)
+            }
+      
+            if(error.response){
+              setErrorMsg(error.response.data.message)
+            }else{
+              setErrorMsg("ups, ha habido un error")
+            }
     }
   }
 

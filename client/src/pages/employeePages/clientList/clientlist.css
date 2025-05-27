@@ -1,21 +1,23 @@
-
 .table-clients {
   background-color: var(--color-componente);
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 20px;
-  width: 100%;
-  max-width: none;           
-  height: 30rem;
+  height: 28.125rem;
+  display: block; 
+  width: 80rem;
+
+
 }
 
 .search-bar-wrapper {
-  max-width: 300px;
+  max-width: 350px;
+  width: 100%;
 }
 
 .search-input {
   border-radius: 25px;
-  padding: 10px 40px 10px 20px;
-  background-color: #e5dceb;
+  padding: 10px 20px 10px 20px;
+  background-color: var(--color-blanco);
   border: none;
   width: 100%;
 }
@@ -26,35 +28,43 @@
 }
 
 .table-scroll-wrapper {
-  max-height: 40rem;
+  max-height: calc(4 * 2.8rem); 
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--color-fondo) var(--color-componente);
-  width: 100%;
+  padding: 1rem;
 }
 
 table {
-  width: 100%;
+  width: 60rem;
   border-collapse: collapse;
+  max-height: calc(4 * 2.5rem)
+}
+
+tr {
+  height: 2.5rem;
+  border-bottom: 1px solid var(--color-blanco);
+
 }
 
 td {
-  border-block: 1px solid var(--color-blanco);
-  padding: 10px 40px;
-  vertical-align: middle;
+ 
+border-bottom: 1px solid var(--color-blanco);
+padding: 10px 30px;
 }
 
-.client-name {
-  width: 100%;
+td:last-child {
+  text-align: right;
+  padding-right: 40px;
 }
 
-.view-button {
+.btn {
   background-color: var(--color-azul);
-  border: none;
+  border: 0;
   padding: 0.5rem 1.25rem;
 }
 
-.view-button:hover {
+.btn:hover {
   background-color: var(--color-azul);
   filter: brightness(80%);
 }
