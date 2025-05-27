@@ -89,7 +89,7 @@ export const AppRoutes = () => {
               <Route path="/employee" element={<EmployeeDashboard />} />
               <Route path="/employee/clientList" element={<ClientList />} />
               <Route
-                path="/employee/clientProfile" 
+                path="/employee/clientProfile/:id" 
                 element={<EmployeeClientProfile />}
               />
               <Route path="/employee/calendar" element={<EmployeeCalendar />} />
