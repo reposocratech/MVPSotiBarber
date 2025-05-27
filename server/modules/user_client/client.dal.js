@@ -114,6 +114,16 @@ class ClientDal {
     }
 }
 
+findUserByEmployee = async (user_id) => {
+  try {
+    const sql = "SELECT * FROM user WHERE user_id = ?";
+    const result = await executeQuery(sql, [user_id]);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 }
 
 export default new ClientDal();
