@@ -10,10 +10,11 @@ const initialValue = {
 }
 
 const ForgetPassword = () => {
-  const [changePasswordEmail, setChangePasswordEmail] = useState(initialValue)
+  const [changePasswordEmail, setChangePasswordEmail] = useState(initialValue);
   const [errorMsg, setErrorMsg] = useState("");
-  const [valErrors, setValErrors] = useState({})
-  const navigate = useNavigate()
+  const [valErrors, setValErrors] = useState({});
+  const navigate = useNavigate();
+  const [showMsg, setShowMsg] = useState(false);
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -27,7 +28,9 @@ const ForgetPassword = () => {
 
       forgetPasswordSchema.parse(changePasswordEmail);
 
+      setShowMsg(true)
       await fetchData("client/forgetPassword", "post", changePasswordEmail)
+
     } catch (error) {
       if(error instanceof ZodError){
             let objTemp = {}
@@ -71,7 +74,7 @@ const ForgetPassword = () => {
                 <Button className='boton' onClick={onSubmit}>Enviar</Button>
                 <Button className='boton' onClick={()=>navigate("/login")}>Cancelar</Button>
               </div>
-              <p className='text-center pt-3'>Revisa tu email</p>
+              {showMsg && <p className='text-center pt-3'>Revisa tu email</p>}
             </Form>
           </Col>
         </Row>

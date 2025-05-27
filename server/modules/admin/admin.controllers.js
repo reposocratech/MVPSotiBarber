@@ -71,11 +71,11 @@ class AdminControllers {
   createEmployee = async(req, res) => {
     try {
       const data = {
-        data: JSON.parse(req.body.employeeData),
+        data: JSON.parse(req.body.data),
         img: req.file
       }
 
-      console.log("data en el back", data)
+      // console.log("data en el back", data)
       await adminDal.createEmployee(data)
       res.status(200).json({message: "creado correctamente", img: req.file?.filename})
     } catch (error) {
@@ -86,7 +86,14 @@ class AdminControllers {
 
   editEmployee = async(req, res) => {
     try {
+      const data = {
+        data: JSON.parse(req.body.editEmpData),
+        img: req.file
+      }
+
       console.log("req.body", req.body)
+      let result = await adminDal.editEmployee(data)
+      res.status(200).json({result})
     } catch (error) {
       res.status(500).json({message: "error 500"})
     }
