@@ -17,11 +17,11 @@ const initialValue = {
 };
 
 const Service = () => {
+  const { token, services, setServices } = useContext(AuthContext);
   const [service, setService] = useState(initialValue);
   const [isMobile, setIsMobile] = useState(false);
   const [modalService, setModalService] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const { token, services, setServices } = useContext(AuthContext);
   const [valErrors, setValErrors] = useState({});
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
@@ -74,12 +74,13 @@ const Service = () => {
       createServiceSchema.parse(service);
       let res = await fetchData('admin/createService', 'post', service, token);
 
-      console.log('reees', res);
+      console.log('REEEESSSSSSS', res.data.service);
 
       //seteo services con el nuevo servicio y le pongo el campo de habilitado
       setErrorMsg(res.data.message);
       setValErrors({});
-      setServices([...services, { ...service, service_is_enabled: 0 }]);
+      //seteo servicios con el servicio nuevo que ya tiene el id incluido (me lo traigo del return de la query)
+      setServices([...services, res.data.service]);
       setService(initialValue);
     } catch (error) {
       if (error instanceof ZodError) {

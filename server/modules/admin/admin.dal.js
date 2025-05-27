@@ -12,7 +12,17 @@ class AdminDal {
 
       let sql = "INSERT INTO service (service_name, estimated_time, price, service_description) VALUES (?,?,?,?)"
 
-      await executeQuery(sql, values);
+      const result = await executeQuery(sql, values);
+
+      //return para que me devulva el user_id ¿¿¿¿ES CORRECTO ASÍ?????
+      return {
+        service_id: result.insertId,
+        service_name,
+        price,
+        estimated_time,
+        service_description,
+        service_is_enabled: 0,
+      };
       
     } catch (error) {
       throw {message: "error de bd"}
