@@ -4,6 +4,8 @@ import adminControllers from "./admin.controllers.js";
 import { uploadImage } from "../../middleware/multer.js";
 import { validateForms } from "../../middleware/validateForms.js";
 import { createServiceSchema } from "../../schemas/createServiceSchema.js";
+import { createEmployeeSchema } from "../../schemas/createEmployeeSchema.js";
+import { editEmployeeSchema } from "../../schemas/editEmployeeSchema.js";
 
 const router = express.Router();
 
@@ -11,8 +13,8 @@ router.post("/createService",validateForms(createServiceSchema), verifyToken, ad
 router.get("/services", adminControllers.getAllServices);
 router.put("/enabledService/:id", verifyToken, adminControllers.enabledService)
 router.put("/editService", verifyToken, adminControllers.editService)
-router.post("/createEmployee", uploadImage("employee"), adminControllers.createEmployee)
-router.put("/editEmployee", verifyToken, adminControllers.editEmployee)
+router.post("/createEmployee", uploadImage("employee"), validateForms(createEmployeeSchema), adminControllers.createEmployee)
+router.put("/editEmployee", validateForms(editEmployeeSchema), verifyToken, adminControllers.editEmployee)
 
 
 
