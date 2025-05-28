@@ -25,8 +25,9 @@ const CreateAppointment = ( {appointmentDate, show, handleClose, setEmployeeList
   const {token} = useContext(AuthContext);
   const [clientResults, setClientResults] = useState([]);
 
-  const startDate = String(new Date(appointmentDate.start).toISOString().split("T")[0])
-  const endDate =  String(new Date(appointmentDate.end).toISOString().split("T")[0])
+  const startDate = new Date(appointmentDate.start).toISOString().split("T")[0]
+  const endDate =  new Date(appointmentDate.end).toISOString().split("T")[0]
+
   const startHours = String(new Date(appointmentDate.start).getHours()).padStart(2,"0")
   const startMinutes = String(new Date(appointmentDate.start).getMinutes()).padStart(2,"0")
   const startTime = `${startHours}:${startMinutes}`
