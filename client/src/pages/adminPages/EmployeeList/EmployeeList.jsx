@@ -64,7 +64,7 @@ const EmployeeList = () => {
 
   return (
     <>
-      {/*       <section>
+            <section>
         <h2 className="text-center">Empleados</h2>
         <div className="blue-line"></div>
         <Button onClick={() => navigate('/admin/createEmployee')}>
@@ -73,7 +73,7 @@ const EmployeeList = () => {
         <Button onClick={() => navigate('/admin/editEmployee')}>
           Editar empleados
         </Button>
-      </section> */}
+      </section>
       <section className="padding-y-section">
         <div className="d-flex flex-column align-items-center justify-content-center py-4">
           <h3>Empleados</h3>

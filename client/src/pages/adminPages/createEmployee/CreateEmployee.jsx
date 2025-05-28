@@ -49,7 +49,7 @@ const CreateEmployee = () => {
       const res = await fetchData("admin/createEmployee", "post", newFormData)
       console.log("resss", res)
 
-      // navigate("/admin/employeeList")
+      navigate("/admin/employeeList")
     } catch (error) {
       console.log(error)
       if(error instanceof ZodError){
