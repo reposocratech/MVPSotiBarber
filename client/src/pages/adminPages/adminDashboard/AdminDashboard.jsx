@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap"
 import { useNavigate } from 'react-router-dom'
 
 import AppointmentCalendar from '../../../components/calendar/AppointmentCalendar.jsx'
-import CreateAppointment from '../../../components/createAppointment/CreateAppointment.jsx'
+
 import { fetchData } from '../../../helpers/axiosHelpers.js'
 import { AuthContext } from '../../../context/AuthContextProvider.jsx'
 
