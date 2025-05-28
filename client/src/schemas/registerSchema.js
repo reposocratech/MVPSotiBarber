@@ -1,7 +1,7 @@
 import {z} from 'zod';
 
 export const registerSchema = z.object({
-    email: z.string().email("El mail no es válido"),
+    email: z.string().email("El mail no es válido").min(1, "Campo obligatorio"),
     password:  z.string()
                 .regex(/^(?=(.*[a-zA-Z]))(?=(.*\d))(?=(.*[!@#$%^&*(),.?":{}|<>]))[a-zA-Z\d!@#$%^&*(),.?":{}|<>]{6,}$/, "Contraseña no es válida"),
     repPassword: z.string()

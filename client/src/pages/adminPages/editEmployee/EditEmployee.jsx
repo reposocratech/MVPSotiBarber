@@ -16,14 +16,17 @@ const EditEmployee = () => {
   const [file, setFile] = useState();
   const navigate = useNavigate();
   const location = useLocation();
+  const employee = location.state?.employee;
+
+
 
   useEffect(()=>{
-    if(user) {
-      setEditEmpData(user)
+    if(employee) {
+      setEditEmpData(employee)
     }
   },[])
-
-  console.log("usermimimi", user)
+  
+  console.log("location", location)
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -32,6 +35,10 @@ const EditEmployee = () => {
 
   const handleChangeFile = (e) => {
     setFile(e.target.files[0])
+  }
+
+  const onCancel = async() => {
+    navigate("/admin/employeelist")
   }
 
   const onSubmit = async() => {
@@ -135,8 +142,9 @@ const EditEmployee = () => {
                 />
               </Form.Group>
               <p>{errorMsg}</p>
-              <div className='d-flex justify-content-center'>
+              <div className='d-flex justify-content-center gap-3'>
                 <Button className='boton' onClick={onSubmit}>Editar</Button>
+                <Button className='boton' onClick={onCancel}>Cancelar</Button>
               </div>
             </Form>
           </Col>

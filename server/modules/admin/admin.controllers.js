@@ -139,6 +139,25 @@ class AdminControllers {
     }
   } 
 
+  clientListAppointment = async (req, res) => {
+    try {
+      console.log("clientes en el back", req.body)
+      // await adminDal.clientListAppointment()
+      res.status(200).json({message: "clientes extraidos correctamente"})
+    } catch (error) {
+      res.status(500).json({message: "error 500"})
+    }
+  }
+
+  createAppointment = async(req, res) => {
+    try {
+      // console.log("cita", req.body)
+      await adminDal.createAppointment(req.body)
+      res.status(200).json({message: "creado correctamente"})
+    } catch (error) {
+      res.status(500).json({message: "error 500"})
+    }
+  }
 }
 
 export default new AdminControllers();

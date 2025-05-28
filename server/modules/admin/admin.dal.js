@@ -97,7 +97,7 @@ class AdminDal {
     try {
       let sql = 'SELECT * FROM user WHERE user.user_type = 2 and user_is_deleted = 0'
       let result = await executeQuery(sql)
-      console.log("Employeeeees", result)
+      // console.log("Employeeeees", result)
       return result
     } catch (error) {
       console.log(error)
@@ -140,6 +140,23 @@ class AdminDal {
     }
   }
 
+  clientListAppointment = async () => {
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
+
+  createAppointment = async(data) => {
+    const {date, hour, client_name, client_lastname, employee, phone, observations} = data;
+
+    try {
+      
+    } catch (error) {
+      throw error
+    }
+  }
 }
 
 export default new AdminDal();

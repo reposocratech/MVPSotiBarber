@@ -29,6 +29,7 @@ import AdminClientList from '../pages/adminPages/clientList/AdminClientList';
 import Service from '../pages/adminPages/service/Service';
 import EditService from '../pages/adminPages/editService/EditService.jsx';
 import CreateService from '../pages/adminPages/createService/createService.jsx';
+import CreateAppointment from '../pages/adminPages/createAppointment/CreateAppointment.jsx';
 
 //Usuario del context
 import { AuthContext } from '../context/AuthContextProvider';
@@ -43,7 +44,7 @@ import { AccountConfirm } from '../pages/publicPages/accountConfirm/AccountConfi
 
 export const AppRoutes = () => {
 
- const {user} = useContext(AuthContext);
+ const {user, loading} = useContext(AuthContext);
 
  console.log("userrrr", user);
  
@@ -52,6 +53,7 @@ export const AppRoutes = () => {
 
   return (
     <>
+    {loading ? <h1>Cargando...</h1> : 
       <BrowserRouter>
         <Routes>
           <Route element={<PublicRoutes />}>
@@ -118,10 +120,11 @@ export const AppRoutes = () => {
               <Route path="/admin/service" element={<Service />} />
               <Route path="/admin/editService/:id" element={<EditService/>} />
               <Route path="/admin/createService" element={<CreateService/>} />
+              <Route path="/admin/createAppointment" element={<CreateAppointment/>} />
             </Route>
           </Route>
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> }
     </>
   );
 };

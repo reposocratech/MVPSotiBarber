@@ -40,7 +40,7 @@ const EditProfile = () => {
 
       const newFormData = new FormData();
       
-      newFormData.append('editData', JSON.stringify(editData));
+      newFormData.append('data', JSON.stringify(editData));
       newFormData.append('file', file);
 
 
@@ -72,7 +72,7 @@ const EditProfile = () => {
   };
 
   return (
-    <section className="edit-user">
+    <section className="edit-user padding-y-section">
       <Container>
         <Row className="engloba">
           <Col md={12} lg={6} className="cols">
@@ -129,8 +129,8 @@ const EditProfile = () => {
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="ImageInput" className='cursor-pointer'> <img src={image}/>Subir imagen</Form.Label>
                 <Form.Control
-                  id="ImageImput"
-                  name="avatar"
+                  id="ImageInput"
+                  // name="avatar"
                   type="file"
                   hidden
                   onChange={handleChangeFile}
