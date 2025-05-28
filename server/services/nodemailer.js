@@ -1,5 +1,12 @@
+import React from "react";
+import { render } from "@react-email/render";
 import nodemailer from "nodemailer";
+import {fileURLToPath} from 'url'
+import path from "path";
+import EmailConfirm from "../emails/EmailConfirm.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -11,33 +18,26 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-function sendMail(email, tokenconfirm){
-  let mensaje = `
-    <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-  </head>
-  <body>
-    <div style='background-color: yellow';>
-      <h1>Bienvenid@ a nuestra aplicación</h1>
-      <h2>que tal estas?</h2>
-      <p>Confirma tu email en este enlace: </p>
-      <a href="http://localhost:5173/accountConfirm/?token=${tokenconfirm}">Verifica aqui</a>  
-    </div>
-  </body>
-  </html> 
-  `
+async function sendMail(email, tokenconfirm){
+
+  const htmlEmail = await render(React.createElement(EmailConfirm, { email, token: tokenconfirm }));
+  const logoPath = path.join(__dirname, '../public/images/logo/logo_texto.png')
 
   transporter.sendMail({
     from: "Miriam <miriamespejortega@gmail.com>",
     to: email,
-    subject: "bienvenid@",
-    text: "hola", /* si hay un fallo al mandar el html se manda este texto */
-    html: mensaje
-  })
+    subject: "Confirma tu cuenta - Peluquería Soti",
+    text: "Por favor, confirma tu cuenta haciendo clic en el botón del correo.",
+    html: htmlEmail,
+    attachments: [
+      {
+        filename: "logoSoti.png",
+        path: logoPath,
+        cid: "logoSoti",
+      },
+    ],
+  });
+}
 
   
 
@@ -45,6 +45,6 @@ function sendMail(email, tokenconfirm){
 
 
 
-}
+
 
 export default sendMail;
