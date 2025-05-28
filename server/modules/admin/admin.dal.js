@@ -167,6 +167,17 @@ class AdminDal {
       throw error
     }
   }
+
+  deleteService = async(id) =>{
+    try {
+      let sql = "UPDATE service SET service_is_deleted = 1 WHERE service_id = ?";
+
+      await executeQuery(sql, [id])
+    } catch (error) {
+      console.log(error)
+      throw error;
+    }
+  }
 }
 
 export default new AdminDal();

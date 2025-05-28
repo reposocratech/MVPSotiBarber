@@ -50,4 +50,10 @@ h1, h2, h3{
   }
 }
 
+.btn-icon{
+  all: unset;
+  color: var(--color-azul);
+  font-weight: bold;
+}
+
 

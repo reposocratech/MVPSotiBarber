@@ -33,6 +33,12 @@
     border-block: 1px solid var(--color-blanco);
     padding: 10px 40px;
 
+    &:nth-last-child(3){
+      border: 0;
+      padding-right: 0;
+      padding-left: 30px; 
+    }
+
     &:nth-last-child(2){
       border: 0;
       padding-right: 0;
