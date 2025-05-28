@@ -78,7 +78,7 @@ const CreateService = () => {
     <section className='padding-y-section'>
       <Row>
       <Col className="d-flex justify-content-center align-items-center">
-          <Form className="formLogin">
+          <Form className="form-create-service">
             <div className="d-flex flex-column align-items-center justify-content-center">
               <h3>Añade un servicio</h3>
             </div>

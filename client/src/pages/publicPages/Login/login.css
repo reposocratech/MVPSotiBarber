@@ -5,6 +5,10 @@
   border-radius: 1.25rem;
   width: 31.25rem;
 
+  input, textarea{
+    background-color: var(--color-blanco);
+  }
+
   .btn{
     background-color: var(--color-azul);
     border: 0;
