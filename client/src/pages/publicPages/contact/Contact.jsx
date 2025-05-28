@@ -29,6 +29,11 @@ const Contact = () => {
 const onSubmit = async (e) => {
   e.preventDefault();
 
+    if (!formData.name || !formData.email || !formData.message) {
+    setconfirmMessage("Por favor, rellena todos los campos.");
+    return;
+  }
+
   try {
     const { data } = await axios.post("http://localhost:4000/client/contact", formData);
     setconfirmMessage(data.message);
