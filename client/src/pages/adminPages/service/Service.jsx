@@ -167,6 +167,7 @@ const Service = () => {
     );
   };
 
+
   const onDelete = async(id)=>{
     try {
       await fetchData("admin/deleteService", "put", {id}, token )
@@ -178,6 +179,7 @@ const Service = () => {
     }
 
   }
+
 
   return (
     <section className="padding-y-section">
@@ -207,9 +209,13 @@ const Service = () => {
                             </button>
                           </td>
                           <td>
+
                             <button className='btn-icon' onClick={()=>onDelete(e.service_id)}>
                             <img src={deletebtn} alt="Eliminar" />
                             </button>
+
+
+
                           </td>
                           <td>
                             <Form>

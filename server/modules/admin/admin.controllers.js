@@ -32,7 +32,7 @@ class AdminControllers {
   getAllServices = async(req, res)=>{
     try {
       let result = await adminDal.getAllServices();
-      console.log(result)
+      // console.log(result)
       res.status(200).json({services:result});
     } catch (error) {
       console.log(error)
@@ -47,7 +47,7 @@ class AdminControllers {
 
     try {
       let result = await adminDal.enabledService(id, service_is_enabled);
-      console.log(result);
+      // console.log(result);
       res.status(200).json({result})
     } catch (error) {
       console.log(error)
@@ -58,7 +58,7 @@ class AdminControllers {
   editService = async(req, res)=>{
     try {
       let result = await adminDal.editService(req.body)
-      console.log(result)
+      // console.log(result)
       res.status(200).json({result})
     } catch (error) {
       console.log(error)
@@ -89,7 +89,7 @@ class AdminControllers {
         img: req.file
       }
 
-      console.log("req.body", req.body)
+      // console.log("req.body", req.body)
       let result = await adminDal.editEmployee(data)
       res.status(200).json({result})
     } catch (error) {
@@ -100,7 +100,7 @@ class AdminControllers {
     getAllEmployees = async(req, res)=>{
     try {
       let result = await adminDal.getAllEmployees();
-      console.log(result)
+      // console.log(result)
       res.status(200).json({employees:result});
     } catch (error) {
       console.log(error)
@@ -116,7 +116,7 @@ class AdminControllers {
 
     try {
       let result = await adminDal.enabledService(id, service_is_enabled);
-      console.log(result);
+      // console.log(result);
       res.status(200).json({result})
     } catch (error) {
       console.log(error)
@@ -131,7 +131,7 @@ class AdminControllers {
 
     try {
       let result = await adminDal.enabledEmployee(id, user_is_enabled);
-      console.log(result);
+      // console.log(result);
       res.status(200).json({result})
     } catch (error) {
       console.log(error)
@@ -141,15 +141,16 @@ class AdminControllers {
 
   clientListAppointment = async (req, res) => {
     try {
-      console.log("clientes en el back", req.body)
-      // await adminDal.clientListAppointment()
-      res.status(200).json({message: "clientes extraidos correctamente"})
+      // console.log("clientes en el back", req.query.search)
+      const clients = await adminDal.clientListAppointment(req.query.search)
+      res.status(200).json({message: "clientes extraidos correctamente", clients: clients})
     } catch (error) {
       res.status(500).json({message: "error 500"})
     }
   }
 
   createAppointment = async(req, res) => {
+    // console.log("reeeeqs", req.body)
     try {
       // console.log("cita", req.body)
       await adminDal.createAppointment(req.body)
