@@ -164,7 +164,7 @@ const Service = () => {
       )
     );
   };
-
+/*
   const delete = async()=>{
     try {
       let res = await fetchData("admin/deleteService", "put", )
@@ -172,7 +172,7 @@ const Service = () => {
       
     }
 
-  }
+  }*/
 
   return (
     <section className="padding-y-section">
@@ -202,7 +202,7 @@ const Service = () => {
                             </Button>
                           </td>
                           <td>
-                            <Button onClick={delete}>
+                            <Button>
                               Borrar
                             </Button>
                           </td>
