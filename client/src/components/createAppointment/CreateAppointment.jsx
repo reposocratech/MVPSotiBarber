@@ -15,16 +15,27 @@ const initialValue = {
   observations: ""
 }
 
-const CreateAppointment = () => {
+const CreateAppointment = ( {appointmentDate, show, handleClose, setEmployeeList, employeeList}) => {
   const [appointmentData, setAppointmentData] = useState(initialValue);
-  const [employeeList, setEmployeeList] = useState([])
+/*   const [employeeList, setEmployeeList] = useState([]) */
   const [errorMsg, setErrorMsg] = useState("");
   const [valErrors, setValErrors] = useState({});
   const [search, setSearch] = useState("")
   const navigate = useNavigate()
   const {token} = useContext(AuthContext);
   const [clientResults, setClientResults] = useState([]);
-  const [show, setShow] = useState(false)
+
+  const startDate = new Date(appointmentDate.start).toISOString().split("T")[0]
+  const endDate =  new Date(appointmentDate.end).toISOString().split("T")[0]
+
+  const startHours = String(new Date(appointmentDate.start).getHours()).padStart(2,"0")
+  const startMinutes = String(new Date(appointmentDate.start).getMinutes()).padStart(2,"0")
+  const startTime = `${startHours}:${startMinutes}`
+
+  const endHours = String(new Date(appointmentDate.end).getHours()).padStart(2,"0")
+  const endMinutes = String(new Date(appointmentDate.end).getMinutes()).padStart(2,"0")
+  const endTime = `${endHours}:${endMinutes}`
+
 
   useEffect(()=>{
     const fetchEmployees = async() => {
@@ -80,21 +91,17 @@ const CreateAppointment = () => {
   }
 
   const onCancel = async() => {
-    navigate("/admin")
+    setAppointmentData(initialValue);
+    handleClose()
   }
 
   const handleSearch = (e) => {
     setSearch(e.target.value)
   }
 
-  const handleClose = () => {
-    setShow(false)
-  }
+  
 
-  const handleShow = () => {
-    setShow(true)
-  }
-
+  
   const handleClientSelect = (client) => {
     setAppointmentData({
       ...appointmentData,
@@ -108,10 +115,6 @@ const CreateAppointment = () => {
 
   return (
     <section className='register'>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
@@ -120,6 +123,7 @@ const CreateAppointment = () => {
           <Container>
         <Row className='engloba'>
           <Col md={12} lg={6} className='cols'>
+          <Form>
             <Form.Group className='mb-5'>
               <Form.Label htmlFor='searchInput'>
                 Buscar cliente: 
@@ -145,31 +149,46 @@ const CreateAppointment = () => {
                 </div>
               )}            
             </Form.Group>
-            <Form className='formRegister'>
+          </Form>
+            
+            <Form className='form-create-appoinment'>
               <h2 className='text-center'>Añadir cita</h2>
               <div className='blue-line'></div>
               <div className='separate'>
-                <Form.Group className='mb-3'>
+                {/* <Form.Group className='mb-3'>
                   <Form.Label htmlFor='DateTextInput'>
                     Fecha
                   </Form.Label>
                   <Form.Control
                     id="DateTextImput"
                     name="date"
-                    value={appointmentData.date || ""}
+                    value={date}
                     onChange={handleChange}
                     type='date'
                   />
                   {valErrors.date && <p>{valErrors.date}</p>}
-                </Form.Group>
+                </Form.Group> */}
                 <Form.Group className='mb-3 hour'>
-                  <Form.Label htmlFor='HourTextInput'>
-                    Hora
+                  <Form.Label htmlFor='StartHourTextInput'>
+                    Hora de inicio
                   </Form.Label>
                   <Form.Control
-                    id="HourTextImput"
-                    name="hour"
-                    value={appointmentData.hour || ""}
+                    id="StartHourTextInput"
+                    name="startHour"
+                    value={startTime}
+                    onChange={handleChange}
+                    type='time'
+                  />
+                  {valErrors.hour && <p>{valErrors.hour}</p>}
+                </Form.Group>
+                <Form.Group className='mb-3 hour'>
+                  <Form.Label htmlFor='EndHourTextInput'>
+                    Hora de fin
+                  </Form.Label>
+                  <Form.Control
+                    id="EndHourTextInput"
+                    name="endHour"
+                    value={endTime}
                     onChange={handleChange}
                     type='time'
                   />
@@ -244,22 +263,18 @@ const CreateAppointment = () => {
                 />
                 {valErrors.observations && <p>{valErrors.observations}</p>}
               </Form.Group>
-              <p>{errorMsg}</p>
-              <div className='d-flex justify-content-center gap-3'>
-                <Button className='boton' onClick={onSubmit}>Añadir</Button>
-                <Button className='boton' onClick={onCancel}>Cancelar</Button>
-              </div>
             </Form>
           </Col>
         </Row>
       </Container>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
+              <p>{errorMsg}</p>
+          <Button className='boton' onClick={onCancel}>
+            Cancelar
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button className='boton' onClick={onSubmit}>
+            Guardar
           </Button>
         </Modal.Footer>
       </Modal>

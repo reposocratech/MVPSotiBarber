@@ -4,7 +4,10 @@ import { calendarMessages } from '../../helpers/calendarMessages.js';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './appointmentCalendar.css';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { fetchData } from '../../helpers/axiosHelpers.js';
+import { AuthContext } from '../../context/AuthContextProvider.jsx';
+import CreateAppointment from '../createAppointment/CreateAppointment.jsx';
 
 
 const events = [
@@ -22,10 +25,12 @@ const events = [
   }
 ]
 
-const AppointmentCalendar = () => {
+const AppointmentCalendar = ({show, setShow, handleClose, setEmployeeList, employeeList}) => {
  
   const [currentView, setCurrentView] = useState('day');
   const [currentDate, setCurrentdate] = useState("");
+  const [appointmentDate, setAppointmentDate] = useState({start:"", end:""})
+  
 
   const handleNavigate = (newDate)=>{
     setCurrentdate(newDate)
@@ -37,8 +42,8 @@ const AppointmentCalendar = () => {
   }
 
   const selectSlot = (event) => {
-    console.log("*****", event);
-    
+    setAppointmentDate({start:event.start, end:event.end})
+    setShow(true)
   }
 
   return (
@@ -65,6 +70,7 @@ const AppointmentCalendar = () => {
         onSelectSlot={selectSlot}
        
       />
+      <CreateAppointment appointmentDate={appointmentDate} employeeList={employeeList} handleClose={handleClose} show={show} setEmployeeList={setEmployeeList}  />
     </div>
   );
 };
