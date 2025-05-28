@@ -4,18 +4,18 @@
 
   Button {
     background-color: transparent;
-    border: 2px solid white;
+    border: 2px solid var(--color-blanco);
 
      &:hover {
      background-color: var(--color-azul);
-     border: 2px solid white;
+     border: 2px solid var(--color-blanco);
   }
   }
 }
 
 
 .navPublic .navbar-brand {
-  color: white ;
+  color: var(--color-blanco) ;
   cursor: pointer;
   &:hover {
     color: var(--color-azul);
@@ -30,7 +30,7 @@
 
 .navPublic .nav-link,
 .navPublic .navbar-toggler-icon {
-  color: white ;
+  color: var(--color-blanco);
     &:hover, &.active {
     color: var(--color-azul);
     

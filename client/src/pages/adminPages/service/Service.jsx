@@ -130,7 +130,8 @@ const Service = () => {
   };
 
   const editService = async (service) => {
-    if (isMobile) {
+    try {
+      if (isMobile) {
       navigate(`/admin/editService/${service.service_id}`, {
         state: { service },
       });
@@ -138,6 +139,10 @@ const Service = () => {
       setShowModal(true);
       setModalService(service);
     }
+    } catch (error) {
+      console.log(error);
+    }
+    
   };
 
   const handleClose = async () => {
@@ -159,6 +164,15 @@ const Service = () => {
       )
     );
   };
+
+  const delete = async()=>{
+    try {
+      let res = await fetchData("admin/deleteService", "put", )
+    } catch (error) {
+      
+    }
+
+  }
 
   return (
     <section className="padding-y-section">
@@ -185,6 +199,11 @@ const Service = () => {
                               onClick={() => editService(e)}
                             >
                               Editar
+                            </Button>
+                          </td>
+                          <td>
+                            <Button onClick={delete}>
+                              Borrar
                             </Button>
                           </td>
                           <td>
@@ -220,7 +239,7 @@ const Service = () => {
         )}
         {!isMobile && (
           <Col className="d-flex justify-content-center align-items-center my-4">
-            <Form className="formLogin">
+            <Form className="form-create-service">
               <div className="d-flex flex-column align-items-center justify-content-center">
                 <h3>Añade un servicio</h3>
               </div>
