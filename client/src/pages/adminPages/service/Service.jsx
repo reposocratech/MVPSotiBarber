@@ -165,14 +165,14 @@ const Service = () => {
     );
   };
 
-  const delete = async()=>{
-    try {
-      let res = await fetchData("admin/deleteService", "put", )
-    } catch (error) {
+  // const delete = async()=>{
+  //   try {
+  //     let res = await fetchData("admin/deleteService", "put", )
+  //   } catch (error) {
       
-    }
+  //   }
 
-  }
+  // }
 
   return (
     <section className="padding-y-section">
@@ -202,7 +202,7 @@ const Service = () => {
                             </Button>
                           </td>
                           <td>
-                            <Button onClick={delete}>
+                            <Button /* onClick={delete} */>
                               Borrar
                             </Button>
                           </td>

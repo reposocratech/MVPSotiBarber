@@ -18,7 +18,7 @@ router.put("/enabledEmployee/:id", verifyToken, adminControllers.enabledEmployee
 router.post("/createEmployee", uploadImage("employee"), validateForms(createEmployeeSchema), adminControllers.createEmployee)
 router.put("/editEmployee", validateForms(editEmployeeSchema), verifyToken, adminControllers.editEmployee)
 router.post("/createAppointment", adminControllers.createAppointment)
-router.get("/clientListAppointment", adminControllers.clientListAppointment)
+router.get("/clientListAppointment", verifyToken, adminControllers.clientListAppointment)
 
 
 

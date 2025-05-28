@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import "./createappointment.css"
-import { fetchData } from '../../../helpers/axiosHelpers';
-import { AuthContext } from '../../../context/AuthContextProvider';
+import { fetchData } from '../../helpers/axiosHelpers';
+import { AuthContext } from '../../context/AuthContextProvider';
 
 const initialValue = {
   date: "",
@@ -23,6 +23,8 @@ const CreateAppointment = () => {
   const [search, setSearch] = useState("")
   const navigate = useNavigate()
   const {token} = useContext(AuthContext);
+  const [clientResults, setClientResults] = useState([]);
+  const [show, setShow] = useState(false)
 
   useEffect(()=>{
     const fetchEmployees = async() => {
@@ -47,12 +49,21 @@ const CreateAppointment = () => {
   useEffect(()=>{
     const fetchClients = async () => {
       if(search.length >= 3){
-        await fetchData("admin/clientListAppointment", "get", search)
+        try {
+          const res = await fetchData(`admin/clientListAppointment?search=${search}`, "get", null, token)
+          
+          console.log("respuesta del backend:", res)
+          setClientResults(res.data.clients || [])
+        } catch (error) {
+          console.log("Error al buscar clientes", error)
+        }
+      } else {
+        setClientResults([])
       }
     }
 
     fetchClients();
-  },[search])
+  },[search, token])
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -76,9 +87,37 @@ const CreateAppointment = () => {
     setSearch(e.target.value)
   }
 
+  const handleClose = () => {
+    setShow(false)
+  }
+
+  const handleShow = () => {
+    setShow(true)
+  }
+
+  const handleClientSelect = (client) => {
+    setAppointmentData({
+      ...appointmentData,
+      client_name: client.user_name,
+      client_lastname: client.lastname,
+      phone: client.phone || ""
+    })
+    setSearch(`${client.user_name} ${client.lastname}`)
+    setClientResults([])
+  }
+
   return (
     <section className='register'>
-      <Container>
+      <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Container>
         <Row className='engloba'>
           <Col md={12} lg={6} className='cols'>
             <Form.Group className='mb-5'>
@@ -92,6 +131,19 @@ const CreateAppointment = () => {
                             value={search}
                             onChange={handleSearch}
                           />
+              {clientResults.length > 0 && (
+                <div className='dropdown-client-list'>
+                  {clientResults.map((client)=>(
+                    <div
+                      key={client.user_id}
+                      className='dropdown-item'
+                      onClick={()=>handleClientSelect(client)}
+                    >
+                      {client.user_name} {client.lastname}
+                    </div>
+                  ))}
+                </div>
+              )}            
             </Form.Group>
             <Form className='formRegister'>
               <h2 className='text-center'>Añadir cita</h2>
@@ -201,6 +253,16 @@ const CreateAppointment = () => {
           </Col>
         </Row>
       </Container>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </section>
   )
 }

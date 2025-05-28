@@ -33,7 +33,7 @@ class AdminDal {
     try {
       let sql = 'SELECT * FROM service WHERE service_is_deleted = 0'
       let result = await executeQuery(sql)
-      console.log("SERVICESENELDAL", result)
+      // console.log("SERVICESENELDAL", result)
       return result
     } catch (error) {
       console.log(error)
@@ -74,7 +74,7 @@ class AdminDal {
   }
 
   createEmployee = async(data) => {
-    console.log("dataaaaa dal", data)
+    // console.log("dataaaaa dal", data)
     const {user_name, lastname, phone, email, password, description} = data.data;
     try {
       const hashedPassword = await hashString(password)
@@ -140,11 +140,21 @@ class AdminDal {
     }
   }
 
-  clientListAppointment = async () => {
+  clientListAppointment = async (search) => {
     try {
-      
+      let textoBuscado = (search);
+      let palabras = textoBuscado.split(" ");
+
+      let sql = `select user_id, user_name, lastname, phone, email from user where user_type = 3 and user_is_deleted = 0`;
+
+      for (let palabra of palabras) {
+        sql += ` and (user_name like "%${palabra}%" or lastname like "%${palabra}%" or phone like "%${palabra}%" or email like "%${palabra}%")`
+      }
+
+      const result = await executeQuery (sql)
+      return result;
     } catch (error) {
-      
+      throw error;
     }
   }
 
