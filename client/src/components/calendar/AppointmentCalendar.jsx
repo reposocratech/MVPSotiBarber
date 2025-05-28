@@ -25,13 +25,27 @@ const events = [
   }
 ]
 
+
 const AppointmentCalendar = ({show, setShow, handleClose, setEmployeeList, employeeList}) => {
  
   const [currentView, setCurrentView] = useState('day');
   const [currentDate, setCurrentdate] = useState("");
   const [appointmentDate, setAppointmentDate] = useState({start:"", end:""})
-  
+  const [events, setEvents] = useState([
+    {title: "evento 1",
+    start: new Date("2025-05-28T12:00:00"),
+    end: new Date("2025-05-28T12:30:00"),
+    description: "descripcion evento 1"
 
+  },
+    {title: "evento 2",
+    start: new Date("2025-05-29T12:00:00"),
+    end: new Date("2025-05-29T12:30:00"),
+    description: "descripcion evento 2"
+
+  }])
+  
+  console.log("evento", events)
   const handleNavigate = (newDate)=>{
     setCurrentdate(newDate)
   }
@@ -42,6 +56,7 @@ const AppointmentCalendar = ({show, setShow, handleClose, setEmployeeList, emplo
   }
 
   const selectSlot = (event) => {
+    console.log("evenroo", event.start, event.end)
     setAppointmentDate({start:event.start, end:event.end})
     setShow(true)
   }
@@ -70,7 +85,7 @@ const AppointmentCalendar = ({show, setShow, handleClose, setEmployeeList, emplo
         onSelectSlot={selectSlot}
        
       />
-      <CreateAppointment appointmentDate={appointmentDate} employeeList={employeeList} handleClose={handleClose} show={show} setEmployeeList={setEmployeeList}  />
+      <CreateAppointment events={events} setEvents={setEvents} appointmentDate={appointmentDate} employeeList={employeeList} handleClose={handleClose} show={show} setEmployeeList={setEmployeeList}  />
     </div>
   );
 };

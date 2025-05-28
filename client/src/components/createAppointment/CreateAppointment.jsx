@@ -6,16 +6,17 @@ import { fetchData } from '../../helpers/axiosHelpers';
 import { AuthContext } from '../../context/AuthContextProvider';
 
 const initialValue = {
-  date: "",
-  hour: "",
-  client_name: "",
-  client_lastname: "",
-  employee: "",
-  phone: "",
+  start_date: "",
+  end_date: "",
+  start_hour: "",
+  end_hour: "",
+  client_id: "",
+  employee_id: "",
+  created_by_user_id: "",
   observations: ""
 }
 
-const CreateAppointment = ( {appointmentDate, show, handleClose, setEmployeeList, employeeList}) => {
+const CreateAppointment = ( {events, setEvents, appointmentDate, show, handleClose, setEmployeeList, employeeList}) => {
   const [appointmentData, setAppointmentData] = useState(initialValue);
 /*   const [employeeList, setEmployeeList] = useState([]) */
   const [errorMsg, setErrorMsg] = useState("");
@@ -25,17 +26,22 @@ const CreateAppointment = ( {appointmentDate, show, handleClose, setEmployeeList
   const {token} = useContext(AuthContext);
   const [clientResults, setClientResults] = useState([]);
 
-  const startDate = new Date(appointmentDate.start).toISOString().split("T")[0]
-  const endDate =  new Date(appointmentDate.end).toISOString().split("T")[0]
+  useEffect(()=>{
+    if (appointmentDate.start && appointmentDate.end) {
+      const startDate = new Date(appointmentDate.start).toISOString().split("T")[0]
+      const endDate = new Date(appointmentDate.end).toISOString().split("T")[0]
 
-  const startHours = String(new Date(appointmentDate.start).getHours()).padStart(2,"0")
-  const startMinutes = String(new Date(appointmentDate.start).getMinutes()).padStart(2,"0")
-  const startTime = `${startHours}:${startMinutes}`
+      const startHours = String(new Date(appointmentDate.start).getHours()).padStart(2,"0")
+      const startMinutes = String(new Date(appointmentDate.start).getMinutes()).padStart(2,"0")
+      const startTime = `${startHours}:${startMinutes}`
+    
+      const endHours = String(new Date(appointmentDate.end).getHours()).padStart(2,"0")
+      const endMinutes = String(new Date(appointmentDate.end).getMinutes()).padStart(2,"0")
+      const endTime = `${endHours}:${endMinutes}`
 
-  const endHours = String(new Date(appointmentDate.end).getHours()).padStart(2,"0")
-  const endMinutes = String(new Date(appointmentDate.end).getMinutes()).padStart(2,"0")
-  const endTime = `${endHours}:${endMinutes}`
-
+      setAppointmentData({...appointmentData, start_hour: startTime, end_hour: endTime, start_date: startDate, end_date: endDate})
+    }
+  },[appointmentDate])
 
   useEffect(()=>{
     const fetchEmployees = async() => {
@@ -76,14 +82,31 @@ const CreateAppointment = ( {appointmentDate, show, handleClose, setEmployeeList
     fetchClients();
   },[search, token])
 
+  console.log("dataaa", appointmentData)
+
   const handleChange = (e) => {
     const {name, value} = e.target;
-    setAppointmentData({...appointmentData, [name]: value});
+    console.log("eff", e.target)
+    // setAppointmentData({...appointmentData, [name]: value});
+    setAppointmentData({...appointmentData, [name]: value})
+  }
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString)
+    return date
   }
 
   const onSubmit = async() => {
     try {
-      await fetchData ("admin/createAppointment", "post", appointmentData)
+      const newEvent = { 
+        start: formatDate(`${appointmentData.start_date}T${appointmentData.start_hour}`),
+        end: formatDate(`${appointmentData.end_date}T${appointmentData.end_hour}`),
+        title: "peluquería",
+        description: `${appointmentData.observations}`
+      }
+      console.log("datetatatat", formatDate(`${appointmentData.start_date}T${appointmentData.start_hour}`))
+      setEvents([...events, newEvent])
+      // await fetchData ("admin/createAppointment", "post", appointmentData)
       // navigate("/admin")
     } catch (error) {
       console.log(error)
@@ -174,8 +197,8 @@ const CreateAppointment = ( {appointmentDate, show, handleClose, setEmployeeList
                   </Form.Label>
                   <Form.Control
                     id="StartHourTextInput"
-                    name="startHour"
-                    value={startTime}
+                    name="start_hour"
+                    value={appointmentData?.start_hour}
                     onChange={handleChange}
                     type='time'
                   />
@@ -187,8 +210,8 @@ const CreateAppointment = ( {appointmentDate, show, handleClose, setEmployeeList
                   </Form.Label>
                   <Form.Control
                     id="EndHourTextInput"
-                    name="endHour"
-                    value={endTime}
+                    name="end_hour"
+                    value={appointmentData?.end_hour}
                     onChange={handleChange}
                     type='time'
                   />
@@ -201,9 +224,7 @@ const CreateAppointment = ( {appointmentDate, show, handleClose, setEmployeeList
                 </Form.Label>
                 <Form.Control 
                   id="ClientNameTextImput"
-                  name="client_name"
                   value={appointmentData.client_name || ""}
-                  onChange={handleChange}
                 />
                 {valErrors.client_name && <p>{valErrors.client_name}</p>}
               </Form.Group>
@@ -213,9 +234,7 @@ const CreateAppointment = ( {appointmentDate, show, handleClose, setEmployeeList
                 </Form.Label>
                 <Form.Control 
                   id="ClientLastnameTextImput"
-                  name="client_lastname"
                   value={appointmentData.client_lastname || ""}
-                  onChange={handleChange}
                 />
                 {valErrors.client_lastname && <p>{valErrors.client_lastname}</p>}
               </Form.Group>
@@ -225,13 +244,15 @@ const CreateAppointment = ( {appointmentDate, show, handleClose, setEmployeeList
                 </Form.Label>
                 <Form.Select 
                   aria-label="Default select example"   id='EmpleadoTextInput'  className='inputDesc'
-                  name='employee'
-                  value={appointmentData.employee || ""}
+                  name='employee_id'
                   onChange={handleChange}
                 >
                   <option>Selecciona un empleado</option>
                   {employeeList.map(emp => (
-                    <option key={emp.id} value={emp.id}>
+                    <option 
+                      key={emp.user_id} 
+                      value={emp.user_id}
+                    >
                       {emp.user_name} {emp.lastname}
                     </option>
                   ))}
@@ -243,9 +264,7 @@ const CreateAppointment = ( {appointmentDate, show, handleClose, setEmployeeList
                 </Form.Label>
                 <Form.Control 
                   id="PhoneTextImput"
-                  name="phone"
                   value={appointmentData.phone || ""}
-                  onChange={handleChange}
                 />
                 {valErrors.phone && <p>{valErrors.phone}</p>}
               </Form.Group>
