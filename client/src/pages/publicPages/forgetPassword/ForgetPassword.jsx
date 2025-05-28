@@ -55,6 +55,7 @@ const ForgetPassword = () => {
           <Col md={12} lg={6} className='cols'>
             <Form className='formRegister'>
               <h3 className='text-center'>¿Has olvidado tu contraseña?</h3>
+              <div className='blue-line'></div>
               <p>Introduce tu email y te enviaremos un enlace para reestablecer tu contraseña</p>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='EmailTextInput'>

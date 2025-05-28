@@ -31,7 +31,7 @@ class ClientControllers {
       }
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: 'tururu' });
+      res.status(500).json({ message: 'email o contraseñas no válidas' });
     }
   };
 

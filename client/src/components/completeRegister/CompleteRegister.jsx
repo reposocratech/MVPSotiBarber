@@ -64,6 +64,7 @@ const CompleteRegister = ({onCompletar}) => {
           <Col md={12} lg={6} className='cols'>
             <Form className='formRegister'>
               <h2 className='text-center'>Completa tus datos</h2>
+              <div className='blue-line'></div>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='NameTextInput'>
                   Nombre:

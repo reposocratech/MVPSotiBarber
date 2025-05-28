@@ -1,0 +1,12 @@
+.inputDesc {
+  background-color: var(--color-blanco);
+}
+
+.separate {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hour {
+  width: 10.9375rem;
+}
