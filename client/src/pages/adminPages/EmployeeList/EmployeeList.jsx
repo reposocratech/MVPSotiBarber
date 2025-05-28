@@ -102,10 +102,12 @@ const EmployeeList = () => {
                           <td>
                             {emp.user_name} {emp.lastname}
                           </td>
+                     
+                    
                           <td>
+                            <div className='d-flex' >
                                     <Button onClick={() => navigate('/admin/editEmployee')}> Modificar empleado </Button>
-                          </td>
-                          <td>
+
                             <Form>
                               <Form.Check
                                 className='enabled' 
@@ -115,6 +117,7 @@ const EmployeeList = () => {
                                 onChange={() => enableSwitch(emp.user_id)}
                               />
                             </Form>
+                            </div>
                           </td>
                         </tr>
                       ))}
