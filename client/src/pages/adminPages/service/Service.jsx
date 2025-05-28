@@ -195,9 +195,6 @@ const Service = () => {
                           </td>
                           <td>
 
-                           
-
-                              
                           </td>
                           <td>
                             <Form>

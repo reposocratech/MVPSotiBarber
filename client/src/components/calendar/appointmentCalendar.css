@@ -1,0 +1,40 @@
+
+.calendario-citas{
+  height: 90vh;
+  width: 70vw;
+}
+
+
+
+.rbc-day-bg {
+  background-color: #ffffff;
+}
+
+.rbc-off-range-bg {
+  background-color: #e7e7e7;
+}
+
+.rbc-today {
+  background-color: #eaf6ff;
+}
+
+.rbc-btn-group button{
+  background-color: #ffffff;
+}
+
+.rbc-month-header {
+  background-color: #ffffff;
+}
+
+/* Estilos base alternados para los eventos */
+.rbc-row-content .rbc-row:nth-child(odd) .rbc-event {
+  background-color: #dd9211;
+}
+
+.rbc-row-content .rbc-row:nth-child(even) .rbc-event {
+  background-color: #021330;
+}
+
+.rbc-allday-cell{
+  display: none;
+}

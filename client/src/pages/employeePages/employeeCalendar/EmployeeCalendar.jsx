@@ -1,10 +1,10 @@
 import React from 'react'
-import Calendar from '../../../components/calendar/Calendar'
+
 
 const EmployeeCalendar = () => {
   return (
     <section>
-      <Calendar/>
+      <h1>calendar</h1>
     </section>
   )
 }
