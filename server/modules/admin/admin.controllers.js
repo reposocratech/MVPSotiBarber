@@ -158,6 +158,19 @@ class AdminControllers {
       res.status(500).json({message: "error 500"})
     }
   }
+
+  deleteService = async(req, res) =>{
+    const {id} = req.body
+    console.log("id en el controlador de delete", id)
+
+    try {
+      let result = await adminDal.deleteService(id);
+      res.status(200).json({message: "borrado correctamente"})
+    } catch (error) {
+
+      res.status(500).json({message: "error 500"})
+    }
+  }
 }
 
 export default new AdminControllers();

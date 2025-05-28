@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-/* import image from '../../../assets/icons/uploadimage.svg'; */
+import image from '../../../assets/icons/uploadimage.svg';
 import './service.css';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { fetchData } from '../../../helpers/axiosHelpers';
 import ModalEditService from '../../../components/modalEditService/ModalEditService';
 import { createServiceSchema } from '../../../schemas/createServiceSchema';
 import { ZodError } from 'zod';
+import deletebtn from "../../../assets/icons/deleteicon.png"
+import editbtn from "../../../assets/icons/editicon.png"
 
 const initialValue = {
   service_name: '',
@@ -64,10 +66,10 @@ const Service = () => {
 
   //NO HEMOS METIDO IMAGEN EN LA TABLA SERVICE
 
-  /* const handleChangeFile = (e) => {
+  const handleChangeFile = (e) => {
     const {name} = e.target;
     setService({...service, [name]: e.target.files[0] })
-  }; */
+  };
 
   const onSubmit = async () => {
     try {
@@ -165,11 +167,14 @@ const Service = () => {
     );
   };
 
-  const delete = async()=>{
+  const onDelete = async(id)=>{
     try {
-      let res = await fetchData("admin/deleteService", "put", )
+      await fetchData("admin/deleteService", "put", {id}, token )
+
+      //seteo los servicios eliminando el que he borrado
+      setServices(prev => prev.filter(service => service.service_id !== id));
     } catch (error) {
-      
+      console.log(error);
     }
 
   }
@@ -194,17 +199,17 @@ const Service = () => {
                           <td>{e.price}€</td>
                           <td>{e.estimated_time}min</td>
                           <td>
-                            <Button
-                              className="btn"
+                            <button
+                              className="btn-icon"
                               onClick={() => editService(e)}
                             >
-                              Editar
-                            </Button>
+                              <img src={editbtn} alt="Editar" />
+                            </button>
                           </td>
                           <td>
-                            <Button onClick={delete}>
-                              Borrar
-                            </Button>
+                            <button className='btn-icon' onClick={()=>onDelete(e.service_id)}>
+                            <img src={deletebtn} alt="Eliminar" />
+                            </button>
                           </td>
                           <td>
                             <Form>
@@ -299,7 +304,7 @@ const Service = () => {
                   <p>{valErrors.service_description}</p>
                 )}
               </Form.Group>
-              {/* <Form.Group className="mb-3">
+              <Form.Group className="mb-3">
               
               <Form.Label className='cursor-pointer' htmlFor="imageInput"> <img src={image} alt="" /> Subir imagen</Form.Label>
               <Form.Control
@@ -308,7 +313,7 @@ const Service = () => {
                 hidden
                 onChange={handleChangeFile}
               />
-            </Form.Group> */}
+            </Form.Group>
               <div className="d-flex flex-column justify-content-center align-items-center">
                 <p className="text-center">{errorMsg}</p>
 

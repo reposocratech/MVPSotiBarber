@@ -19,6 +19,7 @@ router.post("/createEmployee", uploadImage("employee"), validateForms(createEmpl
 router.put("/editEmployee", validateForms(editEmployeeSchema), verifyToken, adminControllers.editEmployee)
 router.post("/createAppointment", adminControllers.createAppointment)
 router.get("/clientListAppointment", adminControllers.clientListAppointment)
+router.put("/deleteService", verifyToken, adminControllers.deleteService);
 
 
 
