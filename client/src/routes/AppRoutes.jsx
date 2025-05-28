@@ -29,7 +29,7 @@ import AdminClientList from '../pages/adminPages/clientList/AdminClientList';
 import Service from '../pages/adminPages/service/Service';
 import EditService from '../pages/adminPages/editService/EditService.jsx';
 import CreateService from '../pages/adminPages/createService/createService.jsx';
-import CreateAppointment from '../pages/adminPages/createAppointment/CreateAppointment.jsx';
+/* import CreateAppointment from '../pages/adminPages/createAppointment/CreateAppointment.jsx'; */
 
 //Usuario del context
 import { AuthContext } from '../context/AuthContextProvider';
@@ -120,7 +120,7 @@ export const AppRoutes = () => {
               <Route path="/admin/service" element={<Service />} />
               <Route path="/admin/editService/:id" element={<EditService/>} />
               <Route path="/admin/createService" element={<CreateService/>} />
-              <Route path="/admin/createAppointment" element={<CreateAppointment/>} />
+              {/* <Route path="/admin/createAppointment" element={<CreateAppointment/>} /> */}{/* DESCOMENTAR IMPORTACION!!! */}
             </Route>
           </Route>
         </Routes>
