@@ -201,7 +201,7 @@ class ClientControllers {
   editClient = async (req, res) => {
     try {
       const data = {
-        data: JSON.parse(req.body.editData),
+        data: JSON.parse(req.body.data),
         avatar: req.file,
       };
       const result = await clientDal.editClient(data);

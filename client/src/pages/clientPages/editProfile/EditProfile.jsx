@@ -41,7 +41,10 @@ const EditProfile = () => {
       const newFormData = new FormData();
       
       newFormData.append('data', JSON.stringify(editData));
-      newFormData.append('file', file);
+      if (file){
+        newFormData.append('file', file);
+
+      }
 
 
       let res = await fetchData('client/editClient', 'put', newFormData, token);
