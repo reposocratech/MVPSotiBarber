@@ -10,23 +10,25 @@ import { useNavigate } from 'react-router-dom';
 const ClientDashboard = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [mostrarModal, setMostrarModal] = useState(false)
+  const [mostrarModal, setMostrarModal] = useState(false);
   const [appointments, setAppointments] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [totalCortes, setTotalCortes] = useState(0);
   const [cortesEsteMes, setCortesEsteMes] = useState(0);
 
 
-  const perfilIncompleto = !user.user_name || !user.lastname || !user.phone || !user.birth_date;
+  const perfilIncompleto =
+    !user.user_name || !user.lastname || !user.phone || !user.birth_date;
 
-  useEffect(()=>{
-    if(perfilIncompleto) {
+  useEffect(() => {
+    if (perfilIncompleto) {
       setMostrarModal(perfilIncompleto);
     }
-  },[perfilIncompleto]);
+  }, [perfilIncompleto]);
 
   const handleCompletado = () => {
     setMostrarModal(false);
+
   }
 
 useEffect(() => {
@@ -66,10 +68,11 @@ useEffect(() => {
     } catch (err) {
       console.error("Error cargando citas:", err);
     }
+
   };
 
-  fetchAppointments();
-}, [user?.user_id]);
+    fetchAppointments();
+  }, [user?.user_id]);
 
 //lógica del buscador:
 
@@ -90,6 +93,7 @@ const filteredAppointments = appointments.filter((cita) => {
           <CompleteRegister onCompletar={handleCompletado} />
         </div>
       )}
+
 
       <Container>
         <section>
@@ -115,15 +119,18 @@ const filteredAppointments = appointments.filter((cita) => {
                         {user.user_name} {user.lastname}
                       </h3>
                       <span>{user.phone}</span>
+
+     
+
                     </div>
+                    <Button
+                      className="button"
+                      onClick={() => navigate('/client/editClient')}
+                    >
+                      Editar
+                    </Button>
                   </div>
-                  <Button
-                    className="button"
-                    onClick={() => navigate('/client/editClient')}
-                  >
-                    Editar
-                  </Button>
-                </div>
+
 
                 <div className="d-flex justify-content-between mt-4 summary-row">
                   <div className="text-center summary-box">
@@ -200,12 +207,14 @@ const filteredAppointments = appointments.filter((cita) => {
                       )}
                     </tbody>
                   </table>
+
+                 
                 </div>
-              </div>
-            </Col>
-          </Row>
-        </section>
-      </Container>
+              </Col>
+            </Row>
+          </section>
+        </Container>
+      )}
     </>
   );
 };
