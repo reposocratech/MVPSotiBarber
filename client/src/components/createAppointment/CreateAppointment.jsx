@@ -12,6 +12,7 @@ const initialValue = {
   end_hour: "",
   client_id: "",
   employee_id: "",
+  service_id: "",
   created_by_user_id: "",
   observations: ""
 }
@@ -23,7 +24,7 @@ const CreateAppointment = ( {events, setEvents, appointmentDate, show, handleClo
   const [valErrors, setValErrors] = useState({});
   const [search, setSearch] = useState("")
   const navigate = useNavigate()
-  const {token} = useContext(AuthContext);
+  const {token, services} = useContext(AuthContext);
   const [clientResults, setClientResults] = useState([]);
 
   useEffect(()=>{
@@ -254,6 +255,26 @@ const CreateAppointment = ( {events, setEvents, appointmentDate, show, handleClo
                       value={emp.user_id}
                     >
                       {emp.user_name} {emp.lastname}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label htmlFor='ServicioTextInput'>
+                  Servicio
+                </Form.Label>
+                <Form.Select 
+                  aria-label="Default select example"   id='ServicioTextInput'  className='inputDesc'
+                  name='service_id'
+                  onChange={handleChange}
+                >
+                  <option>Selecciona un servicio</option>
+                  {services.map(serv => (
+                    <option 
+                      key={serv.service_id} 
+                      value={serv.service_id}
+                    >
+                      {serv.service_name}
                     </option>
                   ))}
                 </Form.Select>

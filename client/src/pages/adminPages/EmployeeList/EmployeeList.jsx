@@ -62,18 +62,12 @@ const EmployeeList = () => {
     }
   };
 
+  const onEdit = (emp) => {
+    navigate(`/admin/editEmployee`, {state: {employee: emp}})
+  }
+
   return (
     <>
-            <section>
-        <h2 className="text-center">Empleados</h2>
-        <div className="blue-line"></div>
-        <Button onClick={() => navigate('/admin/createEmployee')}>
-          Crear empleados
-        </Button>
-        <Button onClick={() => navigate('/admin/editEmployee')}>
-          Editar empleados
-        </Button>
-      </section>
       <section className="padding-y-section">
         <div className="d-flex flex-column align-items-center justify-content-center py-4">
           <h3>Empleados</h3>
@@ -81,7 +75,14 @@ const EmployeeList = () => {
         </div>
         <Row>
           {employeeList.length === 0 ? (
-            <p>No hay empleados registrados.</p>
+            <div>
+              <p>No hay empleados registrados.</p>
+              <h2 className="text-center">Empleados</h2>
+              <div className="blue-line"></div>
+              <Button onClick={() => navigate('/admin/createEmployee')}>
+                Crear empleados
+              </Button>
+            </div>
           ) : (
             <Col className="d-flex justify-content-center align-items-center">
               <div className="table-employees d-flex flex-column align-items-center justify-content-center">
@@ -106,7 +107,7 @@ const EmployeeList = () => {
                     
                           <td>
                             <div className='d-flex' >
-                                    <Button onClick={() => navigate('/admin/editEmployee')}> Modificar empleado </Button>
+                                    <Button onClick={()=>onEdit(emp)}> Modificar empleado </Button>
 
                             <Form>
                               <Form.Check
