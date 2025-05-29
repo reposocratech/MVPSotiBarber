@@ -103,35 +103,17 @@ class ClientDal {
     }
   }
 
-  findAllClients = async () => {
-  try{
-  let sql = `SELECT user_id, user_name, lastname FROM user WHERE user_type = 3`;
-  const result = await executeQuery(sql);
-  return result;
-  } 
-  catch (error) {
-      throw error;
-    }
-}
-
-findUserByEmployee = async (user_id) => {
-  try {
-    const sql = "SELECT * FROM user WHERE user_id = ?";
-    const result = await executeQuery(sql, [user_id]);
-    return result;
-  } catch (error) {
-    throw error;
-  }
-}
 
 findAppointmentsByClientId = async (clientId) => {
   try {
-    const sql = `SELECT a.start_date, s.service_name AS tipo_cita, CONCAT(e.user_name, ' ', e.lastname) AS empleado,
-       s.price AS precio  FROM appointment a
-      INNER JOIN service s ON a.service_id = s.service_id
-      INNER JOIN user e ON a.employee_user_id = e.user_id
-      WHERE a.client_user_id = ?
-      ORDER BY a.start_date DESC
+    const sql = `SELECT 
+        a.start_date,
+        (SELECT s.service_name FROM service s WHERE s.service_id = a.service_id) AS tipo_cita,
+        (SELECT CONCAT(u.user_name, ' ', u.lastname) FROM user u WHERE u.user_id = a.employee_user_id) AS empleado,
+        (SELECT s.price FROM service s WHERE s.service_id = a.service_id) AS precio
+        FROM appointment a
+        WHERE a.client_user_id = ?
+        ORDER BY a.start_date DESC;
     `;
     const result = await executeQuery(sql, [clientId]);
     return result;
