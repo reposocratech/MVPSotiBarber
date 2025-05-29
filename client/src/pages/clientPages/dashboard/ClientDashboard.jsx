@@ -1,11 +1,11 @@
-import CompleteRegister from '../../../components/completeRegister/CompleteRegister';
 import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { UserIcon } from '../../../components/userIcon/UserIcon';
+import CompleteRegister from '../../../components/completeRegister/CompleteRegister';
 import { fetchData } from '../../../helpers/axiosHelpers';
 import './clientDashboard.css';
-import { useNavigate } from 'react-router-dom';
 
 const ClientDashboard = () => {
   const { user } = useContext(AuthContext);
@@ -16,75 +16,71 @@ const ClientDashboard = () => {
   const [totalCortes, setTotalCortes] = useState(0);
   const [cortesEsteMes, setCortesEsteMes] = useState(0);
 
-
   const perfilIncompleto =
-    !user.user_name || !user.lastname || !user.phone || !user.birth_date;
+    !user?.user_name || !user?.lastname || !user?.phone || !user?.birth_date;
 
   useEffect(() => {
     if (perfilIncompleto) {
-      setMostrarModal(perfilIncompleto);
+      setMostrarModal(true);
     }
   }, [perfilIncompleto]);
 
   const handleCompletado = () => {
     setMostrarModal(false);
-
-  }
-
-useEffect(() => {
-  if (!user?.user_id) return;
-
-  const fetchAppointments = async () => {
-    try {
-      const res = await fetchData(
-        `client/appointments/${user.user_id}`,
-        'get',
-        null,
-        localStorage.getItem("token")
-      );
-
-      const citas = res.data || res;
-
-      console.log("citas", citas);
-      setAppointments(citas);
-     
-      // Cortes totales
-      setTotalCortes(citas.length);
-
-      // Cortes de este mes
-      const now = new Date();
-      const currentMonth = now.getMonth();
-      const currentYear = now.getFullYear();
-
-      const cortesMesActual = citas.filter((cita) => {
-        const citaDate = new Date(cita.start_date);
-        return (
-          citaDate.getMonth() === currentMonth &&
-          citaDate.getFullYear() === currentYear
-        );
-      });
-
-      setCortesEsteMes(cortesMesActual.length);
-    } catch (err) {
-      console.error("Error cargando citas:", err);
-    }
-
   };
+
+  useEffect(() => {
+    if (!user?.user_id) return;
+
+    const fetchAppointments = async () => {
+      try {
+        const res = await fetchData(
+          `client/appointments/${user.user_id}`,
+          'get',
+          null,
+          localStorage.getItem("token")
+        );
+
+        const citas = res.data || res;
+        setAppointments(citas);
+
+        // Cortes totales
+        setTotalCortes(citas.length);
+
+        // Cortes de este mes
+        const now = new Date();
+        const currentMonth = now.getMonth();
+        const currentYear = now.getFullYear();
+
+        const cortesMesActual = citas.filter((cita) => {
+          const citaDate = new Date(cita.start_date);
+          return (
+            citaDate.getMonth() === currentMonth &&
+            citaDate.getFullYear() === currentYear
+          );
+        });
+
+        setCortesEsteMes(cortesMesActual.length);
+      } catch (err) {
+        console.error("Error cargando citas:", err);
+      }
+    };
 
     fetchAppointments();
   }, [user?.user_id]);
 
-//lógica del buscador:
+  // Lógica del buscador
+  const filteredAppointments = appointments.filter((cita) => {
+    const search = searchTerm.toLowerCase();
+    return (
+      cita.start_date.toLowerCase().includes(search) ||
+      cita.tipo_cita.toLowerCase().includes(search) ||
+      cita.empleado.toLowerCase().includes(search) ||
+      cita.precio.toString().includes(search)
+    );
+  });
 
-const filteredAppointments = appointments.filter((cita) => {
-  const search = searchTerm.toLowerCase();
-  return (
-    cita.start_date.toLowerCase().includes(search) ||
-    cita.tipo_cita.toLowerCase().includes(search) ||
-    cita.empleado.toLowerCase().includes(search) ||
-    cita.precio.toString().includes(search)
-  );
-});
+  if (!user) return null;
 
   return (
     <>
@@ -93,7 +89,6 @@ const filteredAppointments = appointments.filter((cita) => {
           <CompleteRegister onCompletar={handleCompletado} />
         </div>
       )}
-
 
       <Container>
         <section>
@@ -119,9 +114,6 @@ const filteredAppointments = appointments.filter((cita) => {
                         {user.user_name} {user.lastname}
                       </h3>
                       <span>{user.phone}</span>
-
-     
-
                     </div>
                     <Button
                       className="button"
@@ -130,7 +122,7 @@ const filteredAppointments = appointments.filter((cita) => {
                       Editar
                     </Button>
                   </div>
-
+                </div>
 
                 <div className="d-flex justify-content-between mt-4 summary-row">
                   <div className="text-center summary-box">
@@ -169,6 +161,7 @@ const filteredAppointments = appointments.filter((cita) => {
                     />
                   </div>
                 </div>
+
                 <div className="mt-3 bg-dark rounded p-3 table-scroll-wrapper">
                   <table className="tabla-citas text-white mb-0">
                     <colgroup>
@@ -186,8 +179,7 @@ const filteredAppointments = appointments.filter((cita) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {(searchTerm ? filteredAppointments : appointments)
-                        .length > 0 ? (
+                      {(searchTerm ? filteredAppointments : appointments).length > 0 ? (
                         (searchTerm ? filteredAppointments : appointments).map(
                           (cita, index) => (
                             <tr key={index}>
@@ -207,14 +199,12 @@ const filteredAppointments = appointments.filter((cita) => {
                       )}
                     </tbody>
                   </table>
-
-                 
                 </div>
-              </Col>
-            </Row>
-          </section>
-        </Container>
-      )}
+              </div>
+            </Col>
+          </Row>
+        </section>
+      </Container>
     </>
   );
 };
