@@ -17,13 +17,15 @@ router.get("/employeeList", verifyToken,adminControllers.getAllEmployees);
 router.put("/enabledEmployee/:id", verifyToken, adminControllers.enabledEmployee)
 router.post("/createEmployee", uploadImage("employee"), validateForms(createEmployeeSchema), verifyToken, adminControllers.createEmployee)
 router.put("/editEmployee", uploadImage("employee"), validateForms(editEmployeeSchema), verifyToken, adminControllers.editEmployee)
-router.post("/createAppointment", adminControllers.createAppointment)
+router.post("/createAppointment",verifyToken, adminControllers.createAppointment)
 router.put("/deleteService", verifyToken, adminControllers.deleteService);
 router.get("/clientListAppointment", verifyToken, adminControllers.clientListAppointment)
 router.get("/clientList", adminControllers.getAllClients);
 router.put("/enabledClient/:id", verifyToken, adminControllers.enabledClient)
 router.get("/clientListSearch", verifyToken, adminControllers.clientListAppointment)
 router.get("/getOneService/:id", verifyToken, adminControllers.getOneService);
+router.get("/getAllAppointments", verifyToken,adminControllers.getAllAppointments);
+
 
 
 

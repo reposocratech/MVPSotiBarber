@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { fetchData } from '../../../helpers/axiosHelpers';
 import { Button, Col, Form, FormCheck, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 import './clientList.css';
 
@@ -11,6 +12,7 @@ const AdminClientList = () => {
   const [search, setSearch] = useState("");
   const [clientResults, setClientResults] = useState([]);
   const clientsToDisplay = search.length >= 3 ? clientResults : clientList;
+  const navigate = useNavigate();
 
    console.log("searrrchhhhhh", clientResults);
    
@@ -85,6 +87,10 @@ const AdminClientList = () => {
     }
   };
 
+  const handleViewProfile = (id) => {
+    navigate(`/admin/clientProfile/${id}`);
+  };
+
   return (
     <>
       <section className="padding-y-section">
@@ -123,7 +129,9 @@ const AdminClientList = () => {
                           </td>
                           <td>
                             <div className="d-flex">
-                              <Button>Ver más</Button>
+                              <Button 
+                               onClick={()=> handleViewProfile(e.user_id)}
+                               >Ver más</Button>
                               <Form>
                                 <Form.Check
                                   className="enabled"

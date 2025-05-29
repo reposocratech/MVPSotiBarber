@@ -157,9 +157,15 @@ class AdminControllers {
     // console.log("reeeeqs", req.body)
     try {
       // console.log("cita", req.body)
-      await adminDal.createAppointment(req.body)
-      res.status(200).json({message: "creado correctamente"})
+      let result = await adminDal.createAppointment(req.body);
+     
+      
+      res.status(200).json({message: "creado correctamente", result})
+      console.log("¡¡¡¡¡¡¡¡", result);
+      
     } catch (error) {
+      console.log("error created appointment", error);
+      
       res.status(500).json({message: "error 500"})
     }
   }
@@ -202,6 +208,19 @@ class AdminControllers {
       res.status(500).json({message:"ups, hay algún problema"})
     }
   } 
+  
+  getAllAppointments = async (req, res) => {
+    
+    try {
+      let result = await adminDal.getAllAppointments();
+      res.status(200).json({message:"todo ok", result});
+      
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({message:"ups, hay algún problema"})
+      
+    }
+  }
 
   getOneService = async(req, res)=>{
 

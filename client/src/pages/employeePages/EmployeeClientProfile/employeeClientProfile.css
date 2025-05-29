@@ -1,47 +1,183 @@
 .client-profile {
   background-color: var(--color-componente);
+  border-radius: 10px;
+  color: var(--color-blanco);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 25rem;
 
-  h3{
+  h3 {
     font-size: 1.25rem;
+    margin-bottom: 0.25rem;
   }
 
-  .button{
-       background-color: var(--color-azul);
+  span {
+    font-size: 0.95rem;
+    color: var(--color-blanco);
+  }
+
+  .summary-row {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .summary-box h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  }
+
+  .summary-box {
+    background-color: var(--color-fondo);
+    padding: 1rem;
+    border-radius: 10px;
+    width: 48%;
+    display: inline-block;
+    min-width: 120px;
+  }
+
+ .button {
+    background-color: var(--color-azul);
     border: none;
-    padding: 8px 20px;
-    margin-top: 1rem;
-
-    &:hover {
-      background-color: var(--color-azul);
-      filter:brightness(80%)
-    }
+    padding: 0.625rem 2rem;        
+    font-size: 1rem;
+    height: 2.875rem;             
+    min-width: 10rem;             
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2rem;           
   }
+
+  .button:hover {
+    filter: brightness(85%);
+  }
+
+
 }
 
 .history {
-
   background-color: var(--color-componente);
+  border-radius: 10px;
+  color: var(--color-blanco);
+  height: 100%;
   display: flex;
-  
   flex-direction: column;
+  justify-content: space-between;
+  min-height: 25rem;
 
-  h3{
+  h3 {
     font-size: 1.25rem;
+    margin-bottom: 0.25rem;
   }
 
   span {
     font-size: 1rem;
+    color: var(--color-blanco);
+  }
+
+  .citas-box {
+    background-color: var(--color-componente);
+    padding: 10px 0;
+    border-radius: 10px;
+    color: var(--color-blanco);
+    font-weight: 500;
+    font-size: 1rem;
   }
 
   .button {
-           background-color: var(--color-azul);
+    background-color: var(--color-azul);
     border: none;
     padding: 8px 20px;
-    margin-top: 1rem;
 
     &:hover {
-      background-color: var(--color-azul);
-      filter:brightness(80%)
+      filter: brightness(85%);
     }
   }
+
+
+  .search-bar-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  }
+
+  .search-appointment-input {
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  max-width: 400px;
+  width: 100%;
+}
+
+  table {
+  width: 100%;
+  table-layout: fixed;
+  }
+
+
+  .col-fecha {
+  width: 25%;
+  }
+
+  .col-tipo {
+  width: 30%;
+  }
+
+  .col-empleado {
+  width: 30%;
+  }
+
+  .col-precio {
+  width: 15%;
+  }
+
+
+  table th {
+    color: var(--color-blanco);
+    font-weight: 600;
+    border-bottom: 1px solid #555;
+    padding: 0.5rem 1.5rem;
+    text-align: center;
+  
+  }
+
+  table td {
+    padding: 0.5rem 2rem;
+    border-bottom: 1px solid #444;
+    text-align: center;
+  }
+
+  .datos {
+  background-color: var(--color-fondo);
+  width: 100%;
+
+}
+
+.table-scroll-wrapper {
+  max-height: calc(4 * 2.8rem); 
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-fondo) var(--color-componente);
+  padding-right: 0.5rem;
+}
+
+.table-scroll-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.table-scroll-wrapper::-webkit-scrollbar-track {
+  background: var(--color-componente);
+}
+
+.table-scroll-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--color-fondo);
+  border-radius: 10px;
+}
+
+
+
 }
