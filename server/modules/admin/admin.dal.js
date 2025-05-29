@@ -130,7 +130,7 @@ class AdminDal {
 
 
   editEmployee = async(data) => {
-    const {user_name, lastname, phone, description, avatar, user_id} = data.data;
+    const {user_name, lastname, phone, description, user_id} = data.data;
 
     try {
       let sql = "update user set user_name = ?, lastname = ?, phone = ?, description = ? where user_id = ?";
@@ -139,10 +139,9 @@ class AdminDal {
 
       if (data.img) {
         sql = "update user set user_name = ?, lastname = ?, phone = ?, description = ?, avatar = ? where user_id = ?";
-        values = [user_name, lastname, phone, description, avatar, user_id]
-
-        await executeQuery(sql, values)
+        values = [user_name, lastname, phone, description, data.img.filename, user_id]
       }
+      await executeQuery(sql, values)
     } catch (error) {
       throw error
     }

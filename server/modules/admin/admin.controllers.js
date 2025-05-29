@@ -91,6 +91,7 @@ class AdminControllers {
         img: req.file
       }
 
+      console.log("data edit", data)
       // console.log("req.body", req.body)
       let result = await adminDal.editEmployee(data)
       res.status(200).json({result})
