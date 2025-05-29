@@ -1,38 +1,26 @@
-import React, { useContext, useEffect, useState} from 'react';
-import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
-import { useNavigate, useParams} from 'react-router-dom';
-import image from '../../../assets/icons/uploadimage.svg';
-import { fetchData } from '../../../helpers/axiosHelpers';
-import { AuthContext } from '../../../context/AuthContextProvider';
-import {editServiceSchema} from '../../../schemas/editServiceSchema.js'
-
-import './editservice.css';
+import React, { useContext, useEffect, useState } from 'react'
+import { editServiceSchema } from '../../schemas/editServiceSchema';
 import { ZodError } from 'zod';
+import { AuthContext } from '../../context/AuthContextProvider';
+import image from '../../assets/icons/uploadimage.svg'
+import { useNavigate } from 'react-router-dom';
+import { fetchData } from '../../helpers/axiosHelpers';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 
-const EditService = () => {
-  const navigate = useNavigate();
-  /* const [editedService, setEditedService] = useState(service); */
-  const { token, setServices } = useContext(AuthContext);
-  const [file, setFile] = useState();
-  const [valErrors, setValErrors] = useState({});
-  const [errorMsg, setErrorMsg] = useState('');
-  const [editedService, setEditedService] = useState({})
+export const FormEditService = ({service, handleClose, onUpdated}) => {
+  
+    const navigate = useNavigate();
+    const { token } = useContext(AuthContext);
+    const [file, setFile] = useState();
+    const [valErrors, setValErrors] = useState({});
+    const [errorMsg, setErrorMsg] = useState('');
+    const [editedService, setEditedService] = useState(service);
 
-  const {id} = useParams();
-
-
-  const fetchService = async()=>{
-    try {
-      let service = await fetchData(`admin/getOneService/${id}`, "get", null, token);
-      setEditedService(service.data.result);
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(()=>{
-    fetchService()
-  },[id])
+    useEffect(() => {
+        if (editedService) {
+          setEditedService(editedService);
+        }
+      }, [editedService]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,62 +33,49 @@ const EditService = () => {
   };
 
   const onSubmit = async () => {
-    try {
 
-      editServiceSchema.parse(editedService);
-
-      const newFormData = new FormData();
-
-      newFormData.append('data', JSON.stringify(editedService));
-      if (file) {
-        newFormData.append('file', file);
+      try {
+        editServiceSchema.parse(editedService);
+  
+        const newFormData = new FormData();
+  
+        newFormData.append("data", JSON.stringify(editedService));
+        if(file){
+          newFormData.append("file", file)
+        }
+  
+        let res = await fetchData(
+          'admin/editService',
+          'put',
+          newFormData,
+          token
+        );
+  
+    
+        onUpdated(editedService);
+        handleClose();
+      } catch (error) {
+        if (error instanceof ZodError){
+                let objTemp = {};
+                error.errors.forEach((er)=>{
+                  objTemp[er.path[0]] = er.message;
+                });
+                setValErrors(objTemp);
+              }else if (error.response){
+                setErrorMsg(error.response.data.message);
+              }else{
+                setErrorMsg("error");
+              }
+              console.log(error);
       }
-      
+    };
 
-      let res = await fetchData('admin/editService', 'put', newFormData, token);
-
-      //seteo el services del context con el servicio que he editado
-      setServices((prev) =>
-        prev.map((service) =>
-          service.service_id === editedService.service_id
-            ? res.data.result
-            : service
-        )
-      );
-
+    const cancel = () => {
       navigate('/admin/service');
-      console.log(res);
-    } catch (error) {
-
-      if (error instanceof ZodError){
-        let objTemp = {};
-        error.errors.forEach((er)=>{
-          objTemp[er.path[0]] = er.message;
-        });
-        setValErrors(objTemp);
-      }else if (error.response){
-        setErrorMsg(error.response.data.message);
-      }else{
-        setErrorMsg("error");
-      }
-      console.log(error);
-    }
-  };
-
-  const cancel = async () => {
-    navigate('/admin/service');
-  };
+    };
 
   return (
-    <section className="padding-y-section">
-      <Container>
-        <Row>
-          <div className="d-flex flex-column align-items-center justify-content-center">
-            <h3>Editar servicio</h3>
-            <div className="blue-line"></div>
-          </div>
-          <Col>
-            <Form className="edit-form">
+    <Form className="edit-form">
               <Form.Group className="mb-3">
                 <Form.Label>Nombre</Form.Label>
                 <Form.Control
@@ -211,7 +186,7 @@ const EditService = () => {
                 <Form.Control
                   id="imageInput"
                   type="file"
-                  hidden
+                  
                   onChange={handleChangeFile}
                 />
               </Form.Group>
@@ -225,11 +200,5 @@ const EditService = () => {
                 </Button>
               </div>
             </Form>
-          </Col>
-        </Row>
-      </Container>
-    </section>
-  );
-};
-
-export default EditService;
+  )
+}
