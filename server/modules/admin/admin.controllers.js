@@ -174,6 +174,34 @@ class AdminControllers {
       res.status(500).json({message: "error 500"})
     }
   }
+
+     getAllClients = async(req, res)=>{
+    try {
+      let result = await adminDal.getAllClients();
+       console.log(result)
+      res.status(200).json({clients:result});
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({message:"ups, hay algún problema"})
+    }
+  }
+
+      enabledClient = async(req, res)=>{
+
+    const {id} = req.params;
+    const {user_is_enabled} = req.body
+
+    try {
+      let result = await adminDal.enabledClient(id, user_is_enabled);
+      // console.log(result);
+      res.status(200).json({result})
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({message:"ups, hay algún problema"})
+    }
+  } 
+
+  
 }
 
 export default new AdminControllers();

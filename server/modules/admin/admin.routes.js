@@ -20,6 +20,9 @@ router.put("/editEmployee", validateForms(editEmployeeSchema), verifyToken, admi
 router.post("/createAppointment", adminControllers.createAppointment)
 router.put("/deleteService", verifyToken, adminControllers.deleteService);
 router.get("/clientListAppointment", verifyToken, adminControllers.clientListAppointment)
+router.get("/clientList", adminControllers.getAllClients);
+router.put("/enabledClient/:id", verifyToken, adminControllers.enabledClient)
+router.get("/clientListSearch", verifyToken, adminControllers.clientListAppointment)
 
 
 

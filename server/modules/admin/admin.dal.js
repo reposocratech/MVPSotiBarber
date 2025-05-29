@@ -185,6 +185,33 @@ class AdminDal {
       throw error;
     }
   }
+
+    getAllClients = async()=>{
+    try {
+      let sql = 'SELECT * FROM user WHERE user.user_type = 3 and user_is_deleted = 0'
+      let result = await executeQuery(sql)
+      // console.log("Clieentsss", result)
+      return result
+    } catch (error) {
+      console.log(error)
+      throw error;      
+    }
+  }
+
+      enabledClient = async(id, user_is_enabled)=>{
+
+    try {
+      let sql = 'UPDATE user SET user_is_enabled = ? WHERE user_id = ?'
+      let values = [user_is_enabled, id]
+
+      await executeQuery(sql, values)
+      
+    } catch (error) {
+      console.log(error)
+      throw error;    
+    }
+
+  }
 }
 
 export default new AdminDal();
