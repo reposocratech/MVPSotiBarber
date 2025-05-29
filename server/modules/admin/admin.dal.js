@@ -3,19 +3,18 @@ import { hashString } from "../../utils/hashUtils.js";
 
 class AdminDal {
 
-  createService = async(data) =>{
-    // eiofjeroifjreoifjreoigfhjreg
-    
+  createService = async (data) => {
     try {
-      const {service_name, estimated_time, price, service_description} = data;
-
-      let values = [service_name, estimated_time, price, service_description]
-
-      let sql = "INSERT INTO service (service_name, estimated_time, price, service_description) VALUES (?,?,?,?)"
-
+      const { service_name, estimated_time, price, service_description } = data.data;
+  
+      let sql = "INSERT INTO service (service_name, estimated_time, price, service_description, service_avatar) VALUES (?,?,?,?,?)";
+  
+      const service_avatar = data.img ? data.img.filename : null;
+  
+      const values = [service_name, estimated_time, price, service_description, service_avatar];
+  
       const result = await executeQuery(sql, values);
-
-      //return para que me devulva el user_id ¿¿¿¿ES CORRECTO ASÍ?????
+  
       return {
         service_id: result.insertId,
         service_name,
@@ -23,12 +22,12 @@ class AdminDal {
         estimated_time,
         service_description,
         service_is_enabled: 0,
+        service_avatar
       };
-      
     } catch (error) {
-      throw {message: "error de bd"}
+      throw { message: "error de bd" };
     }
-  }
+  };
 
   getAllServices = async()=>{
     try {
@@ -57,14 +56,21 @@ class AdminDal {
 
   }
 
-  editService = async(editService)=>{
+  editService = async(data)=>{
 
-    const {service_name, price, estimated_time, service_description, promo_name, promo_price, promo_start_date, promo_end_date, service_id} = editService
+    const {service_name, price, estimated_time, service_description, promo_name, promo_price, promo_start_date, promo_end_date, service_id} = data.data;
 
     try {
       
       let sql = 'UPDATE service SET service_name = ?, price = ?, estimated_time = ?, service_description = ?, promo_name = ?, promo_price = ?, promo_start_date = ?, promo_end_date = ? WHERE service_id = ?'
+
       let values = [service_name, price, estimated_time, service_description, promo_name, promo_price, promo_start_date, promo_end_date, service_id]
+
+      if(data.img){
+        sql = 'UPDATE service SET service_name = ?, price = ?, estimated_time = ?, service_description = ?, promo_name = ?, promo_price = ?, promo_start_date = ?, promo_end_date = ?, service_avatar = ? WHERE service_id = ?'
+
+        values = [service_name, price, estimated_time, service_description, promo_name, promo_price, promo_start_date, promo_end_date, data.img.filename,service_id]
+      }
 
       await executeQuery(sql, values)
 
