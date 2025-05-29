@@ -28,7 +28,7 @@ import EditEmployee from '../pages/adminPages/editEmployee/EditEmployee';
 import AdminClientList from '../pages/adminPages/clientList/AdminClientList';
 import Service from '../pages/adminPages/service/Service';
 import EditService from '../pages/adminPages/editService/EditService.jsx';
-import CreateService from '../pages/adminPages/createService/createService.jsx';
+import CreateService from '../pages/adminPages/createService/CreateService.jsx';
 /* import CreateAppointment from '../pages/adminPages/createAppointment/CreateAppointment.jsx'; */
 
 //Usuario del context

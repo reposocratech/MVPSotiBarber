@@ -1,153 +1,185 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Button, Form, InputGroup, Modal } from 'react-bootstrap'
-import { fetchData } from '../../helpers/axiosHelpers'
-import { AuthContext } from '../../context/AuthContextProvider'
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, Form, InputGroup, Modal } from 'react-bootstrap';
+import { fetchData } from '../../helpers/axiosHelpers';
+import { AuthContext } from '../../context/AuthContextProvider';
+import image from '../../assets/icons/uploadimage.svg'
 
-const ModalEditService = ({service, show, handleClose, onUpdated}) => {
-  const [editedService, setEditedService] = useState(service)
-  const {token} = useContext(AuthContext)
+const ModalEditService = ({ service, show, handleClose, onUpdated }) => {
+  const [editedService, setEditedService] = useState(service);
+  const { token } = useContext(AuthContext);
+  const [file, setFile] = useState();
+  console.log("SERVICIE EN EL MOVDAÑ",service)
 
-  useEffect(()=>{
-    if(service){
-      setEditedService(service)
+  useEffect(() => {
+    if (service) {
+      setEditedService(service);
     }
-  }, [])
+  }, []);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
+    setEditedService({ ...editedService, [name]: value });
+  };
 
-  const handleChange = (e)=>{
-    const {name, value} = e.target;
-
-    setEditedService({...editedService, [name]:value})
+  const handleChangeFile = (e) => {
+    setFile(e.target.files[0])
   }
-  
 
-  const onSubmit = async ()=>{
+  const onSubmit = async () => {
     try {
-      let res = await fetchData('admin/editService', "put", editedService, token)
+
+      const newFormData = new FormData();
+
+      newFormData.append("data", JSON.stringify(service));
+      if(file){
+        newFormData.append("file", file)
+      }
+
+      let res = await fetchData(
+        'admin/editService',
+        'put',
+        newFormData,
+        token
+      );
       console.log(res);
-      onUpdated(editedService)
+      onUpdated(editedService);
       handleClose();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
-    <Modal dialogClassName='modal-edit-service' show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title className='modal-title'>Editar Servicio</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Label>Nombre</Form.Label>
-              <Form.Control
-                type="text"
-                name="service_name"
-                value={editedService.service_name}
-                onChange={handleChange}
-                placeholder="Nombre"
-                autoFocus
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Precio</Form.Label>
+    <Modal
+      dialogClassName="modal-edit-service"
+      show={show}
+      onHide={handleClose}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title className="modal-title">Editar Servicio</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group className="mb-3">
+            <Form.Label>Nombre</Form.Label>
+            <Form.Control
+              type="text"
+              name="service_name"
+              value={editedService.service_name}
+              onChange={handleChange}
+              placeholder="Nombre"
+              autoFocus
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Precio</Form.Label>
             <InputGroup>
-                <InputGroup.Text>€</InputGroup.Text>
-                <Form.Control
-                  name="price"
-                  value={editedService.price}
-                  type="number"
-                  step="0.50"
-                  min="0"
-                  onChange={handleChange}
-                  placeholder="Precio"
-                />
-              </InputGroup>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="estimatedTimeInput">
-              <Form.Label>Duración</Form.Label>
+              <InputGroup.Text>€</InputGroup.Text>
               <Form.Control
-                name="estimated_time"
-                value={editedService.estimated_time}
+                name="price"
+                value={editedService.price}
                 type="number"
-                min="1"
-                step="1"
+                step="0.50"
+                min="0"
                 onChange={handleChange}
-                placeholder="Duración"
-                autoFocus
+                placeholder="Precio"
               />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="descriptionInput">
-              <Form.Label>Descripción</Form.Label>
-              <Form.Control
-                name="service_description"
-                value={editedService.service_description}
-                as="textarea"
-                rows={3}
-                maxLength={250}
-                onChange={handleChange}
-                placeholder="Descripción"
-                autoFocus
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="promoInput">
-              <Form.Label>Promoción</Form.Label>
-              <Form.Control
-                type="text"
-                name="promo_name"
-                placeholder="Nombre Promoción"
-                value={editedService.promo_name}
-                onChange={handleChange}
-                autoFocus
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="promoPriceInput">
+            </InputGroup>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="estimatedTimeInput">
+            <Form.Label>Duración</Form.Label>
+            <Form.Control
+              name="estimated_time"
+              value={editedService.estimated_time}
+              type="number"
+              min="1"
+              step="1"
+              onChange={handleChange}
+              placeholder="Duración"
+              autoFocus
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="descriptionInput">
+            <Form.Label>Descripción</Form.Label>
+            <Form.Control
+              name="service_description"
+              value={editedService.service_description}
+              as="textarea"
+              rows={3}
+              maxLength={250}
+              onChange={handleChange}
+              placeholder="Descripción"
+              autoFocus
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="promoInput">
+            <Form.Label>Promoción</Form.Label>
+            <Form.Control
+              type="text"
+              name="promo_name"
+              placeholder="Nombre Promoción"
+              value={editedService.promo_name}
+              onChange={handleChange}
+              autoFocus
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="promoPriceInput">
             <Form.Label>Precio Promoción</Form.Label>
             <InputGroup>
-                <InputGroup.Text>€</InputGroup.Text>
-                <Form.Control
-                  name="promo_price"
-                  value={editedService.promo_price}
-                  type="number"
-                  onChange={handleChange}
-                  placeholder="Precio Promoción"
-                />
-              </InputGroup>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="promoStartDateInput">
-              <Form.Label>Fecha Inicio Promoción</Form.Label>
+              <InputGroup.Text>€</InputGroup.Text>
               <Form.Control
-                type="date"
-                name="promo_start_date"
-                value={editedService.promo_start_date}
+                name="promo_price"
+                value={editedService.promo_price}
+                type="number"
                 onChange={handleChange}
-                autoFocus
+                placeholder="Precio Promoción"
               />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="promoEndDateInput">
-              <Form.Label>Fecha Fin Promoción</Form.Label>
-              <Form.Control
-                type="date"
-                name="promo_end_date"
-                value={editedService.promo_end_date}
-                onChange={handleChange}
-                autoFocus
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancelar
-          </Button>
-          <Button className='btn' onClick={onSubmit}>
-            Guardar
-          </Button>
-        </Modal.Footer>
-      </Modal>
-  )
-}
+            </InputGroup>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="promoStartDateInput">
+            <Form.Label>Fecha Inicio Promoción</Form.Label>
+            <Form.Control
+              type="date"
+              name="promo_start_date"
+              value={editedService.promo_start_date}
+              onChange={handleChange}
+              autoFocus
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="promoEndDateInput">
+            <Form.Label>Fecha Fin Promoción</Form.Label>
+            <Form.Control
+              type="date"
+              name="promo_end_date"
+              value={editedService.promo_end_date}
+              onChange={handleChange}
+              autoFocus
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label className="cursor-pointer" htmlFor="imageInput">
+              <img src={image} alt="" /> Subir imagen
+            </Form.Label>
+            <Form.Control
+              id="imageInput"
+              type="file"
+              hidden
+              onChange={handleChangeFile}
+            />
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Cancelar
+        </Button>
+        <Button className="btn" onClick={onSubmit}>
+          Guardar
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
 
-export default ModalEditService
+export default ModalEditService;

@@ -9,10 +9,10 @@ import { editEmployeeSchema } from "../../schemas/editEmployeeSchema.js";
 
 const router = express.Router();
 
-router.post("/createService",validateForms(createServiceSchema), verifyToken, adminControllers.createService);
+router.post("/createService",uploadImage("service"), validateForms(createServiceSchema), verifyToken, adminControllers.createService);
 router.get("/services", adminControllers.getAllServices);
 router.put("/enabledService/:id", verifyToken, adminControllers.enabledService)
-router.put("/editService", verifyToken, adminControllers.editService)
+router.put("/editService",uploadImage("service"), verifyToken, adminControllers.editService)
 router.get("/employeeList", verifyToken,adminControllers.getAllEmployees);
 router.put("/enabledEmployee/:id", verifyToken, adminControllers.enabledEmployee)
 router.post("/createEmployee", uploadImage("employee"), validateForms(createEmployeeSchema), verifyToken, adminControllers.createEmployee)
@@ -20,6 +20,9 @@ router.put("/editEmployee", uploadImage("employee"), validateForms(editEmployeeS
 router.post("/createAppointment", adminControllers.createAppointment)
 router.put("/deleteService", verifyToken, adminControllers.deleteService);
 router.get("/clientListAppointment", verifyToken, adminControllers.clientListAppointment)
+router.get("/clientList", adminControllers.getAllClients);
+router.put("/enabledClient/:id", verifyToken, adminControllers.enabledClient)
+router.get("/clientListSearch", verifyToken, adminControllers.clientListAppointment)
 
 
 
