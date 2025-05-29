@@ -22,6 +22,6 @@ router.put("/confirmAccount", clientControllers.confirmAccount)
 router.put("/completeFormRegister", validateForms(completeRegisterSchema), clientControllers.completeFormRegister)
 router.post('/contact', clientControllers.contactForm);
 router.put('/editClient',verifyToken, uploadImage("users"), clientControllers.editClient)
-
+router.get("/appointments/:id", verifyToken, clientControllers.getAppointmentsByClientId);
 
 export default router;
