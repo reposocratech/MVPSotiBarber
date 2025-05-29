@@ -53,6 +53,8 @@ class AdminControllers {
   }
 
   editService = async(req, res)=>{
+    console.log("req.body.data:", req.body.data); 
+  console.log("req.file:", req.file); 
     try {
       const data = {
         data: JSON.parse(req.body.data),
@@ -192,7 +194,7 @@ class AdminControllers {
     }
   }
 
-      enabledClient = async(req, res)=>{
+  enabledClient = async(req, res)=>{
 
     const {id} = req.params;
     const {user_is_enabled} = req.body
@@ -218,6 +220,20 @@ class AdminControllers {
       res.status(500).json({message:"ups, hay algún problema"})
       
     }
+  }
+
+  getOneService = async(req, res)=>{
+
+    try {
+      const {id} = req.params;
+      let result = await adminDal.getOneService(id);
+      res.status(200).json({result})
+
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({message:"ups, hay algún problema"})
+    }
+  
   }
 
   

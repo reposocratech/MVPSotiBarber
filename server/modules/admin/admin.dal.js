@@ -330,9 +330,21 @@ class AdminDal {
     } catch (error) {
       console.log(error);
 
-      throw error;
+
+  }
+
+  getOneService = async (id)=>{
+    try {
+      let sql = "SELECT * FROM service WHERE service_id = ?"
+      let values = [id]
+      const [result]= await executeQuery(sql, values)
+      return result;
+    } catch (error) {
+      console.log(error)
+      throw error;  
     }
-  };
+  }
+     
 }
 
 export default new AdminDal();
