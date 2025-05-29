@@ -85,7 +85,7 @@ class AdminControllers {
   editEmployee = async(req, res) => {
     try {
       const data = {
-        data: JSON.parse(req.body.editEmpData),
+        data: JSON.parse(req.body.data),
         img: req.file
       }
 

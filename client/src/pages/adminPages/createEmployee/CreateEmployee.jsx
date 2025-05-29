@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { fetchData } from '../../../helpers/axiosHelpers';
 import image from "../../../assets/icons/uploadimage.svg"
@@ -6,6 +6,7 @@ import "./createemployee.css"
 import {createEmployeeSchema} from "../../../schemas/createEmployeeSchema";
 import { ZodError } from 'zod';
 import { useNavigate } from "react-router-dom"
+import { AuthContext } from '../../../context/AuthContextProvider';
 
 const initialValue = {
   user_name: "",
@@ -23,6 +24,7 @@ const CreateEmployee = () => {
   const [valErrors, setValErrors] = useState({});
   const [file, setFile] = useState();
   const navigate = useNavigate()
+  const {token} = useContext(AuthContext)
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -46,7 +48,7 @@ const CreateEmployee = () => {
       }
 
       
-      const res = await fetchData("admin/createEmployee", "post", newFormData)
+      const res = await fetchData("admin/createEmployee", "post", newFormData, token)
       console.log("resss", res)
 
       navigate("/admin/employeeList")

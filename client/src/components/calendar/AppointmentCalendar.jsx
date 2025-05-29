@@ -26,7 +26,7 @@ const events = [
 ]
 
 
-const AppointmentCalendar = ({show, setShow, handleClose, setEmployeeList, employeeList}) => {
+const AppointmentCalendar = ({show, setShow, handleClose, setEmployeeList, employeeList, setServiceList, serviceList}) => {
  
   const [currentView, setCurrentView] = useState('day');
   const [currentDate, setCurrentdate] = useState("");
@@ -85,7 +85,7 @@ const AppointmentCalendar = ({show, setShow, handleClose, setEmployeeList, emplo
         onSelectSlot={selectSlot}
        
       />
-      <CreateAppointment events={events} setEvents={setEvents} appointmentDate={appointmentDate} employeeList={employeeList} handleClose={handleClose} show={show} setEmployeeList={setEmployeeList}  />
+      <CreateAppointment events={events} setEvents={setEvents} appointmentDate={appointmentDate} employeeList={employeeList} handleClose={handleClose} show={show} setEmployeeList={setEmployeeList} />
     </div>
   );
 };

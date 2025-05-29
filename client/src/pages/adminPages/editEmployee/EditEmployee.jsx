@@ -10,7 +10,7 @@ import { ZodError } from 'zod'
 
 const EditEmployee = () => {
   const {user, token} = useContext(AuthContext)
-  const [editEmpData, setEditEmpData] = useState(user)
+  const [editEmpData, setEditEmpData] = useState({})
   const [errorMsg, setErrorMsg] = useState("");
   const [valErrors, setValErrors] = useState({});
   const [file, setFile] = useState();
@@ -24,7 +24,10 @@ const EditEmployee = () => {
     if(employee) {
       setEditEmpData(employee)
     }
-  },[])
+    else {
+      navigate("/admin/employeeList")
+    }
+  },[employee, navigate])
   
   console.log("location", location)
 
@@ -49,7 +52,11 @@ const EditEmployee = () => {
       const newFormData = new FormData();
 
       newFormData.append("data", JSON.stringify(editEmpData));
-      newFormData.append("file", file)
+      if(file) {
+        newFormData.append("file", file)
+      }
+
+      console.log("token en onsubmit", token)
 
       await fetchData("admin/editEmployee", "put", newFormData, token)
 

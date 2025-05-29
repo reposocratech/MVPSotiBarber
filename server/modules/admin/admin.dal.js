@@ -4,7 +4,6 @@ import { hashString } from "../../utils/hashUtils.js";
 class AdminDal {
 
   createService = async(data) =>{
-    // eiofjeroifjreoifjreoigfhjreg
     
     try {
       const {service_name, estimated_time, price, service_description} = data;

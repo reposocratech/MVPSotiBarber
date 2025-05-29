@@ -36,6 +36,19 @@ const ChangePassword = () => {
       
     } catch (error) {
       console.log(error)
+      if(error instanceof ZodError){
+              let objTemp = {}
+              error.errors.forEach((er)=>{
+                objTemp[er.path[0]]=er.message
+              })
+              setValErrors(objTemp)
+            }
+      
+            if(error.response){
+              setErrorMsg(error.response.data.message)
+            }else{
+              setErrorMsg("ups, ha habido un error")
+            }
     }
   }
 
@@ -60,7 +73,7 @@ const ChangePassword = () => {
                   onChange={handleChange}
                   placeholder='Escribe tu contraseña'
                 />
-                {valErrors.email && <p>{valErrors.email}</p>}
+                {valErrors.newPassword && <p>{valErrors.newPassword}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='repeatPasswordTextInput'>
@@ -73,7 +86,7 @@ const ChangePassword = () => {
                   onChange={handleChange}
                   placeholder='Repite contraseña'
                 />
-                {valErrors.password && <p>{valErrors.password}</p>}
+                {valErrors.repeatPassword && <p>{valErrors.repeatPassword}</p>}
               </Form.Group>
               <p>{errorMsg}</p>
               <div className='d-flex justify-content-center'>
