@@ -3,6 +3,7 @@ import clientControllers from "./client.controllers.js";
 import { validateForms } from "../../middleware/validateForms.js"
 import { registerSchema } from "../../schemas/registerSchema.js";
 import { loginSchema } from "../../schemas/loginSchema.js";
+import { verifyTokenPassword } from "../../middleware/verifyTokenPassword.js";
 import { verifyToken } from "../../middleware/verifyToken.js";
 import { forgetPasswordSchema } from "../../schemas/forgetPasswordSchema.js";
 import { uploadImage } from "../../middleware/multer.js";
@@ -17,7 +18,7 @@ router.post("/register", validateForms(registerSchema), clientControllers.regist
 router.post("/login", validateForms(loginSchema), clientControllers.login);
 router.get("/userById", verifyToken, clientControllers.userById)
 router.post("/forgetPassword", validateForms(forgetPasswordSchema), clientControllers.forgetPassword)
-router.put("/passRecovery", validateForms(changePasswordSchema), clientControllers.passRecovery)
+router.put("/passRecovery", verifyTokenPassword, validateForms(changePasswordSchema) , clientControllers.passRecovery)
 router.put("/confirmAccount", clientControllers.confirmAccount)
 router.put("/completeFormRegister", validateForms(completeRegisterSchema), clientControllers.completeFormRegister)
 router.post('/contact', clientControllers.contactForm);

@@ -30,6 +30,7 @@ const EditEmployee = () => {
   },[employee, navigate])
   
   console.log("location", location)
+  console.log("lalalla", employee)
 
   const handleChange = (e) => {
     const {name, value} = e.target;
