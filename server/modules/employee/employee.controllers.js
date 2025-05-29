@@ -1,10 +1,11 @@
-import clientDal from "../user_client/client.dal.js"; 
+
+import employeeDal from "../employee/employee.dal.js";
 
 class EmployeeControllers{
 
  getAllClients = async (req, res) => {
   try {
-    const result = await clientDal.findAllClients();
+    const result = await employeeDal.findAllClients();
     if (!result || result.length === 0) {
         return res.status(404).json({ message: "No hay clientes registrados" });
       }
@@ -18,7 +19,7 @@ class EmployeeControllers{
 getClientByEmployee = async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await clientDal.findUserByEmployee(id);
+      const result = await employeeDal.findUserByEmployee(id);
 
       if (result.length === 0) {
         return res.status(404).json({ message: "Cliente no encontrado" });
