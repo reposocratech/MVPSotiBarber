@@ -12,23 +12,16 @@ import deletebtn from '../../../assets/icons/deleteicon.png';
 import editbtn from '../../../assets/icons/editicon.png';
 import { FormCreateService } from '../../../components/formCreateService/FormCreateService';
 
-/* const initialValue = {
-  service_name: '',
-  estimated_time: '',
-  price: '',
-  service_description: '',
-}; */
 
 const Service = () => {
   const { token, services, setServices } = useContext(AuthContext);
-  // const [service, setService] = useState(initialValue);
+
   const [isMobile, setIsMobile] = useState(false);
   const [modalService, setModalService] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  // const [valErrors, setValErrors] = useState({});
-  // const [errorMsg, setErrorMsg] = useState('');
+
   const navigate = useNavigate();
-  // const [maxLength, setMaxLength] = useState(0)
+ 
 
   console.log("SERVICES EN EL SERVICE",services)
 
@@ -46,66 +39,10 @@ const Service = () => {
   }, []);
   console.log('anchura pantalla', window.innerWidth);
 
-  /* const handleChange = (e) => {
-      let { name, value } = e.target;
-    
-      const regex = /^\d*([.,]?\d{0,2})?$/;
-      if (
-        name !== "price" ||
-        (name === "price" && regex.test(value)) ||
-        (name === "price" && value === "")
-      ) {
-        if (name === "price") {
-          value = value.replace(",", ".");
-        } else if (name !== "service_description") {
-          value = value.trim(); 
-        }
-    
-        if (name === "service_description" && value.length < 251) {
-          setMaxLength(value.length);
-          setService({ ...service, [name]: value });
-        } else if (name !== "service_description") {
-          setService({ ...service, [name]: value });
-        }
-      }
-    };
-  console.log('SERVICIO', service);
+  
+ 
 
-  //NO HEMOS METIDO IMAGEN EN LA TABLA SERVICE
-
-  const handleChangeFile = (e) => {
-    const {name} = e.target;
-    setService({...service, [name]: e.target.files[0] })
-  };
-
-  const onSubmit = async () => {
-    try {
-      createServiceSchema.parse(service);
-      let res = await fetchData('admin/createService', 'post', service, token);
-
-      console.log('REEEESSSSSSS', res.data.service);
-
-      //seteo services con el nuevo servicio y le pongo el campo de habilitado
-      setErrorMsg(res.data.message);
-      setValErrors({});
-      //seteo servicios con el servicio nuevo que ya tiene el id incluido (me lo traigo del return de la query)
-      setServices([...services, res.data.service]);
-      setService(initialValue);
-    } catch (error) {
-      if (error instanceof ZodError) {
-        let objTemp = {};
-        error.errors.forEach((er) => {
-          objTemp[er.path[0]] = er.message;
-        });
-        setValErrors(objTemp);
-      } else if (error.response) {
-        setErrorMsg(error.response.data.message);
-      } else {
-        setErrorMsg('error');
-      }
-      console.log(error);
-    }
-  }; */
+  
 
   const enableSwitch = async (id) => {
     //me busca el servicio que quiero cambiar y le cambia el estado
@@ -137,13 +74,11 @@ const Service = () => {
       console.log(error);
     }
   };
-
+  
   const editService = async (service) => {
     try {
       if (isMobile) {
-        navigate(`/admin/editService/${service.service_id}`, {
-          state: { service },
-        });
+        navigate(`/admin/editService/${service.service_id}`);
       } else {
         //cierro y limpio el modal
         setShowModal(false);
@@ -195,6 +130,8 @@ const Service = () => {
     }
   };
 
+  
+
   return (
     <section className="padding-y-section">
       <div className="d-flex flex-column align-items-center justify-content-center py-4">
@@ -237,7 +174,7 @@ const Service = () => {
                                 type="switch"
                                 id="custom-switch"
                                 checked={e.service_is_enabled === 0}
-                                onChange={() => enableSwitch(e.service_id)}
+                                onChange={() => enableSwitch(e?.service_id)}
                               />
                             </Form>
                           </td>

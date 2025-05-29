@@ -1,24 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import userIcon from '../../../assets/icons/userlogo.png';
 import "./clientlist.css";
+import { fetchData } from '../../../helpers/axiosHelpers';
+import { AuthContext } from '../../../context/AuthContextProvider';
 
 const ClientList = () => {
   const [clients, setClients] = useState([]);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
+  const {token} = useContext(AuthContext)
 
   useEffect(() => {
+
     const fetchClients = async () => {
-      try {
-        const res = await fetch("http://localhost:4000/employee/clientList", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        const data = await res.json();
-        setClients(data);
+      try{
+        const res = await fetchData (
+          'employee/clientList',
+          'get',
+          null,
+          token
+        );
+        console.log('clientes',res);
+
+        setClients(res.data);
       } catch (error) {
         console.error("Error al cargar clientes:", error);
       }
