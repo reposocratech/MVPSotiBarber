@@ -9,17 +9,14 @@ class AdminControllers {
 
   createService = async (req, res)=>{
     try {
-      const {service_name, estimated_time, price, service_description} = req.body
-
-      let data ={
-        service_name,
-        estimated_time,
-        price,
-        service_description,
+     
+      const data = {
+        data: JSON.parse(req.body.data),
+        img: req.file
       }
 
       let result = await adminDal.createService(data);
-      res.status(200).json({result, message:"creado correctamente", service:result})
+      res.status(200).json({ message:"creado correctamente", service:result})
 
 
       
@@ -57,7 +54,12 @@ class AdminControllers {
 
   editService = async(req, res)=>{
     try {
-      let result = await adminDal.editService(req.body)
+      const data = {
+        data: JSON.parse(req.body.data),
+        img: req.file
+      }
+
+      let result = await adminDal.editService(data)
       // console.log(result)
       res.status(200).json({result})
     } catch (error) {

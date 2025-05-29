@@ -3,6 +3,7 @@ import {Container, Row, Col, Button} from 'react-bootstrap'
 import './servicelist.css'
 import { AuthContext } from '../../../context/AuthContextProvider'
 import { Link } from 'react-router-dom'
+import defaultService from '../../../assets/images/defaultservice.jpg'
 
 const ServiceList = () => {
   const {services} = useContext(AuthContext)
@@ -17,7 +18,7 @@ const ServiceList = () => {
         <div className='blue-line'></div>
         </div>
           <Col>
-            <div className='service-list'>
+            <div className='service-list d-flex justify-content-center align-items-center'>
           <table>
           <thead>
           </thead>
@@ -33,7 +34,7 @@ const ServiceList = () => {
                     </div>
                     </td>
                     <td>
-                      foto
+                    <img src={service.service_avatar?`${import.meta.env.VITE_SERVER_URL}images/service/${service.service_avatar}`:defaultService} alt="servicio" />
                     </td>
                     </tr>
                 )
