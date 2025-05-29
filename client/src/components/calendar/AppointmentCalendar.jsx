@@ -9,62 +9,72 @@ import { fetchData } from '../../helpers/axiosHelpers.js';
 import { AuthContext } from '../../context/AuthContextProvider.jsx';
 import CreateAppointment from '../createAppointment/CreateAppointment.jsx';
 
-
-const events = [
-  {title: "evento 1",
-    start: new Date("2025-05-28T12:00:00"),
-    end: new Date("2025-05-28T12:30:00"),
-    description: "descripcion evento 1"
-
-  },
-    {title: "evento 2",
-    start: new Date("2025-05-29T12:00:00"),
-    end: new Date("2025-05-29T12:30:00"),
-    description: "descripcion evento 2"
-
-  }
-]
-
-
-const AppointmentCalendar = ({show, setShow, handleClose, setEmployeeList, employeeList, setServiceList, serviceList}) => {
- 
+const AppointmentCalendar = ({
+  show,
+  setShow,
+  handleClose,
+  setEmployeeList,
+  employeeList,
+}) => {
   const [currentView, setCurrentView] = useState('day');
-  const [currentDate, setCurrentdate] = useState("");
-  const [appointmentDate, setAppointmentDate] = useState({start:"", end:""})
-  const [events, setEvents] = useState([
-    {title: "evento 1",
-    start: new Date("2025-05-28T12:00:00"),
-    end: new Date("2025-05-28T12:30:00"),
-    description: "descripcion evento 1"
+  const [currentDate, setCurrentdate] = useState('');
+  const [appointmentDate, setAppointmentDate] = useState({
+    start: '',
+    end: '',
+  });
+  const [events, setEvents] = useState([]);
+  const { token } = useContext(AuthContext);
 
-  },
-    {title: "evento 2",
-    start: new Date("2025-05-29T12:00:00"),
-    end: new Date("2025-05-29T12:30:00"),
-    description: "descripcion evento 2"
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        let result = await fetchData(
+          'admin/getAllAppointments',
+          'get',
+          null,
+          token
+        );
+        const appointments = result.data.result;
 
-  }])
-  
-  console.log("evento", events)
-  const handleNavigate = (newDate)=>{
-    setCurrentdate(newDate)
-  }
+        const formattedEvents = appointments.map((e) => ({
+          id: e.appointment_id,
+          start: new Date(`${e.start_date}T${e.start_hour}`),
+          end: new Date(`${e.end_date}T${e.end_hour}`),
+          title: `${e.client_name} ${e.client_lastname} (${e.employee_name})`,
+          description: e.observation,
+          resource: {
+            created_by: `${e.created_by_name} ${e.created_by_lastname}`,
+          },
+        }));
 
+        setEvents(formattedEvents);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchAppointments();
+  }, [token]);
+
+ 
+  const handleNavigate = (newDate) => {
+    setCurrentdate(newDate);
+  };
+
+   //Sirve para abrir la cita del calendario
   const selectEvent = (event) => {
     console.log(event);
-    
-  }
+  };
 
   const selectSlot = (event) => {
-    console.log("evenroo", event.start, event.end)
-    setAppointmentDate({start:event.start, end:event.end})
-    setShow(true)
-  }
+    setAppointmentDate({ start: event.start, end: event.end });
+    setShow(true);
+  };
 
   return (
     <div className="calendario-citas">
       <Calendar
-        culture='es'
+        culture="es"
         messages={calendarMessages()}
         localizer={localizer}
         defaultView="day"
@@ -73,7 +83,7 @@ const AppointmentCalendar = ({show, setShow, handleClose, setEmployeeList, emplo
         startAccessor="start"
         endAccessor="end"
         view={currentView}
-        onView={view => setCurrentView(view)}
+        onView={(view) => setCurrentView(view)}
         onNavigate={handleNavigate}
         date={currentDate}
         min={new Date(2025, 1, 1, 10, 0)}
@@ -83,9 +93,16 @@ const AppointmentCalendar = ({show, setShow, handleClose, setEmployeeList, emplo
         onSelectEvent={selectEvent}
         selectable
         onSelectSlot={selectSlot}
-       
       />
-      <CreateAppointment events={events} setEvents={setEvents} appointmentDate={appointmentDate} employeeList={employeeList} handleClose={handleClose} show={show} setEmployeeList={setEmployeeList} />
+      <CreateAppointment
+        events={events}
+        setEvents={setEvents}
+        appointmentDate={appointmentDate}
+        employeeList={employeeList}
+        handleClose={handleClose}
+        show={show}
+        setEmployeeList={setEmployeeList}
+      />
     </div>
   );
 };

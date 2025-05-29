@@ -1,21 +1,27 @@
-import executeQuery from "../../config/db.js";
-import { hashString } from "../../utils/hashUtils.js";
+import executeQuery, { dbPool } from '../../config/db.js';
+import { hashString } from '../../utils/hashUtils.js';
 
 class AdminDal {
-
-
   createService = async (data) => {
     try {
-      const { service_name, estimated_time, price, service_description } = data.data;
-  
-      let sql = "INSERT INTO service (service_name, estimated_time, price, service_description, service_avatar) VALUES (?,?,?,?,?)";
-  
+      const { service_name, estimated_time, price, service_description } =
+        data.data;
+
+      let sql =
+        'INSERT INTO service (service_name, estimated_time, price, service_description, service_avatar) VALUES (?,?,?,?,?)';
+
       const service_avatar = data.img ? data.img.filename : null;
-  
-      const values = [service_name, estimated_time, price, service_description, service_avatar];
-  
+
+      const values = [
+        service_name,
+        estimated_time,
+        price,
+        service_description,
+        service_avatar,
+      ];
+
       const result = await executeQuery(sql, values);
-  
+
       return {
         service_id: result.insertId,
         service_name,
@@ -23,196 +29,310 @@ class AdminDal {
         estimated_time,
         service_description,
         service_is_enabled: 0,
-        service_avatar
+        service_avatar,
       };
     } catch (error) {
-      throw { message: "error de bd" };
+      throw { message: 'error de bd' };
     }
   };
 
-  getAllServices = async()=>{
+  getAllServices = async () => {
     try {
-      let sql = 'SELECT * FROM service WHERE service_is_deleted = 0'
-      let result = await executeQuery(sql)
+      let sql = 'SELECT * FROM service WHERE service_is_deleted = 0';
+      let result = await executeQuery(sql);
       // console.log("SERVICESENELDAL", result)
-      return result
+      return result;
     } catch (error) {
-      console.log(error)
-      throw error;      
-    }
-  }
-
-  enabledService = async(id, service_is_enabled)=>{
-
-    try {
-      let sql = 'UPDATE service SET service_is_enabled = ? WHERE service_id = ?'
-      let values = [service_is_enabled, id]
-
-      await executeQuery(sql, values)
-      
-    } catch (error) {
-      console.log(error)
-      throw error;    
-    }
-
-  }
-
-  editService = async(data)=>{
-
-    const {service_name, price, estimated_time, service_description, promo_name, promo_price, promo_start_date, promo_end_date, service_id} = data.data;
-
-    try {
-      
-      let sql = 'UPDATE service SET service_name = ?, price = ?, estimated_time = ?, service_description = ?, promo_name = ?, promo_price = ?, promo_start_date = ?, promo_end_date = ? WHERE service_id = ?'
-
-      let values = [service_name, price, estimated_time, service_description, promo_name, promo_price, promo_start_date, promo_end_date, service_id]
-
-      if(data.img){
-        sql = 'UPDATE service SET service_name = ?, price = ?, estimated_time = ?, service_description = ?, promo_name = ?, promo_price = ?, promo_start_date = ?, promo_end_date = ?, service_avatar = ? WHERE service_id = ?'
-
-        values = [service_name, price, estimated_time, service_description, promo_name, promo_price, promo_start_date, promo_end_date, data.img.filename,service_id]
-      }
-
-      await executeQuery(sql, values)
-
-    } catch (error) {
-      console.log(error)
+      console.log(error);
       throw error;
     }
-  }
+  };
 
-  createEmployee = async(data) => {
-    // console.log("dataaaaa dal", data)
-    const {user_name, lastname, phone, email, password, description} = data.data;
+  enabledService = async (id, service_is_enabled) => {
     try {
-      const hashedPassword = await hashString(password)
+      let sql =
+        'UPDATE service SET service_is_enabled = ? WHERE service_id = ?';
+      let values = [service_is_enabled, id];
 
-      let sql = "insert into user (user_name, lastname, email, phone, password, description, user_type) values (?,?,?,?,?,?,?)"
-      let values = [user_name, lastname, email, phone, hashedPassword, description, 2]
+      await executeQuery(sql, values);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
 
-      if(data.img){
-        sql = "insert into user (user_name, lastname, email, phone, password, description, user_type, avatar) values (?,?,?,?,?,?,?,?)";
-        values = [user_name, lastname, email, phone, hashedPassword, description, 2, data.img.filename]
+  editService = async (data) => {
+    const {
+      service_name,
+      price,
+      estimated_time,
+      service_description,
+      promo_name,
+      promo_price,
+      promo_start_date,
+      promo_end_date,
+      service_id,
+    } = data.data;
+
+    try {
+      let sql =
+        'UPDATE service SET service_name = ?, price = ?, estimated_time = ?, service_description = ?, promo_name = ?, promo_price = ?, promo_start_date = ?, promo_end_date = ? WHERE service_id = ?';
+
+      let values = [
+        service_name,
+        price,
+        estimated_time,
+        service_description,
+        promo_name,
+        promo_price,
+        promo_start_date,
+        promo_end_date,
+        service_id,
+      ];
+
+      if (data.img) {
+        sql =
+          'UPDATE service SET service_name = ?, price = ?, estimated_time = ?, service_description = ?, promo_name = ?, promo_price = ?, promo_start_date = ?, promo_end_date = ?, service_avatar = ? WHERE service_id = ?';
+
+        values = [
+          service_name,
+          price,
+          estimated_time,
+          service_description,
+          promo_name,
+          promo_price,
+          promo_start_date,
+          promo_end_date,
+          data.img.filename,
+          service_id,
+        ];
+      }
+
+      await executeQuery(sql, values);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
+  createEmployee = async (data) => {
+    // console.log("dataaaaa dal", data)
+    const { user_name, lastname, phone, email, password, description } =
+      data.data;
+    try {
+      const hashedPassword = await hashString(password);
+
+      let sql =
+        'insert into user (user_name, lastname, email, phone, password, description, user_type) values (?,?,?,?,?,?,?)';
+      let values = [
+        user_name,
+        lastname,
+        email,
+        phone,
+        hashedPassword,
+        description,
+        2,
+      ];
+
+      if (data.img) {
+        sql =
+          'insert into user (user_name, lastname, email, phone, password, description, user_type, avatar) values (?,?,?,?,?,?,?,?)';
+        values = [
+          user_name,
+          lastname,
+          email,
+          phone,
+          hashedPassword,
+          description,
+          2,
+          data.img.filename,
+        ];
       }
       await executeQuery(sql, values);
     } catch (error) {
       throw error;
     }
-  }
+  };
 
-
-   getAllEmployees = async()=>{
+  getAllEmployees = async () => {
     try {
-      let sql = 'SELECT * FROM user WHERE user.user_type = 2 and user_is_deleted = 0'
-      let result = await executeQuery(sql)
+      let sql =
+        'SELECT * FROM user WHERE user.user_type = 2 and user_is_deleted = 0';
+      let result = await executeQuery(sql);
       // console.log("Employeeeees", result)
-      return result
+      return result;
     } catch (error) {
-      console.log(error)
-      throw error;      
+      console.log(error);
+      throw error;
     }
-  }
+  };
 
-    enabledEmployee = async(id, user_is_enabled)=>{
+  enabledEmployee = async (id, user_is_enabled) => {
+    try {
+      let sql = 'UPDATE user SET user_is_enabled = ? WHERE user_id = ?';
+      let values = [user_is_enabled, id];
+
+      await executeQuery(sql, values);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
+  editEmployee = async (data) => {
+    const { user_name, lastname, phone, description, avatar, user_id } =
+      data.data;
 
     try {
-      let sql = 'UPDATE user SET user_is_enabled = ? WHERE user_id = ?'
-      let values = [user_is_enabled, id]
+      let sql =
+        'update user set user_name = ?, lastname = ?, phone = ?, description = ? where user_id = ?';
 
-      await executeQuery(sql, values)
-      
-    } catch (error) {
-      console.log(error)
-      throw error;    
-    }
-
-  }
-
-
-  editEmployee = async(data) => {
-    const {user_name, lastname, phone, description, avatar, user_id} = data.data;
-
-    try {
-      let sql = "update user set user_name = ?, lastname = ?, phone = ?, description = ? where user_id = ?";
-
-      let values = [user_name, lastname, phone, description, user_id]
+      let values = [user_name, lastname, phone, description, user_id];
 
       if (data.img) {
-        sql = "update user set user_name = ?, lastname = ?, phone = ?, description = ?, avatar = ? where user_id = ?";
-        values = [user_name, lastname, phone, description, avatar, user_id]
+        sql =
+          'update user set user_name = ?, lastname = ?, phone = ?, description = ?, avatar = ? where user_id = ?';
+        values = [user_name, lastname, phone, description, avatar, user_id];
 
-        await executeQuery(sql, values)
+        await executeQuery(sql, values);
       }
     } catch (error) {
-      throw error
+      throw error;
     }
-  }
+  };
 
   clientListAppointment = async (search) => {
     try {
-      let textoBuscado = (search);
-      let palabras = textoBuscado.split(" ");
+      let textoBuscado = search;
+      let palabras = textoBuscado.split(' ');
 
       let sql = `select user_id, user_name, lastname, phone, email from user where user_type = 3 and user_is_deleted = 0`;
 
       for (let palabra of palabras) {
-        sql += ` and (user_name like "%${palabra}%" or lastname like "%${palabra}%" or phone like "%${palabra}%" or email like "%${palabra}%")`
+        sql += ` and (user_name like "%${palabra}%" or lastname like "%${palabra}%" or phone like "%${palabra}%" or email like "%${palabra}%")`;
       }
 
-      const result = await executeQuery (sql)
+      const result = await executeQuery(sql);
       return result;
     } catch (error) {
       throw error;
     }
-  }
+  };
 
-  createAppointment = async(data) => {
-    const {date, hour, client_name, client_lastname, employee, phone, observations} = data;
+  createAppointment = async (data) => {
+    const {
+      client_id,
+      created_by_user_id,
+      employee_id,
+      end_date,
+      end_hour,
+      observations,
+      service_id,
+      start_date,
+      start_hour,
+    } = data;
 
+    console.log('citaaaaa', data);
+    const connection = await dbPool.getConnection();
     try {
+      await connection.beginTransaction();
+      let sqlid =
+        'SELECT IFNULL(MAX(appointment_id),0) as max_id FROM appointment';
+      let [res] = await connection.query(sqlid);
+      let maxId = res[0].max_id;
+      maxId++;
+      console.log('queryyyyyyy', [maxId]);
+
+      let sql =
+        'INSERT INTO appointment (appointment_id, client_user_id, created_by_user_id, employee_user_id, end_date, end_hour, observation, service_id, start_date, start_hour) VALUES (?,?,?,?,?,?,?,?,?,?)';
+      let values = [
+        maxId,
+        client_id,
+        created_by_user_id,
+        employee_id,
+        end_date,
+        end_hour,
+        observations,
+        service_id,
+        start_date,
+        start_hour,
+      ];
+
+      await connection.query(sql, values);
+      /* let sqlAppointment = 'SELECT * FROM appointment WHERE appointment_id = ? AND status = 1'
       
+      let [resAppointment] = await connection.query(sqlAppointment, maxId) */
+      await connection.commit();
+      /*  return resAppointment; */
     } catch (error) {
-      throw error
+      console.log(error);
+
+      await connection.rollback();
+
+      throw error;
+    } finally {
+      connection.release();
     }
-  }
+  };
 
-  deleteService = async(id) =>{
+  deleteService = async (id) => {
     try {
-      let sql = "UPDATE service SET service_is_deleted = 1 WHERE service_id = ?";
+      let sql =
+        'UPDATE service SET service_is_deleted = 1 WHERE service_id = ?';
 
-      await executeQuery(sql, [id])
+      await executeQuery(sql, [id]);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       throw error;
     }
-  }
+  };
 
-    getAllClients = async()=>{
+  getAllClients = async () => {
     try {
-      let sql = 'SELECT * FROM user WHERE user.user_type = 3 and user_is_deleted = 0'
-      let result = await executeQuery(sql)
+      let sql =
+        'SELECT * FROM user WHERE user.user_type = 3 and user_is_deleted = 0';
+      let result = await executeQuery(sql);
       // console.log("Clieentsss", result)
-      return result
+      return result;
     } catch (error) {
-      console.log(error)
-      throw error;      
+      console.log(error);
+      throw error;
     }
-  }
+  };
 
-      enabledClient = async(id, user_is_enabled)=>{
-
+  enabledClient = async (id, user_is_enabled) => {
     try {
-      let sql = 'UPDATE user SET user_is_enabled = ? WHERE user_id = ?'
-      let values = [user_is_enabled, id]
+      let sql = 'UPDATE user SET user_is_enabled = ? WHERE user_id = ?';
+      let values = [user_is_enabled, id];
 
-      await executeQuery(sql, values)
-      
+      await executeQuery(sql, values);
     } catch (error) {
-      console.log(error)
-      throw error;    
+      console.log(error);
+      throw error;
     }
+  };
 
-  }
+  getAllAppointments = async () => {
+    try {
+      let sql = `SELECT a.start_date, a.end_date, a.start_hour, a.end_hour, a.observation, a.status, client.user_name AS client_name,
+   client.lastname AS client_lastname,
+   employee.user_name AS employee_name, employee.lastname AS employee_lastname,
+   creator.user_name AS created_by_name, creator.lastname AS created_by_lastname,
+   s.service_name
+  FROM appointment a
+  LEFT JOIN user client ON a.client_user_id = client.user_id
+  LEFT JOIN user employee ON a.employee_user_id = employee.user_id
+  LEFT JOIN user creator ON a.created_by_user_id = creator.user_id
+  LEFT JOIN service s ON a.service_id = s.service_id
+  WHERE a.status != 2`;
+      let result = await executeQuery(sql);
+      return result;
+    } catch (error) {
+      console.log(error);
+
+      throw error;
+    }
+  };
 }
 
 export default new AdminDal();
