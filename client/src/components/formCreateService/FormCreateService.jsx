@@ -47,7 +47,6 @@ export const FormCreateService = () => {
       }
     }
   };
-  console.log('SERVICIO', service);
 
   const handleChangeFile = (e) => {
     setFile(e.target.files[0])

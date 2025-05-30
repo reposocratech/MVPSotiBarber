@@ -18,9 +18,6 @@ const ChangePassword = () => {
   const token = searchParams.get("token");
   const navigate = useNavigate()
 
-  useEffect(()=>{
-    console.log("token recibido desde la url", token)
-  },[token])
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -52,7 +49,6 @@ const ChangePassword = () => {
     }
   }
 
-  console.log()
 
   return (
     <section>

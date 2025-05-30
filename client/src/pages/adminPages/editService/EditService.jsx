@@ -69,7 +69,6 @@ const EditService = () => {
       );
 
       navigate('/admin/service');
-      console.log(res);
     } catch (error) {
 
       if (error instanceof ZodError){

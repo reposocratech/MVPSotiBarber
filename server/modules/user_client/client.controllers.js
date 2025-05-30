@@ -26,7 +26,6 @@ class ClientControllers {
           process.env.TOKEN_KEY_CONFIRM
         );
         sendMail(email, tokenconfirm);
-        console.log(tokenconfirm);
         res.status(201).json({ tokenconfirm, message: 'creado correctamente' });
       }
     } catch (error) {
@@ -41,7 +40,6 @@ class ClientControllers {
 
       const result = await clientDal.findUserByEmailLogin(email);
 
-      console.log('LOOOGINRESULLT', result);
 
       if (result.length === 0) {
         res.status(401).json({ message: 'Email o contraseña no válidas' });
@@ -68,7 +66,6 @@ class ClientControllers {
   userById = async (req, res) => {
     try {
       const { user_id } = req;
-      console.log('**********', user_id);
       let result = await clientDal.findUserById(user_id);
 
       let userData = {
@@ -95,9 +92,7 @@ class ClientControllers {
   forgetPassword = async (req, res) => {
     try {
       const { email } = req.body;
-      // console.log("emaaaaiiiiil", email)
       const result = await clientDal.findUserByEmail(email);
-      // console.log("resuuuult", result)
 
       const tokenFP = jwt.sign(
         { user_id: result[0]?.user_id },
@@ -105,8 +100,6 @@ class ClientControllers {
       );
       sendMailPassword(email, tokenFP);
 
-      // console.log("user_id", user_id)
-      // console.log("tokenFP", tokenFP)
     } catch (error) {
       console.log('errForgetPassword', error);
     }
@@ -117,14 +110,12 @@ class ClientControllers {
       const authHeader = req.headers.authorization;
       const token = authHeader && authHeader.split(' ')[1];
       const { newPassword } = req.body;
-      // console.log("tokensitoooo", token)
 
       const decoded = jwt.verify(token, process.env.TOKEN_KEY_FORGETPASSWORD);
       const user_id = decoded.user_id;
 
       const result = await clientDal.findPasswordById(user_id);
       let prevpass = result[0].password;
-      // console.log("antigua contra", prevpass)
 
       if (!prevpass) {
         res.status(401).json({ message: 'no autorizado' });
@@ -134,7 +125,6 @@ class ClientControllers {
         res.status(200).json({ message: 'contraseña actualiza correctamente' });
       }
 
-      console.log('tokensitoooo', req.body);
     } catch (error) {
       res.status(400).json({ message: 'token inválido' });
     }
@@ -146,9 +136,7 @@ class ClientControllers {
       const token = authHeader && authHeader.split(' ')[1];
 
       const decoded = jwt.verify(token, process.env.TOKEN_KEY_CONFIRM);
-      console.log('tokensito', token);
       const user_id = decoded.user_id;
-      console.log('user_id', user_id);
 
       await clientDal.confirmAccount(user_id);
 
@@ -163,18 +151,15 @@ class ClientControllers {
 
   completeFormRegister = async (req, res) => {
     try {
-      // console.log("req.body", req.body)
 
       const {user_name, lastname, birthdate, phone} = req.body;
       const data = {user_name, lastname, birthdate, phone}
 
-      // console.log("recupero token", req.headers.authorization)
       const authHeader = req.headers.authorization;
       const token = authHeader && authHeader.split(' ')[1];
 
       const decoded = jwt.verify(token, process.env.TOKEN_KEY);
       const user_id = decoded.user_id;
-      // console.log("user_idddd", user_id)
 
       await clientDal.completeFormRegister(data, user_id);
 

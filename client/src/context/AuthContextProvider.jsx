@@ -16,7 +16,6 @@ export const AuthContextProvider = ({children}) => {
       const fetchUser = async () =>{
         try {
           const res = await fetchData("client/userById", "get", null, tokenLS)
-          console.log("conteeeext",res.data.user);
           
           setUser(res.data.user)
           setToken(tokenLS)
@@ -41,10 +40,6 @@ export const AuthContextProvider = ({children}) => {
     }
     fetchServices();
   },[])
-
-  console.log("userrrrConteext", user);
-
-  console.log("servicesCONTEXT", services)
   
   const logIn = async(loginData)=>{
 

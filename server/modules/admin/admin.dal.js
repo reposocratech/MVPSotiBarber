@@ -40,7 +40,6 @@ class AdminDal {
     try {
       let sql = 'SELECT * FROM service WHERE service_is_deleted = 0';
       let result = await executeQuery(sql);
-      // console.log("SERVICESENELDAL", result)
       return result;
     } catch (error) {
       console.log(error);
@@ -116,7 +115,6 @@ class AdminDal {
   };
 
   createEmployee = async (data) => {
-    // console.log("dataaaaa dal", data)
     const { user_name, lastname, phone, email, password, description } =
       data.data;
     try {
@@ -236,7 +234,6 @@ class AdminDal {
       start_hour,
     } = data;
 
-    console.log('citaaaaa', data);
     const connection = await dbPool.getConnection();
     try {
       await connection.beginTransaction();
@@ -245,7 +242,6 @@ class AdminDal {
       let [res] = await connection.query(sqlid);
       let maxId = res[0].max_id;
       maxId++;
-      console.log('queryyyyyyy', [maxId]);
 
       let sql =
         'INSERT INTO appointment (appointment_id, client_user_id, created_by_user_id, employee_user_id, end_date, end_hour, observation, service_id, start_date, start_hour) VALUES (?,?,?,?,?,?,?,?,?,?)';
@@ -263,11 +259,8 @@ class AdminDal {
       ];
 
       await connection.query(sql, values);
-      /* let sqlAppointment = 'SELECT * FROM appointment WHERE appointment_id = ? AND status = 1'
-      
-      let [resAppointment] = await connection.query(sqlAppointment, maxId) */
       await connection.commit();
-      /*  return resAppointment; */
+
     } catch (error) {
       console.log(error);
 
@@ -296,7 +289,6 @@ class AdminDal {
       let sql =
         'SELECT * FROM user WHERE user.user_type = 3 and user_is_deleted = 0';
       let result = await executeQuery(sql);
-      // console.log("Clieentsss", result)
       return result;
     } catch (error) {
       console.log(error);
@@ -350,8 +342,8 @@ class AdminDal {
 
   getOneAppointment = async (id) => {
     try {
-      let sql = `SELECT a.start_date, a.end_date, a.start_hour, a.end_hour, a.observation, a.status, client.user_name AS client_name, client.phone,
-   client.lastname AS client_lastname,
+      let sql = `SELECT a.employee_user_id, a.client_user_id, a.service_id, a.appointment_id, a.start_date, a.end_date, a.start_hour, a.end_hour, a.observation, a.status, client.user_name AS client_name,
+   client.lastname AS client_lastname, client.phone as client_phone,
    employee.user_name AS employee_name, employee.lastname AS employee_lastname,
    creator.user_name AS created_by_name, creator.lastname AS created_by_lastname,
    s.service_name
@@ -368,6 +360,21 @@ class AdminDal {
       throw error;
     }
   };
+
+  editAppointment = async(data) => {
+    const { employee_user_id, client_user_id, service_id, appointment_id, start_date, end_date, start_hour, end_hour, observation, status} = data;
+
+    try {
+      let sql = "update appointment set employee_user_id = ?, client_user_id = ?, service_id = ?, start_date = ?, end_date = ?, start_hour = ?, end_hour = ?, observation = ?, status = ? where appointment_id = ?"
+      let values = [employee_user_id, client_user_id, service_id, start_date, end_date, start_hour, end_hour, observation, status, appointment_id]
+
+      await executeQuery(sql, values);
+
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
 }
 
 export default new AdminDal();

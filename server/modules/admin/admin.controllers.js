@@ -29,7 +29,6 @@ class AdminControllers {
   getAllServices = async(req, res)=>{
     try {
       let result = await adminDal.getAllServices();
-      // console.log(result)
       res.status(200).json({services:result});
     } catch (error) {
       console.log(error)
@@ -44,7 +43,6 @@ class AdminControllers {
 
     try {
       let result = await adminDal.enabledService(id, service_is_enabled);
-      // console.log(result);
       res.status(200).json({result})
     } catch (error) {
       console.log(error)
@@ -53,8 +51,6 @@ class AdminControllers {
   }
 
   editService = async(req, res)=>{
-    console.log("req.body.data:", req.body.data); 
-  console.log("req.file:", req.file); 
     try {
       const data = {
         data: JSON.parse(req.body.data),
@@ -62,7 +58,6 @@ class AdminControllers {
       }
 
       let result = await adminDal.editService(data)
-      // console.log(result)
       res.status(200).json({result})
     } catch (error) {
       console.log(error)
@@ -77,7 +72,6 @@ class AdminControllers {
         img: req.file
       }
 
-      // console.log("data en el back", data)
       await adminDal.createEmployee(data)
       res.status(200).json({message: "creado correctamente", img: req.file?.filename})
     } catch (error) {
@@ -93,8 +87,6 @@ class AdminControllers {
         img: req.file
       }
 
-      console.log("data edit", data)
-      // console.log("req.body", req.body)
       let result = await adminDal.editEmployee(data)
       res.status(200).json({result})
     } catch (error) {
@@ -105,7 +97,6 @@ class AdminControllers {
     getAllEmployees = async(req, res)=>{
     try {
       let result = await adminDal.getAllEmployees();
-      // console.log(result)
       res.status(200).json({employees:result});
     } catch (error) {
       console.log(error)
@@ -121,7 +112,6 @@ class AdminControllers {
 
     try {
       let result = await adminDal.enabledService(id, service_is_enabled);
-      // console.log(result);
       res.status(200).json({result})
     } catch (error) {
       console.log(error)
@@ -136,7 +126,6 @@ class AdminControllers {
 
     try {
       let result = await adminDal.enabledEmployee(id, user_is_enabled);
-      // console.log(result);
       res.status(200).json({result})
     } catch (error) {
       console.log(error)
@@ -146,7 +135,6 @@ class AdminControllers {
 
   clientListAppointment = async (req, res) => {
     try {
-      // console.log("clientes en el back", req.query.search)
       const clients = await adminDal.clientListAppointment(req.query.search)
       res.status(200).json({message: "clientes extraidos correctamente", clients: clients})
     } catch (error) {
@@ -155,14 +143,10 @@ class AdminControllers {
   }
 
   createAppointment = async(req, res) => {
-    // console.log("reeeeqs", req.body)
     try {
-      // console.log("cita", req.body)
       let result = await adminDal.createAppointment(req.body);
      
-      
       res.status(200).json({message: "creado correctamente", result})
-      console.log("¡¡¡¡¡¡¡¡", result);
       
     } catch (error) {
       console.log("error created appointment", error);
@@ -173,7 +157,6 @@ class AdminControllers {
 
   deleteService = async(req, res) =>{
     const {id} = req.body
-    console.log("id en el controlador de delete", id)
 
     try {
       let result = await adminDal.deleteService(id);
@@ -187,7 +170,6 @@ class AdminControllers {
      getAllClients = async(req, res)=>{
     try {
       let result = await adminDal.getAllClients();
-       console.log(result)
       res.status(200).json({clients:result});
     } catch (error) {
       console.log(error)
@@ -202,7 +184,6 @@ class AdminControllers {
 
     try {
       let result = await adminDal.enabledClient(id, user_is_enabled);
-      // console.log(result);
       res.status(200).json({result})
     } catch (error) {
       console.log(error)
@@ -249,6 +230,14 @@ class AdminControllers {
     }
   }
   
+  editAppointment = async(req, res) => {
+    try {
+      await adminDal.editAppointment(req.body);
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({message: "error 500"})
+    }
+  }
 }
 
 export default new AdminControllers();

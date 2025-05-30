@@ -18,12 +18,9 @@ const AdminDashboard = () => {
 
   return (
     <section>
-      <h2>Perfíl del Administrador</h2>
-      <div className="blue-line"></div>
-      <div className="d-flex justify-content-center">
-        <Button onClick={() => navigate('/admin/createAppointment')}>
-          Añadir cita
-        </Button>
+      <div className='d-flex flex-column align-items-center justify-content-center mt-3'>
+        <h2>Perfil del Administrador</h2>
+        <div className="blue-line"></div>
       </div>
       <div>
         <AppointmentCalendar

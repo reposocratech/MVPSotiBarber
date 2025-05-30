@@ -25,7 +25,9 @@ router.put("/enabledClient/:id", verifyToken, adminControllers.enabledClient)
 router.get("/clientListSearch", verifyToken, adminControllers.clientListAppointment)
 router.get("/getOneService/:id", verifyToken, adminControllers.getOneService);
 router.get("/getAllAppointments", verifyToken,adminControllers.getAllAppointments);
-router.get("/getOneAppointment/:id", /* verifyToken */ adminControllers.getOneAppointment);
+router.get("/getOneAppointment/:id", verifyToken, adminControllers.getOneAppointment);
+router.put("/editAppointment", verifyToken, adminControllers.editAppointment);
+
 
 
 

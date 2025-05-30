@@ -13,8 +13,6 @@ const AdminClientList = () => {
   const [clientResults, setClientResults] = useState([]);
   const clientsToDisplay = search.length >= 3 ? clientResults : clientList;
   const navigate = useNavigate();
-
-   console.log("searrrchhhhhh", clientResults);
    
 
   useEffect(() => {
@@ -26,7 +24,6 @@ const AdminClientList = () => {
           null,
           token
         );
-        console.log('listaClienteeeesss', resClients);
 
         setClientList(resClients.data.clients);
       } catch (error) {
@@ -42,7 +39,6 @@ const AdminClientList = () => {
         try {
           const res = await fetchData(`admin/clientListSearch?search=${search}`, "get", null, token)
           
-          console.log("respuesta del backend:", res)
           setClientResults(res.data.clients || [])
         } catch (error) {
           console.log("Error al buscar clientes", error)

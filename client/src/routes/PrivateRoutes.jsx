@@ -6,8 +6,7 @@ export const PrivateRoutes = ({userType, requiredUser}) => {
   const navigate = useNavigate();
   const {user} = useContext(AuthContext);
    
-  console.log("userPrivate", user);
-  
+
   useEffect(()=>{
     if(userType !== requiredUser){
       navigate('/')

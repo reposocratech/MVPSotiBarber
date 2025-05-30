@@ -30,8 +30,6 @@ const Register = () => {
         setValErrors("");
         registerSchema.parse(registerData);
         let res = await fetchData ("client/register", "post", registerData);
-        console.log(res)
-        // let tokencf = res.data.tokenconfirm;
     
         navigate("/login")
     } 

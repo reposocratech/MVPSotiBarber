@@ -49,7 +49,6 @@ const CreateEmployee = () => {
 
       
       const res = await fetchData("admin/createEmployee", "post", newFormData, token)
-      console.log("resss", res)
 
       navigate("/admin/employeeList")
     } catch (error) {
