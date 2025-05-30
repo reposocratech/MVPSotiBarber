@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from 'react';
 import { fetchData } from '../../helpers/axiosHelpers.js';
 import { AuthContext } from '../../context/AuthContextProvider.jsx';
 import CreateAppointment from '../createAppointment/CreateAppointment.jsx';
+import ModalCita from '../ModalCita/ModalCita.jsx';
 
 const AppointmentCalendar = ({
   show,
@@ -23,6 +24,8 @@ const AppointmentCalendar = ({
     end: '',
   });
   const [events, setEvents] = useState([]);
+  const [selectionEvent, setSelectionEvent] = useState(null);
+  const [showModal, setShowModal] = useState(false)
   const { token } = useContext(AuthContext);
 
   useEffect(() => {
@@ -44,6 +47,8 @@ const AppointmentCalendar = ({
           description: e.observation,
           resource: {
             created_by: `${e.created_by_name} ${e.created_by_lastname}`,
+            employee_name: `${e.employee_name} ${e.employee_lastname}`,
+            service: e.service_name
           },
         }));
 
@@ -64,13 +69,21 @@ const AppointmentCalendar = ({
    //Sirve para abrir la cita del calendario
   const selectEvent = (event) => {
     console.log(event);
+    setSelectionEvent(event)
+    setShowModal(true)
   };
+
+  const closeModal = () => {
+    setSelectionEvent(null);
+    setShowModal(false)
+  }
 
   const selectSlot = (event) => {
     setAppointmentDate({ start: event.start, end: event.end });
     setShow(true);
   };
 
+  console.log("eventsss", events)
   return (
     <div className="calendario-citas">
       <Calendar
@@ -93,6 +106,11 @@ const AppointmentCalendar = ({
         onSelectEvent={selectEvent}
         selectable
         onSelectSlot={selectSlot}
+      />
+      <ModalCita 
+        showModal={showModal}
+        closeModal={closeModal}
+        event={selectionEvent}
       />
       <CreateAppointment
         events={events}

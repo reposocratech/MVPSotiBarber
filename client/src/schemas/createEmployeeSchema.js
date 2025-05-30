@@ -7,5 +7,12 @@ export const createEmployeeSchema = z.object({
   email: z.string().email("El email no es válido").min(1, "Rellena el email"),
   description: z.string()
   .min(10, "Introduce una descripción mayor de 10 caracteres")
-  .max(250, "La descripción debe ser menor de 250 caracteres")
+  .max(250, "La descripción debe ser menor de 250 caracteres"),
+  password: z
+                .string()
+                .min(1, "Campo obligatorio")
+                .refine(
+                    (val) => val === "" || /^(?=(.*[a-zA-Z]))(?=(.*\d))(?=(.*[!@#$%^&*(),.?":{}|<>]))[a-zA-Z\d!@#$%^&*(),.?":{}|<>]{6,}$/.test(val),
+                    { message: "Contraseña no es válida" }
+                ),
 })

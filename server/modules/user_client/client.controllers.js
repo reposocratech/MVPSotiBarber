@@ -67,7 +67,6 @@ class ClientControllers {
 
   userById = async (req, res) => {
     try {
-      console.log('REEEEEQ', req);
       const { user_id } = req;
       console.log('**********', user_id);
       let result = await clientDal.findUserById(user_id);

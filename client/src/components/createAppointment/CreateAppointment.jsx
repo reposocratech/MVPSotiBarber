@@ -34,6 +34,14 @@ const CreateAppointment = ({
   const navigate = useNavigate();
   const { token, services, user } = useContext(AuthContext);
   const [clientResults, setClientResults] = useState([]);
+  const [enabledServices, setEnabledServices] = useState(services);
+
+  useEffect(() => {
+      const filtered = services.filter(
+        (service) => service.service_is_enabled === 0
+      );
+      setEnabledServices(filtered);
+    }, [services]);
 
   useEffect(() => {
     if (appointmentDate.start && appointmentDate.end) {
@@ -78,7 +86,11 @@ const CreateAppointment = ({
           token
         );
 
-        setEmployeeList(resEmployees.data.employees);
+        let allEmployees = resEmployees.data.employees;
+
+        let enabledEmployees = allEmployees.filter((emp) => emp.user_is_enabled === 0);
+
+        setEmployeeList(enabledEmployees);
 
         console.log('empleatesssss', employeeList);
       } catch (error) {
@@ -222,19 +234,6 @@ const CreateAppointment = ({
                   <h2 className="text-center">Añadir cita</h2>
                   <div className="blue-line"></div>
                   <div className="separate">
-                    {/* <Form.Group className='mb-3'>
-                  <Form.Label htmlFor='DateTextInput'>
-                    Fecha
-                  </Form.Label>
-                  <Form.Control
-                    id="DateTextImput"
-                    name="date"
-                    value={date}
-                    onChange={handleChange}
-                    type='date'
-                  />
-                  {valErrors.date && <p>{valErrors.date}</p>}
-                </Form.Group> */}
                     <Form.Group className="mb-3 hour">
                       <Form.Label htmlFor="StartHourTextInput">
                         Hora de inicio
@@ -315,7 +314,7 @@ const CreateAppointment = ({
                       onChange={handleChange}
                     >
                       <option>Selecciona un servicio</option>
-                      {services.map((serv) => (
+                      {enabledServices.map((serv) => (
                         <option key={serv.service_id} value={serv.service_id}>
                           {serv.service_name}
                         </option>
