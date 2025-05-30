@@ -28,15 +28,5 @@ const executeQuery = async (sql, values = []) => {
   }
 }
 
-// const testConnection = async () => {
-//   try {
-//     const result = await executeQuery("select 1 as test");
-//     console.log(result);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
-// testConnection();
 
 export default executeQuery;
