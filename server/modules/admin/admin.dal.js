@@ -176,11 +176,10 @@ class AdminDal {
       console.log(error);
       throw error;
     }
-  }
+  };
 
-
-  editEmployee = async(data) => {
-    const {user_name, lastname, phone, description, user_id} = data.data;
+  editEmployee = async (data) => {
+    const { user_name, lastname, phone, description, user_id } = data.data;
 
     try {
       let sql =
@@ -189,10 +188,18 @@ class AdminDal {
       let values = [user_name, lastname, phone, description, user_id];
 
       if (data.img) {
-        sql = "update user set user_name = ?, lastname = ?, phone = ?, description = ?, avatar = ? where user_id = ?";
-        values = [user_name, lastname, phone, description, data.img.filename, user_id]
+        sql =
+          'update user set user_name = ?, lastname = ?, phone = ?, description = ?, avatar = ? where user_id = ?';
+        values = [
+          user_name,
+          lastname,
+          phone,
+          description,
+          data.img.filename,
+          user_id,
+        ];
       }
-      await executeQuery(sql, values)
+      await executeQuery(sql, values);
     } catch (error) {
       throw error;
     }
@@ -326,29 +333,22 @@ class AdminDal {
       return result;
     } catch (error) {
       console.log(error);
-
-
     }
+  };
 
-
-  }
-
-  getOneService = async (id)=>{
+  getOneService = async (id) => {
     try {
-      let sql = "SELECT * FROM service WHERE service_id = ?"
-      let values = [id]
-      const [result]= await executeQuery(sql, values)
+      let sql = 'SELECT * FROM service WHERE service_id = ?';
+      let values = [id];
+      const [result] = await executeQuery(sql, values);
       return result;
     } catch (error) {
-      console.log(error)
-      throw error;  
+      console.log(error);
+      throw error;
     }
-  }
+  };
 
-     
-}
-
-  getOneAppointment = async(id) => {
+  getOneAppointment = async (id) => {
     try {
       let sql = `SELECT a.start_date, a.end_date, a.start_hour, a.end_hour, a.observation, a.status, client.user_name AS client_name, client.phone,
    client.lastname AS client_lastname,
@@ -361,14 +361,13 @@ class AdminDal {
   LEFT JOIN user creator ON a.created_by_user_id = creator.user_id
   LEFT JOIN service s ON a.service_id = s.service_id
   WHERE a.status != 2 and appointment_id = ?`;
-      let result = await executeQuery(sql, [id])
-      return result; 
+      let result = await executeQuery(sql, [id]);
+      return result;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       throw error;
     }
-  }
-
+  };
 }
 
 export default new AdminDal();
