@@ -159,7 +159,6 @@ class AdminDal {
       let sql =
         'SELECT * FROM user WHERE user.user_type = 2 and user_is_deleted = 0';
       let result = await executeQuery(sql);
-      // console.log("Employeeeees", result)
       return result;
     } catch (error) {
       console.log(error);
@@ -312,7 +311,7 @@ class AdminDal {
 
   getAllAppointments = async () => {
     try {
-      let sql = `SELECT a.start_date, a.end_date, a.start_hour, a.end_hour, a.observation, a.status, client.user_name AS client_name,
+      let sql = `SELECT a.employee_user_id, a.appointment_id, a.start_date, a.end_date, a.start_hour, a.end_hour, a.observation, a.status, client.user_name AS client_name,
    client.lastname AS client_lastname,
    employee.user_name AS employee_name, employee.lastname AS employee_lastname,
    creator.user_name AS created_by_name, creator.lastname AS created_by_lastname,
@@ -345,6 +344,31 @@ class AdminDal {
       throw error;  
     }
   }
+
+     
+}
+
+  getOneAppointment = async(id) => {
+    try {
+      let sql = `SELECT a.start_date, a.end_date, a.start_hour, a.end_hour, a.observation, a.status, client.user_name AS client_name, client.phone,
+   client.lastname AS client_lastname,
+   employee.user_name AS employee_name, employee.lastname AS employee_lastname,
+   creator.user_name AS created_by_name, creator.lastname AS created_by_lastname,
+   s.service_name
+  FROM appointment a
+  LEFT JOIN user client ON a.client_user_id = client.user_id
+  LEFT JOIN user employee ON a.employee_user_id = employee.user_id
+  LEFT JOIN user creator ON a.created_by_user_id = creator.user_id
+  LEFT JOIN service s ON a.service_id = s.service_id
+  WHERE a.status != 2 and appointment_id = ?`;
+      let result = await executeQuery(sql, [id])
+      return result; 
+    } catch (error) {
+      console.log(error)
+      throw error;
+    }
+  }
+
 }
 
 export default new AdminDal();

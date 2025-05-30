@@ -237,6 +237,17 @@ class AdminControllers {
   
   }
 
+  getOneAppointment = async(req, res) => {
+    const {id} = req.params;
+
+    try {
+      let result = await adminDal.getOneAppointment(id)
+      res.status(200).json({message: "cita enviada correctamente", result})
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({message: "error 500"})
+    }
+  }
   
 }
 
