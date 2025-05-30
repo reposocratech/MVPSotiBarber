@@ -17,7 +17,7 @@ const ServiceList = () => {
     );
     setEnabledServices(filtered);
   }, [services]);
-  console.log('***********', enabledServices);
+  //console.log('***********', enabledServices);
 
   const today = new Date();
   console.log('HOOOOOY', today);
@@ -59,21 +59,23 @@ const ServiceList = () => {
                           <td>{service.service_name}</td>
                           <td>
                             <div className="d-flex flex-column">
-                              <span
-                                style={{
-                                  textDecoration: hasPromo
-                                    ? 'line-through'
-                                    : 'none',
-                                }}
-                              >
+                              <span className={hasPromo ? 'line-through' : ''}>
                                 {service.price}€
                               </span>
                               {hasPromo && (
-                                <span className="text-success fw-bold">
-                                  {service.promo_price}€
-                                </span>
+                                <div className="d-flex flex-column align-items-center">
+                                  <span>{service.promo_name}</span>
+                                  <span className="text-success fw-bold">
+                                    {service.promo_price}€
+                                  </span>
+                                </div>
                               )}
-                              <span>{service.estimated_time}min</span>
+                            </div>
+                          </td>
+
+                          <td>
+                            <div className="d-flex align-items-center justify-content-center">
+                              {service.estimated_time} min
                             </div>
                           </td>
                           <td>
