@@ -80,7 +80,7 @@ const EmployeeClientProfile = () => {
       <section>
         <Row>
           <Col className="pb-4">
-            <h2 className="text-center">
+            <h2 className="titulomvl text-center">
               Perfil de {user.user_name} {user.lastname}
             </h2>
             <div className="blue-line"></div>
@@ -89,8 +89,8 @@ const EmployeeClientProfile = () => {
       </section>
 
       <section>
-        <Row className="mb-5 align-items-stretch">
-          <Col md={5}>
+        <Row className="tablet-row mb-5 align-items-stretch justify-content-center">
+          <Col md={5} className="col-profile">
             <div className="client-profile p-4 rounded">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center gap-3">
@@ -104,7 +104,7 @@ const EmployeeClientProfile = () => {
                 </div>
               </div>
 
-              <div className="d-flex justify-content-between mt-4 summary-row">
+              <div className="contadores d-flex justify-content-between mt-4 summary-row">
                 <div className="text-center summary-box">
                   <h2>{totalCortes}</h2>
                   <p className="mb-0">Cortes totales</p>
@@ -115,18 +115,16 @@ const EmployeeClientProfile = () => {
                 </div>
               </div>
 
-              <div className="text-center mt-4">
-                <div className="summary-box">
-                  <h2>
-                     <h2>{totalGasto.toFixed(2)}€</h2>
-                  </h2>
+              <div className="gasto-total-wrapper mt-4">
+                <div className="text-center summary-box">
+                  <h2>{totalGasto.toFixed(2)}€</h2>
                   <p className="mb-0">Gasto total</p>
                 </div>
               </div>
             </div>
           </Col>
 
-          <Col md={7}>
+          <Col md={7} className="col-history">
             <div className="history p-4 rounded">
               <h3>Historial</h3>
               <span>Historial de servicios del cliente</span>
@@ -141,7 +139,7 @@ const EmployeeClientProfile = () => {
                   />
                 </div>
               </div>
-              <div className="mt-3 bg-dark rounded p-3 table-scroll-wrapper">
+              <div className="mt-3 rounded p-3 table-scroll-wrapper">
                 <table className="tabla-citas text-white mb-0">
                   <colgroup>
                     <col className="col-fecha" />
@@ -163,10 +161,10 @@ const EmployeeClientProfile = () => {
                       (searchTerm ? filteredAppointments : appointments).map(
                         (cita, index) => (
                           <tr key={index}>
-                            <td>{cita.start_date}</td>
-                            <td>{cita.tipo_cita}</td>
-                            <td>{cita.empleado}</td>
-                            <td>{cita.precio}€</td>
+                            <td data-label="Fecha:">{cita.start_date}</td>
+                            <td data-label="Cita:">{cita.tipo_cita}</td>
+                            <td data-label="Empleado:">{cita.empleado}</td>
+                            <td data-label="Precio:">{cita.precio}€</td>
                           </tr>
                         )
                       )

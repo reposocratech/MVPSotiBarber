@@ -114,6 +114,7 @@
   table {
   width: 100%;
   table-layout: fixed;
+  background-color: var(--color-componente);
   }
 
 
@@ -137,7 +138,7 @@
   table th {
     color: var(--color-blanco);
     font-weight: 600;
-    border-bottom: 1px solid #555;
+    border-bottom: 1px solid var(--color-componente);
     padding: 0.5rem 1.5rem;
     text-align: center;
   
@@ -145,12 +146,12 @@
 
   table td {
     padding: 0.5rem 2rem;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid var(--color-componente);
     text-align: center;
   }
 
   .datos {
-  background-color: var(--color-fondo);
+  background-color: var(--color-componente);
   width: 100%;
 
 }
@@ -180,12 +181,16 @@
 }
 
 @media (max-width: 700px) {
+  .titulomvl {
+    padding-top: 2rem;
+  }
+
   .client-profile {
     padding: 2rem 1.2rem;
     text-align: center;
   }
 
-  .client-profile .d-flex.justify-content-between {
+  .client-profile .contadores {
     flex-direction: column;
     gap: 1rem;
     align-items: center;
@@ -199,14 +204,21 @@
   .summary-box {
     width: 100%;
     padding: 1rem 0;
-    background-color: #3a3a3a;
+    background-color: var(--color-fondo);
     border-radius: 10px;
   }
 
   .button {
-    width: 100%;
-    max-width: 200px;
+    display: block;
     margin: 1rem auto 0 auto;
+    width: fit-content;
+    max-width: 200px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .client-profile .btnmovil {
+    margin-top: 1rem;
   }
 
   .history {
@@ -216,4 +228,140 @@
   .search-appointment-input {
     width: 100%;
   }
+
+  .history table thead {
+    display: none;
+  }
+
+  .history table,
+  .history table tbody,
+  .history table tr,
+  .history table td {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  .history table tr {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--color-fondo);
+    padding-bottom: 1rem;
+  }
+
+  .history table td {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-fondo);
+    font-size: 0.95rem;
+    color: var(--color-blanco);
+  }
+
+  .history table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--color-blanco);
+  }
 }
+
+ @media (min-width: 701px) and (max-width: 850px) {
+  .titulomvl {
+    padding-top: 2rem;
+  }
+
+  /* Forzar las columnas una al lado de la otra */
+  .tablet {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .tablet > .col-md-5,
+  .tablet > .col-md-7 {
+    flex: 0 0 48% !important;
+    max-width: 48% !important;
+  }
+
+  /* Contadores en columna */
+  .client-profile .contadores {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .summary-box {
+    width: 100%;
+    padding: 1rem 0;
+    background-color: var(--color-fondo);
+    border-radius: 10px;
+  }
+
+ 
+  .btnmovil {
+    display: block !important;
+    margin: 1rem auto 0 auto;
+  }
+
+  .d-lg-inline-block {
+    display: none !important;
+  }
+
+  .search-appointment-input {
+    width: 100%;
+  }
+
+  .history table thead {
+    display: none;
+  }
+
+  .history table,
+  .history table tbody,
+  .history table tr,
+  .history table td {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  .history table tr {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--color-fondo);
+    padding-bottom: 1rem;
+  }
+
+  .history table td {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-fondo);
+    font-size: 0.95rem;
+    color: var(--color-blanco);
+  }
+
+  .history table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--color-blanco);
+  }
+
+ 
+  .client-profile .summary-box {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+ 
+  .client-profile .btnmovil {
+    display: flex ;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  .client-profile .btnmovil .button {
+    margin: 0 auto;
+  }
+}
+
+
+

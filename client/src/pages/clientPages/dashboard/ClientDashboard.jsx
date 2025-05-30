@@ -9,12 +9,14 @@ import './clientDashboard.css';
 
 const ClientDashboard = () => {
   const { user } = useContext(AuthContext);
+  const {token} = useContext(AuthContext);
   const navigate = useNavigate();
   const [mostrarModal, setMostrarModal] = useState(false);
   const [appointments, setAppointments] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [totalCortes, setTotalCortes] = useState(0);
   const [cortesEsteMes, setCortesEsteMes] = useState(0);
+
 
   const perfilIncompleto =
     !user?.user_name || !user?.lastname || !user?.phone || !user?.birth_date;
@@ -38,7 +40,7 @@ const ClientDashboard = () => {
           `client/appointments/${user.user_id}`,
           'get',
           null,
-          localStorage.getItem("token")
+          token
         );
 
         const citas = res.data || res;
@@ -94,7 +96,7 @@ const ClientDashboard = () => {
         <section>
           <Row>
             <Col className="pb-4">
-              <h2 className="text-center">
+              <h2 className="titulomvl text-center">
                 Perfil de {user.user_name} {user.lastname}
               </h2>
               <div className="blue-line"></div>
@@ -103,8 +105,8 @@ const ClientDashboard = () => {
         </section>
 
         <section>
-          <Row className="mb-5 align-items-stretch">
-            <Col md={5}>
+          <Row className="tablet-row mb-5 align-items-stretch justify-content-center">
+            <Col md={5} className="col-profile">
               <div className="client-profile p-4 rounded">
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="d-flex align-items-center gap-3">
@@ -116,7 +118,7 @@ const ClientDashboard = () => {
                       <span>{user.phone}</span>
                     </div>
                     <Button
-                      className="button"
+                      className="button d-none d-lg-inline-block"
                       onClick={() => navigate('/client/editClient')}
                     >
                       Editar
@@ -124,7 +126,7 @@ const ClientDashboard = () => {
                   </div>
                 </div>
 
-                <div className="d-flex justify-content-between mt-4 summary-row">
+                <div className="contadores d-flex justify-content-between mt-4 summary-row">
                   <div className="text-center summary-box">
                     <h2>{totalCortes}</h2>
                     <p className="mb-0">Cortes totales</p>
@@ -133,6 +135,15 @@ const ClientDashboard = () => {
                     <h2>{cortesEsteMes}</h2>
                     <p className="mb-0">Cortes este mes</p>
                   </div>
+                </div>
+
+                <div className="btnmovil d-block d-lg-none text-center mt-3">
+                  <Button
+                    className="button"
+                    onClick={() => navigate('/client/editClient')}
+                  >
+                    Editar
+                  </Button>
                 </div>
 
                 {totalCortes !== 0 && totalCortes % 10 === 0 && (
@@ -146,7 +157,7 @@ const ClientDashboard = () => {
               </div>
             </Col>
 
-            <Col md={7}>
+            <Col md={7} className="col-history">
               <div className="history p-4 rounded">
                 <h3>Historial</h3>
                 <span>Tu historial de servicios</span>
@@ -162,7 +173,7 @@ const ClientDashboard = () => {
                   </div>
                 </div>
 
-                <div className="mt-3 bg-dark rounded p-3 table-scroll-wrapper">
+                <div className="mt-3  rounded p-3 table-scroll-wrapper">
                   <table className="tabla-citas text-white mb-0">
                     <colgroup>
                       <col className="col-fecha" />
@@ -179,14 +190,15 @@ const ClientDashboard = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {(searchTerm ? filteredAppointments : appointments).length > 0 ? (
+                      {(searchTerm ? filteredAppointments : appointments)
+                        .length > 0 ? (
                         (searchTerm ? filteredAppointments : appointments).map(
                           (cita, index) => (
                             <tr key={index}>
-                              <td>{cita.start_date}</td>
-                              <td>{cita.tipo_cita}</td>
-                              <td>{cita.empleado}</td>
-                              <td>{cita.precio}€</td>
+                              <td data-label="Fecha:">{cita.start_date}</td>
+                              <td data-label="Cita:">{cita.tipo_cita}</td>
+                              <td data-label="Empleado:">{cita.empleado}</td>
+                              <td data-label="Precio:">{cita.precio}€</td>
                             </tr>
                           )
                         )
