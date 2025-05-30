@@ -92,7 +92,6 @@ const CreateAppointment = ({
 
         setEmployeeList(enabledEmployees);
 
-        console.log('empleatesssss', employeeList);
       } catch (error) {
         console.log(error);
       }
@@ -128,8 +127,6 @@ const CreateAppointment = ({
 
     fetchClients();
   }, [search, token]);
-
-  console.log('dataaa', appointmentData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -23,8 +23,6 @@ const Service = () => {
   const navigate = useNavigate();
  
 
-  console.log("SERVICES EN EL SERVICE",services)
-
   //comprobar anchura de pantalla para elegir modal o vista neuva en el editService
   useEffect(() => {
     const handleResizeScreen = () => {
@@ -37,7 +35,7 @@ const Service = () => {
     window.addEventListener('resize', handleResizeScreen);
     return () => window.removeEventListener('resize', handleResizeScreen);
   }, []);
-  console.log('anchura pantalla', window.innerWidth);
+
 
   
  

@@ -40,7 +40,6 @@ const sendBirthdayMail = async (email, name) => {
       ],
     });
 
-    console.log(`Correo enviado a ${email}`);
   } catch (error) {
     console.error(`Error al enviar a ${email}:`, error);
   }

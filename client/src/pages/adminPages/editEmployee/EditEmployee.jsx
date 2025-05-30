@@ -54,8 +54,6 @@ const EditEmployee = () => {
         newFormData.append("file", file)
       }
 
-      console.log("token en onsubmit", token)
-
       await fetchData("admin/editEmployee", "put", newFormData, token)
 
       navigate("/admin/employeeList")

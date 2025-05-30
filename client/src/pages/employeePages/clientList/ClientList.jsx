@@ -22,7 +22,6 @@ const ClientList = () => {
           null,
           token
         );
-        console.log('clientes',res);
 
         setClients(res.data);
       } catch (error) {

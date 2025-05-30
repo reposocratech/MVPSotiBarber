@@ -5,7 +5,7 @@ dotenv.config();
 
 export const verifyToken = (req, res, next) =>{
   const tokenBearer = req.headers.authorization;
-    console.log("Authorization header:", tokenBearer);
+    // console.log("Authorization header:", tokenBearer);
   if(!tokenBearer){
     res.status(401).json({message: "No Autorizado"});
   }else{

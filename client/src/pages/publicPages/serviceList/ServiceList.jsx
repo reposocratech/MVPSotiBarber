@@ -9,7 +9,7 @@ const ServiceList = () => {
   const { services } = useContext(AuthContext);
   const [enabledServices, setEnabledServices] = useState(services);
   const [hasActivePromo, setHasActivePromo] = useState(false);
-  console.log('SERVICIOS EN LA LISTA', services);
+
 
   useEffect(() => {
     const filtered = services.filter(
@@ -17,10 +17,10 @@ const ServiceList = () => {
     );
     setEnabledServices(filtered);
   }, [services]);
-  //console.log('***********', enabledServices);
+
 
   const today = new Date();
-  console.log('HOOOOOY', today);
+
 
   const promoIsActive = (service) => {
     if (

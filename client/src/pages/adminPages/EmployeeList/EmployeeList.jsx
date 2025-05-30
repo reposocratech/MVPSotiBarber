@@ -20,7 +20,6 @@ const EmployeeList = () => {
           null,
           token
         );
-        console.log('employeeeeeLiiisssst', resEmployees);
 
         setEmployeeList(resEmployees.data.employees);
       } catch (error) {

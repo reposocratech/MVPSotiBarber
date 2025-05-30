@@ -55,8 +55,6 @@ const CompleteRegister = ({onCompletar}) => {
     }
   }
 
-  // console.log("completandoo datos", completeRegister);
-
   return (
     <section className='register'>
       <Container>

@@ -3,7 +3,7 @@ import { Button, Form, Modal } from 'react-bootstrap'
 import { fetchData } from '../../helpers/axiosHelpers'
 import { AuthContext } from '../../context/AuthContextProvider'
 
-const ModalCita = ({showModal, event, closeModal}) => {
+const ModalCita = ({setShowModal, showModal, event, closeModal}) => {
   const [valErrors, setValErrors] = useState({})
   const [appointmentData, setAppointmentData] = useState()
   const [editData, setEditData] = useState({})
@@ -17,14 +17,15 @@ const ModalCita = ({showModal, event, closeModal}) => {
     );
     setEnabledServices(filtered);
   }, [services]);
-  console.log("*******", enabledServices);
+
 
   useEffect(()=>{
     const getOneAppointment = async() => {
       try {
         let result = await fetchData(`admin/getOneAppointment/${event.id}`, "get", null, token)
-        setAppointmentData(result.data.result[0])
-        setEditData(result.data.result[0]);
+        const data = result.data.result[0];
+        setAppointmentData(data)
+        setEditData(data);
       } catch (error) {
         console.log(error)
       }
@@ -36,7 +37,6 @@ const ModalCita = ({showModal, event, closeModal}) => {
 
   },[event])
 
-  console.log("editdataaaaa", editData)
 
   useEffect(() => {
       const fetchEmployees = async () => {
@@ -54,7 +54,6 @@ const ModalCita = ({showModal, event, closeModal}) => {
   
           setEmployeeList(enabledEmployees);
   
-          console.log('empleatesssss', employeeList);
         } catch (error) {
           console.log(error);
         }
@@ -68,7 +67,17 @@ const ModalCita = ({showModal, event, closeModal}) => {
     setEditData({...editData, [name]: value})
   }
 
-  console.log("editdataaaaa", editData)
+
+  const onSubmit = async() => {
+    try {
+      await fetchData("admin/editAppointment", "put", editData, token)
+      closeModal()
+    } catch (error) {
+      closeModal()
+      console.log(error)
+    }
+  }
+
 
   return (
     <section>
@@ -81,12 +90,12 @@ const ModalCita = ({showModal, event, closeModal}) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Cita para: {event.title.split("(")[0]}
+          Cita para: {event?.title?.split("(")[0] || 'Sin título'}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form className="form-create-appoinment">
-                  <h2 className="text-center">Añadir cita</h2>
+                  <h2 className="text-center">Editar cita</h2>
                   <div className="blue-line"></div>
                   <div className="separate">
                     <Form.Group className="mb-3 hour">
@@ -149,13 +158,13 @@ const ModalCita = ({showModal, event, closeModal}) => {
                       aria-label="Default select example"
                       id="EmpleadoTextInput"
                       className="inputDesc"
-                      name="employee_id"
-                      value={editData.employee_id || ''}
+                      name="employee_user_id"
+                      // value={editData.employee_id || ''}
                       onChange={handleChange}
                     >
-                      <option value={""}>Selecciona un empleado</option>
+                      <option >Selecciona un empleado</option>
                       {employeeList.map((emp) => (
-                        <option key={emp.user_id} value={emp.user_id.toString()}>
+                        <option key={emp.user_id} value={emp.user_id}>
                           {emp.user_name} {emp.lastname}
                         </option>
                       ))}
@@ -184,7 +193,7 @@ const ModalCita = ({showModal, event, closeModal}) => {
                     <Form.Label htmlFor="PhoneTextInput">Teléfono</Form.Label>
                     <Form.Control
                       id="PhoneTextImput"
-                      value={editData.phone || ''}
+                      value={editData.client_phone || ''}
                       onChange={handleChange}
                     />
                     {valErrors.phone && <p>{valErrors.phone}</p>}
@@ -206,7 +215,8 @@ const ModalCita = ({showModal, event, closeModal}) => {
                 </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={closeModal} >Close</Button>
+        <Button onClick={onSubmit} >Guardar</Button>
+        <Button onClick={closeModal} >Cancelar</Button>
       </Modal.Footer>
     </Modal>}
     </section>

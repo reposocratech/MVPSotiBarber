@@ -46,7 +46,6 @@ export const AppRoutes = () => {
 
  const {user, loading} = useContext(AuthContext);
 
- console.log("userrrr", user);
  
  
   

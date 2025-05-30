@@ -54,7 +54,6 @@ const Login = () => {
     }
   }
 
-  console.log("LOGINDATA", loginData)
 
 
 

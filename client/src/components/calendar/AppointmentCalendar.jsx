@@ -68,7 +68,6 @@ const AppointmentCalendar = ({
 
    //Sirve para abrir la cita del calendario
   const selectEvent = (event) => {
-    console.log(event);
     setSelectionEvent(event)
     setShowModal(true)
   };
@@ -83,7 +82,6 @@ const AppointmentCalendar = ({
     setShow(true);
   };
 
-  console.log("eventsss", events)
   return (
     <div className="calendario-citas">
       <Calendar
@@ -108,6 +106,7 @@ const AppointmentCalendar = ({
         onSelectSlot={selectSlot}
       />
       <ModalCita 
+        setShowModal={setShowModal}
         showModal={showModal}
         closeModal={closeModal}
         event={selectionEvent}
