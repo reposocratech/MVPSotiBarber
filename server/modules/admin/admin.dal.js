@@ -329,6 +329,9 @@ class AdminDal {
       console.log(error);
 
 
+    }
+
+
   }
 
   getOneService = async (id)=>{
@@ -342,8 +345,6 @@ class AdminDal {
       throw error;  
     }
   }
-     
-}
 }
 
 export default new AdminDal();

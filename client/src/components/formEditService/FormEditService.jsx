@@ -158,6 +158,9 @@ export const FormEditService = ({service, handleClose, onUpdated}) => {
                     placeholder="Precio Promoción"
                   />
                 </InputGroup>
+                {valErrors.promo_price && (
+              <p>{valErrors.promo_price}</p>
+                )}
               </Form.Group>
               <Form.Group className="mb-3" controlId="promoStartDateInput">
                 <Form.Label>Fecha Inicio Promoción</Form.Label>
@@ -168,6 +171,9 @@ export const FormEditService = ({service, handleClose, onUpdated}) => {
                   onChange={handleChange}
                   autoFocus
                 />
+                {valErrors.promo_start_date && (
+              <p>{valErrors.promo_start_date}</p>
+                )}
               </Form.Group>
               <Form.Group className="mb-3" controlId="promoEndDateInput">
                 <Form.Label>Fecha Fin Promoción</Form.Label>
@@ -178,6 +184,9 @@ export const FormEditService = ({service, handleClose, onUpdated}) => {
                   onChange={handleChange}
                   autoFocus
                 />
+                {valErrors.promo_end_date && (
+              <p>{valErrors.promo_end_date}</p>
+                )}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label className="cursor-pointer" htmlFor="imageInput">
