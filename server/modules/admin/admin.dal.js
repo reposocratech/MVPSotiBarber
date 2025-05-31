@@ -2,6 +2,17 @@ import executeQuery, { dbPool } from '../../config/db.js';
 import { hashString } from '../../utils/hashUtils.js';
 
 class AdminDal {
+  findUserByEmail = async(email) => {
+    try {
+      let sql = "select user_id from user where email = ?";
+      let result = await executeQuery(sql, [email]);
+      return result;
+    } 
+    catch (error) {
+      throw error;
+    }
+  }
+  
   createService = async (data) => {
     try {
       const { service_name, estimated_time, price, service_description } =

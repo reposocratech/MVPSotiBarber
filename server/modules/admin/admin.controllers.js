@@ -2,6 +2,8 @@ import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 import adminDal from "./admin.dal.js"
 import { hashString } from "../../utils/hashUtils.js"
+import sendMailCredential from "../../services/credentialsNodemailer.js";
+import clientDal from "../user_client/client.dal.js";
 
 dotenv.config();
 
@@ -72,7 +74,20 @@ class AdminControllers {
         img: req.file
       }
 
+      const {email} = data.data;
+
       await adminDal.createEmployee(data)
+
+      const result = await clientDal.findUserByEmail(email)
+
+      const tokenFP = jwt.sign(
+        {user_id: result[0]?.user_id},
+        process.env.TOKEN_KEY_FORGETPASSWORD
+      )
+
+      sendMailCredential(email, tokenFP)
+
+
       res.status(200).json({message: "creado correctamente", img: req.file?.filename})
     } catch (error) {
       res.status(500).json({message: "ups, error 500"})
