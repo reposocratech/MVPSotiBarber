@@ -3,14 +3,17 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { fetchData } from '../../helpers/axiosHelpers';
 import { AuthContext } from '../../context/AuthContextProvider';
 import './modalcita.css';
+import { editAppointmentSchema } from '../../schemas/editAppointmentSchema';
+import { ZodError } from 'zod';
 
-const ModalCita = ({ setShowModal, showModal, event, closeModal }) => {
-  const [valErrors, setValErrors] = useState({});
+const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => {
   const [appointmentData, setAppointmentData] = useState();
   const [editData, setEditData] = useState({});
   const { token, services } = useContext(AuthContext);
   const [enabledServices, setEnabledServices] = useState(services);
   const [employeeList, setEmployeeList] = useState([]);
+  const [valErrors, setValErrors] = useState({});
+  const [errorMsg, setErrorMsg] = useState('');
 
 
   useEffect(() => {
@@ -73,20 +76,39 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal }) => {
   };
 
   const onSubmit = async () => {
-    try {
-      await fetchData('admin/editAppointment', 'put', editData, token);
-      closeModal();
-    } catch (error) {
+      try {
 
-      console.log(error);
+        editAppointmentSchema.parse(editData);
+
+        await fetchData('admin/editAppointment', 'put', editData, token);
+        onUpdate(); //NO ACTUALIZA NADA MAS GUARDARR!!!!!
+        setErrorMsg("");
+        setValErrors("");
+        closeModal();
+      } catch (error) {
+        if(error instanceof ZodError){
+          let objTemp = {};
+          error.errors.forEach((er)=>{
+            objTemp[er.path[0]] = er.message;
+          });
+          setValErrors(objTemp);
+        }else if (error.response){
+          setErrorMsg(error.response.data.message);
+        }else{
+          setErrorMsg("error");
+        }
+        console.log(error);
+      }
+
     }
-  };
 
-  const cancelAppointment = async ()=>{
+    const cancelAppointment = async ()=>{
 
     try {
       await fetchData('admin/cancelAppointment', 'put', editData, token);
-      /* onUpdate(); */
+      onUpdate();
+      setErrorMsg("");
+      setValErrors("");
       closeModal();
     } catch (error) {
 
@@ -125,7 +147,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal }) => {
                     onChange={handleChange}
                     type="time"
                   />
-                  {valErrors.hour && <p>{valErrors.hour}</p>}
+                  {valErrors.start_hour && <p>{valErrors.start_hour}</p>}
                 </Form.Group>
                 <Form.Group className="mb-3 hour">
                   <Form.Label htmlFor="EndHourTextInput">
@@ -138,7 +160,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal }) => {
                     onChange={handleChange}
                     type="time"
                   />
-                  {valErrors.hour && <p>{valErrors.hour}</p>}
+                  {valErrors.end_hour && <p>{valErrors.end_hour}</p>}
                 </Form.Group>
               </div>
               <Form.Group className="mb-3">
@@ -182,6 +204,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal }) => {
                     </option>
                   ))}
                 </Form.Select>
+                {valErrors.employee_user_id && <p>{valErrors.employee_user_id}</p>}
               </Form.Group>
               <Form.Group>
                 <Form.Label htmlFor="ServicioTextInput">Servicio</Form.Label>
@@ -199,6 +222,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal }) => {
                     </option>
                   ))}
                 </Form.Select>
+                {valErrors.service_id && <p>{valErrors.service_id}</p>}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="PhoneTextInput">Teléfono</Form.Label>
@@ -207,7 +231,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal }) => {
                   value={editData.client_phone || ''}
                   onChange={handleChange}
                 />
-                {valErrors.phone && <p>{valErrors.phone}</p>}
+                {valErrors.client_phone && <p>{valErrors.client_phone}</p>}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="ObservationsTextInput">
@@ -223,6 +247,22 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal }) => {
                 />
                 {valErrors.observation && <p>{valErrors.observation}</p>}
               </Form.Group>
+              <Form.Group>
+                <Form.Label htmlFor="statusTextInput">Estado</Form.Label>
+                <Form.Select
+                  aria-label="Default select example"
+                  id="statusTextInput"
+                  className="inputDesc"
+                  name="status"
+                  onChange={handleChange}
+                >
+                  <option>Selecciona un estado</option>
+                  <option value={1}>Reservada</option>
+                  <option value={3}>No presentado</option>
+                </Form.Select>
+                {valErrors.status && <p>{valErrors.status}</p>}
+              </Form.Group>
+              <p className='text-center text-danger'>{errorMsg}</p>
             </Form>
           </Modal.Body>
           <Modal.Footer>
