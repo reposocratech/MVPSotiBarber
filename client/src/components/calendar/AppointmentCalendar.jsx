@@ -61,6 +61,9 @@ const AppointmentCalendar = ({
     fetchAppointments();
   }, [token]);
 
+  /* const onUpdate = ()=>{
+
+  } */
  
   const handleNavigate = (newDate) => {
     setCurrentdate(newDate);
@@ -106,6 +109,7 @@ const AppointmentCalendar = ({
         onSelectSlot={selectSlot}
       />
       <ModalCita 
+        /* onUpdate={onUpdate} */
         setShowModal={setShowModal}
         showModal={showModal}
         closeModal={closeModal}

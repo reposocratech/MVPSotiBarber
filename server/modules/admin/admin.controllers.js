@@ -238,6 +238,18 @@ class AdminControllers {
       res.status(500).json({message: "error 500"})
     }
   }
+
+  cancelAppointment = async(req, res) =>{
+    const {appointment_id} = req.body
+    try {
+
+      await adminDal.cancelAppointment(appointment_id);      
+      res.status(200).json({ message: "cita cancel ok" });
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({message: "error 500"})
+    }
+  }
 }
 
 export default new AdminControllers();
