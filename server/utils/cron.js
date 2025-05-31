@@ -2,7 +2,7 @@ import cron from 'node-cron';
 import { obtenerCumples } from './obtenerCumples.js';
 import sendBirthdayMail from '../services/felicitacionNodemailer.js';
 
-export const felicitar = () => cron.schedule('0 14 * * *', async()=>{
+export const felicitar = () => cron.schedule('0 10 * * *', async()=>{
   try {
     const cumples = await obtenerCumples(); 
 
