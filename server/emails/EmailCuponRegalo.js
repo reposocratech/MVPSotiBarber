@@ -10,7 +10,7 @@ import {
   Img,
 } from '@react-email/components';
 
-const EmailBirthday = ({ email }) => 
+const EmailCupon = ({ email }) => 
   React.createElement(Html, null,
     React.createElement(Head),
     React.createElement(Body, { style: { backgroundColor: '#F4F4F4', padding: '20px' } },
@@ -28,12 +28,12 @@ const EmailBirthday = ({ email }) =>
           alt: "Logo Soti",
           style: { margin: '0 auto 20px' }
         }),
-        React.createElement(Heading, { style: { color: '#333' } }, "¡Feliz cumpleaños! 🎉"),
+        React.createElement(Heading, { style: { color: '#333' } }, "¡Has alcanzado 10 cortes! 🎉"),
         React.createElement(Text, { style: { fontSize: '16px', margin: '20px 0' } }, 
-          `Hola ${email}, en Soti Barber Studio queremos celebrar este día tan especial contigo.`
+          `Hola ${email}, en Soti Barber Studio queremos agradecer su filedidad.`
         ),
         React.createElement(Text, { style: { fontSize: '16px', marginBottom: '20px' } }, 
-          "Como regalo de cumpleaños, te queremos obsequiar con  un corte totalmente gratuito. 🎁"
+          "Como regalo agradecimiento, te queremos obsequiar con  un corte totalmente gratuito. 🎁"
         ),
         React.createElement(Text, { style: { fontSize: '16px', marginBottom: '20px' } }, 
           "Así que ya sabes, no te lo pierdas y pincha en el siguiente enlace para reservar tu cita"
@@ -51,9 +51,6 @@ const EmailBirthday = ({ email }) =>
         }, "Contacta con nosotros"),
         React.createElement(Text, { style: { fontSize: '16px', marginBottom: '20px' } }, 
           "O si lo prefieres llámanos directamente al número  601 53 06 39"
-        ),
-        React.createElement(Text, { style: { fontSize: '14px', color: '#555', marginTop: '20px' } },
-          "Este regalo es válido durante la semana de tu cumpleaños. ¡No te lo pierdas!"
         ),
         React.createElement(Text, {
           style: {
