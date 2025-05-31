@@ -27,6 +27,7 @@ router.get("/getOneService/:id", verifyToken, adminControllers.getOneService);
 router.get("/getAllAppointments", verifyToken,adminControllers.getAllAppointments);
 router.get("/getOneAppointment/:id", verifyToken, adminControllers.getOneAppointment);
 router.put("/editAppointment", verifyToken, adminControllers.editAppointment);
+router.put("/cancelAppointment", verifyToken, adminControllers.cancelAppointment);
 
 
 

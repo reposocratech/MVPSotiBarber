@@ -200,13 +200,16 @@ export const FormEditService = ({service, handleClose, onUpdated}) => {
                 />
               </Form.Group>
               {/* <p className="text-center">{errorMsg}</p> */}
-              <div className="d-flex align-items-center justify-content-center">
-                <Button className="btn" onClick={cancel}>
-                  Cancelar
-                </Button>
-                <Button className="btn" onClick={onSubmit}>
-                  Guardar
-                </Button>
+              <div>
+                <div className="d-flex align-items-center justify-content-center">
+
+                  <Button className="btn" onClick={cancel}>
+                    Cancelar
+                  </Button>
+                  <Button className="btn" onClick={onSubmit}>
+                    Guardar
+                  </Button>
+                </div>
               </div>
             </Form>
   )

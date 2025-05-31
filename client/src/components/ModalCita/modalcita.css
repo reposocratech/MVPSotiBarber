@@ -1,0 +1,13 @@
+.red-btn {
+  background-color: rgb(141, 37, 37);
+  color: #fff;
+  border: none;
+
+  &:hover {
+  background-color: rgb(121, 30, 30);
+  }
+}
+
+
+
+

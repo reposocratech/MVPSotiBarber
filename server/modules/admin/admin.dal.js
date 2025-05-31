@@ -375,6 +375,16 @@ class AdminDal {
       throw error
     }
   }
+
+  cancelAppointment = async(id)=>{
+    try {
+      let sql = "UPDATE appointment SET status = 2 WHERE appointment_id = ?"
+      await executeQuery(sql, [id])
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
 }
 
 export default new AdminDal();
