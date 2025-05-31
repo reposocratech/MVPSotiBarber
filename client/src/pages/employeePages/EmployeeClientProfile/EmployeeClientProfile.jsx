@@ -13,6 +13,8 @@ const EmployeeClientProfile = () => {
   const [totalCortes, setTotalCortes] = useState(0);
   const [cortesEsteMes, setCortesEsteMes] = useState(0);
   const [totalGasto, setTotalGasto] = useState(0);
+  const [canceladas, setCanceladas] = useState(0);
+  const [noPresentadas, setNoPresentadas] = useState(0);
 
   useEffect(() => {
     if (!id) return;
@@ -52,9 +54,13 @@ const EmployeeClientProfile = () => {
 
           const totalGasto = citas.reduce((contador, cita) => contador + parseFloat(cita.precio || 0), 0);
           setTotalGasto(totalGasto);
+          setCortesEsteMes(cortesMesActual.length);
+          
+          const canceladasCount = citas.filter(cita => cita.status === 2).length;
+          const noPresentadasCount = citas.filter(cita => cita.status === 3).length;
 
-
-        setCortesEsteMes(cortesMesActual.length);
+          setCanceladas(canceladasCount);
+          setNoPresentadas(noPresentadasCount);
       } catch (err) {
         console.error("Error cargando citas o cliente:", err);
       }
@@ -119,6 +125,16 @@ const EmployeeClientProfile = () => {
                 <div className="text-center summary-box">
                   <h2>{totalGasto.toFixed(2)}€</h2>
                   <p className="mb-0">Gasto total</p>
+                </div>
+              </div>
+              <div className="d-flex justify-content-between mt-4 summary-row">
+                <div className="text-center summary-box">
+                  <h2>{canceladas}</h2>
+                  <p className="mb-0">Citas canceladas</p>
+                </div>
+                <div className="text-center summary-box">
+                  <h2>{noPresentadas}</h2>
+                  <p className="mb-0">Citas no presentadas</p>
                 </div>
               </div>
             </div>

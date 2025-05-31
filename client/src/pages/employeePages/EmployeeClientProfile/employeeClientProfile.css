@@ -37,6 +37,13 @@
     width: 48%;
   }
   
+.gasto-total-wrapper {
+  display: flex;
+  justify-content: center;
+ 
+}
+
+
 
 }
 
@@ -132,7 +139,7 @@
 }
 
 .table-scroll-wrapper {
-  max-height: calc(4 * 2.8rem); 
+  max-height: calc(6 * 2.8rem); 
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--color-fondo) var(--color-componente);
@@ -151,6 +158,12 @@
   background-color: var(--color-fondo);
   border-radius: 10px;
 }
+
+ .citas-box {
+  margin-bottom: 0.2rem; 
+  padding-bottom: 0;     
+}
+
 
 }
 
@@ -312,6 +325,26 @@
     width: 80%;
     margin: 0 auto;
   }
+
+ 
+.client-profile .summary-row {
+  gap: 0.8rem;
+}
+
+.client-profile .summary-box {
+  width: 48%;
+  padding: 0.75rem 0.5rem;
+}
+
+.client-profile .summary-box h2 {
+  font-size: 1.75rem; 
+}
+
+.client-profile .summary-box p {
+  font-size: 0.85rem; 
+}
+
+
 }
 
 
