@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import './createappointment.css';
 import { fetchData } from '../../helpers/axiosHelpers';
 import { AuthContext } from '../../context/AuthContextProvider';
+import { createAppointmentSchema } from '../../schemas/createAppointmentSchema';
+import { ZodError } from 'zod';
 
 const initialValue = {
   start_date: '',
@@ -135,6 +137,9 @@ const CreateAppointment = ({
 
   const onSubmit = async () => {
     try {
+
+      createAppointmentSchema.parse(appointmentData)
+
       await fetchData(
         'admin/createAppointment',
         'post',
@@ -162,10 +167,22 @@ const CreateAppointment = ({
       }));
 
       setEvents(formattedEvents);
-
+      setAppointmentData(initialValue)
+      setSearch("");
       handleClose();
     } catch (error) {
-      console.log(error);
+      if(error instanceof ZodError){
+                let objTemp = {};
+                error.errors.forEach((er)=>{
+                  objTemp[er.path[0]] = er.message;
+                });
+                setValErrors(objTemp);
+              }else if (error.response){
+                setErrorMsg(error.response.data.message);
+              }else{
+                setErrorMsg("error");
+              }
+              console.log(error);
     }
   };
 
@@ -242,7 +259,7 @@ const CreateAppointment = ({
                         onChange={handleChange}
                         type="time"
                       />
-                      {valErrors.hour && <p>{valErrors.hour}</p>}
+                      {valErrors.start_hour && <p>{valErrors.start_hour}</p>}
                     </Form.Group>
                     <Form.Group className="mb-3 hour">
                       <Form.Label htmlFor="EndHourTextInput">
@@ -255,7 +272,7 @@ const CreateAppointment = ({
                         onChange={handleChange}
                         type="time"
                       />
-                      {valErrors.hour && <p>{valErrors.hour}</p>}
+                      {valErrors.end_hour && <p>{valErrors.end_hour}</p>}
                     </Form.Group>
                   </div>
                   <Form.Group className="mb-3">
@@ -298,6 +315,9 @@ const CreateAppointment = ({
                         </option>
                       ))}
                     </Form.Select>
+                    {valErrors.employee_id && (
+                      <p>{valErrors.employee_id}</p>
+                    )}
                   </Form.Group>
                   <Form.Group>
                     <Form.Label htmlFor="ServicioTextInput">
@@ -317,6 +337,9 @@ const CreateAppointment = ({
                         </option>
                       ))}
                     </Form.Select>
+                    {valErrors.service_id && (
+                      <p>{valErrors.service_id}</p>
+                    )}
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="PhoneTextInput">Teléfono</Form.Label>
