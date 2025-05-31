@@ -133,7 +133,7 @@ const ClientDashboard = () => {
                   </div>
                   <div className="text-center summary-box">
                     <h2>{cortesEsteMes}</h2>
-                    <p className="mb-0">Cortes este mes</p>
+                    <p className="mb-0">Servicios totales</p>
                   </div>
                 </div>
 
