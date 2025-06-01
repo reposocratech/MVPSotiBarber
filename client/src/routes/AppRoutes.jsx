@@ -34,6 +34,7 @@ import CreateService from '../pages/adminPages/createService/CreateService.jsx';
 //Usuario del context
 import { AuthContext } from '../context/AuthContextProvider';
 import { AccountConfirm } from '../pages/publicPages/accountConfirm/AccountConfirm';
+import ScrollToTop from '../components/scrollToTop/ScrollToTop.jsx';
 //componentes públicos
 
 //componentes Client
@@ -46,14 +47,11 @@ export const AppRoutes = () => {
 
  const {user, loading} = useContext(AuthContext);
 
- 
- 
-  
-
-  return (
+   return (
     <>
     {loading ? <h1>Cargando...</h1> : 
       <BrowserRouter>
+      <ScrollToTop/>
         <Routes>
           <Route element={<PublicRoutes />}>
             <Route element={<PublicLayout />}>
