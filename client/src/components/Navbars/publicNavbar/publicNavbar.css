@@ -24,6 +24,14 @@
   &.active {
     color: var(--color-azul);
   }
+
+  img{
+    width: 100px;
+  
+    object-fit: contain;
+    object-position: center;
+    filter: invert(1);
+  }
  
 }
 

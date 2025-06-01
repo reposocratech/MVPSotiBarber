@@ -8,6 +8,7 @@ import { createEmployeeSchema } from "../../schemas/createEmployeeSchema.js";
 import { editEmployeeSchema } from "../../schemas/editEmployeeSchema.js";
 import { editAppointmentSchema } from "../../schemas/editAppointmentSchema.js";
 import { createAppointmentSchema } from "../../schemas/createAppointmentSchema.js";
+import { uploadImageMulti } from "../../middleware/multerMultiple.js";
 
 const router = express.Router();
 
@@ -30,6 +31,7 @@ router.get("/getAllAppointments", verifyToken,adminControllers.getAllAppointment
 router.get("/getOneAppointment/:id", verifyToken, adminControllers.getOneAppointment);
 router.put("/editAppointment", verifyToken, validateForms(editAppointmentSchema), adminControllers.editAppointment);
 router.put("/cancelAppointment", verifyToken, adminControllers.cancelAppointment);
+router.post("/addImages", verifyToken, uploadImageMulti('servicesImages'), adminControllers.addImages)
 
 
 

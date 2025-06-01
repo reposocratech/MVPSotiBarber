@@ -31,10 +31,13 @@ import EditService from '../pages/adminPages/editService/EditService.jsx';
 import CreateService from '../pages/adminPages/createService/CreateService.jsx';
 /* import CreateAppointment from '../pages/adminPages/createAppointment/CreateAppointment.jsx'; */
 
+
 //Usuario del context
 import { AuthContext } from '../context/AuthContextProvider';
 import { AccountConfirm } from '../pages/publicPages/accountConfirm/AccountConfirm';
+import AdminServiceList from '../pages/adminPages/adminServiceList/AdminServiceList.jsx';
 import ScrollToTop from '../components/scrollToTop/ScrollToTop.jsx';
+
 //componentes públicos
 
 //componentes Client
@@ -116,8 +119,10 @@ export const AppRoutes = () => {
               <Route path="/admin/service" element={<Service />} />
               <Route path="/admin/editService/:id" element={<EditService/>} />
               <Route path="/admin/createService" element={<CreateService/>} />
-              <Route path="/admin/clientProfile/:id" element={<EmployeeClientProfile />}
-              />
+              <Route path="/admin/clientProfile/:id" element={<EmployeeClientProfile />} />
+              <Route path="/admin/serviceList" element={<AdminServiceList />} />
+              
+           
               {/* <Route path="/admin/createAppointment" element={<CreateAppointment/>} /> */}{/* DESCOMENTAR IMPORTACION!!! */}
             </Route>
           </Route>

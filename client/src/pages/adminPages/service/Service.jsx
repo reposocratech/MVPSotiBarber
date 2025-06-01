@@ -10,6 +10,7 @@ import ModalEditService from '../../../components/modalEditService/ModalEditServ
 import { ZodError } from 'zod';
 import deletebtn from '../../../assets/icons/deleteicon.png';
 import editbtn from '../../../assets/icons/editicon.png';
+import addImage from '../../../assets/icons/add_image.png';
 import { FormCreateService } from '../../../components/formCreateService/FormCreateService';
 
 
@@ -19,6 +20,9 @@ const Service = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [modalService, setModalService] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [images, setImages] = useState([]);
+
+ 
 
   const navigate = useNavigate();
  
@@ -128,6 +132,33 @@ const Service = () => {
     }
   };
 
+  const handleChange = async(e, service_id) => {
+    let uploadImgs = e.target.files;
+ 
+    
+    const newFormData = new FormData();
+    if (uploadImgs && uploadImgs.length) {
+      for (const elem of uploadImgs) {
+        newFormData.append("file", elem);
+
+      }
+      newFormData.append("data", JSON.stringify(service_id))
+
+      try {
+         let res = await fetchData('admin/addImages', 'post', newFormData, token)
+          setImages(res.data);
+         
+      } catch (error) {
+        console.log(error);
+        
+      }
+    }
+  }
+
+  const goToServices = () => {
+    navigate("/admin/serviceList", { state: { images } });
+  }
+
   
 
   return (
@@ -158,9 +189,16 @@ const Service = () => {
                             </button>
                           </td>
                           <td>
+                            <div>
+                              <label htmlFor="imgId"> <img src={addImage} alt="añadir imagen servicios" /> </label>
+                              <input type="file" id='imgId' hidden multiple onChange={(event)=>handleChange(event, e?.service_id)} />
+                            </div>
+                            
+                          </td>
+                          <td>
                             <button
                               className="btn-icon"
-                              onClick={() => onDelete(e.service_id)}
+                              onClick={() => onDelete(e?.service_id)}
                             >
                               <img src={deletebtn} alt="Eliminar" />
                             </button>
@@ -181,6 +219,10 @@ const Service = () => {
                     })}
                   </tbody>
                 </table>
+              </div>
+              <div className='pt-4'>
+
+                    <Button onClick={goToServices} >Ir a servicios</Button>
               </div>
               {isMobile && (
                 <Button onClick={handleButton} className="mt-3">

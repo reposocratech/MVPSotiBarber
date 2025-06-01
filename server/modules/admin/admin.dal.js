@@ -1,18 +1,18 @@
 import executeQuery, { dbPool } from '../../config/db.js';
+import enviarCuponRegalo from '../../services/cuponRegaloNodemailer.js';
 import { hashString } from '../../utils/hashUtils.js';
 
 class AdminDal {
-  findUserByEmail = async(email) => {
+  findUserByEmail = async (email) => {
     try {
-      let sql = "select user_id from user where email = ?";
+      let sql = 'select user_id from user where email = ?';
       let result = await executeQuery(sql, [email]);
       return result;
-    } 
-    catch (error) {
+    } catch (error) {
       throw error;
     }
-  }
-  
+  };
+
   createService = async (data) => {
     try {
       const { service_name, estimated_time, price, service_description } =
@@ -233,7 +233,37 @@ class AdminDal {
   };
 
   createAppointment = async (data) => {
-    const {
+  const {
+    client_id,
+    created_by_user_id,
+    employee_id,
+    end_date,
+    end_hour,
+    observations,
+    service_id,
+    start_date,
+    start_hour,
+  } = data;
+
+  const connection = await dbPool.getConnection();
+  try {
+    await connection.beginTransaction();
+
+    const [res] = await connection.query(
+      'SELECT IFNULL(MAX(appointment_id), 0) AS max_id FROM appointment'
+    );
+    let maxId = res[0].max_id + 1;
+
+
+    const insertSql = `
+      INSERT INTO appointment (
+        appointment_id, client_user_id, created_by_user_id,
+        employee_user_id, end_date, end_hour, observation,
+        service_id, start_date, start_hour
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    const values = [
+      maxId,
       client_id,
       created_by_user_id,
       employee_id,
@@ -243,45 +273,52 @@ class AdminDal {
       service_id,
       start_date,
       start_hour,
-    } = data;
+    ];
 
-    const connection = await dbPool.getConnection();
-    try {
-      await connection.beginTransaction();
-      let sqlid =
-        'SELECT IFNULL(MAX(appointment_id),0) as max_id FROM appointment';
-      let [res] = await connection.query(sqlid);
-      let maxId = res[0].max_id;
-      maxId++;
+    await connection.query(insertSql, values);
 
-      let sql =
-        'INSERT INTO appointment (appointment_id, client_user_id, created_by_user_id, employee_user_id, end_date, end_hour, observation, service_id, start_date, start_hour) VALUES (?,?,?,?,?,?,?,?,?,?)';
-      let values = [
-        maxId,
-        client_id,
-        created_by_user_id,
-        employee_id,
-        end_date,
-        end_hour,
-        observations,
-        service_id,
-        start_date,
-        start_hour,
-      ];
 
-      await connection.query(sql, values);
-      await connection.commit();
+    const [result] = await connection.query(
+      `SELECT COUNT(*) AS total_servicios
+       FROM appointment a
+       LEFT JOIN service s ON a.service_id = s.service_id
+       WHERE a.client_user_id = ?
+         AND a.status = 1
+         AND (s.service_name LIKE '%corte%' OR s.service_name LIKE '%rapa%')`,
+      [client_id]
+    );
 
-    } catch (error) {
-      console.log(error);
+    const totalServicios = result[0]?.total_servicios || 0;
 
-      await connection.rollback();
+    console.log("Total de cortes/rapados:", totalServicios);
 
-      throw error;
-    } finally {
-      connection.release();
+    if (totalServicios % 10 === 0) {
+    
+      const [userResult] = await connection.query(
+        'SELECT email, user_name FROM user WHERE user_id = ? AND user_is_deleted = 0',
+        [client_id]
+      );
+
+      const email = userResult[0]?.email;
+      const user_name = userResult[0]?.user_name;
+
+      if (email && user_name) {
+        await enviarCuponRegalo(email, user_name);
+        console.log(`Enviado email de recompensa a ${user_name} (${email})`);
+      } else {
+        console.warn("No se encontró email o nombre para el cliente:", client_id);
+      }
     }
-  };
+
+    await connection.commit();
+  } catch (error) {
+    console.log("Error al crear cita:", error);
+    await connection.rollback();
+    throw error;
+  } finally {
+    connection.release();
+  }
+};
 
   deleteService = async (id) => {
     try {
@@ -372,28 +409,84 @@ class AdminDal {
     }
   };
 
-  editAppointment = async(data) => {
-    const { employee_user_id, client_user_id, service_id, appointment_id, start_date, end_date, start_hour, end_hour, observation, status} = data;
+  editAppointment = async (data) => {
+    const {
+      employee_user_id,
+      client_user_id,
+      service_id,
+      appointment_id,
+      start_date,
+      end_date,
+      start_hour,
+      end_hour,
+      observation,
+      status,
+    } = data;
 
     try {
-      let sql = "update appointment set employee_user_id = ?, client_user_id = ?, service_id = ?, start_date = ?, end_date = ?, start_hour = ?, end_hour = ?, observation = ?, status = ? where appointment_id = ?"
-      let values = [employee_user_id, client_user_id, service_id, start_date, end_date, start_hour, end_hour, observation, status, appointment_id]
+      let sql =
+        'update appointment set employee_user_id = ?, client_user_id = ?, service_id = ?, start_date = ?, end_date = ?, start_hour = ?, end_hour = ?, observation = ?, status = ? where appointment_id = ?';
+      let values = [
+        employee_user_id,
+        client_user_id,
+        service_id,
+        start_date,
+        end_date,
+        start_hour,
+        end_hour,
+        observation,
+        status,
+        appointment_id,
+      ];
 
       await executeQuery(sql, values);
-
     } catch (error) {
-      console.log(error)
-      throw error
+      console.log(error);
+      throw error;
     }
-  }
+  };
 
-  cancelAppointment = async(id)=>{
+  cancelAppointment = async (id) => {
     try {
-      let sql = "UPDATE appointment SET status = 2 WHERE appointment_id = ?"
-      await executeQuery(sql, [id])
+      let sql = 'UPDATE appointment SET status = 2 WHERE appointment_id = ?';
+      await executeQuery(sql, [id]);
     } catch (error) {
-      console.log(error)
-      throw error
+      console.log(error);
+      throw error;
+    }
+  };
+  
+  addImages = async (service_id, images) => {
+    const connection = await dbPool.getConnection();
+    try {
+      await connection.beginTransaction()
+      let sqlId = "SELECT IFNULL(MAX(image_id),0) AS max_id FROM image WHERE service_id=?"
+      let [result] = await connection.query(sqlId, [service_id]);
+      let maxIdImage = result[0].max_id;
+
+      images.forEach(async(elem)=>{
+        maxIdImage++;
+        let sqlImage = 'INSERT INTO image (service_id, image_id, image_name) VALUES (?,?,?)';
+
+        let values = [service_id, maxIdImage, elem.filename];
+
+        await connection.query(sqlImage, values);
+      })
+
+      let sqlNewImages = 'SELECT * FROM image WHERE service_id = ? AND image_is_deleted = 0'
+      let resultNewImgs = await connection.query(sqlNewImages, [service_id]);
+      
+      await connection.commit();
+      return resultNewImgs;
+      
+ 
+    } catch (error) {
+      console.log(error);
+      await connection.rollback();
+      throw error;
+    }
+    finally {
+      connection.release()
     }
   }
 }
