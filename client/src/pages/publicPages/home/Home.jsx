@@ -2,31 +2,32 @@ import React, { useEffect } from 'react';
 import './home.css';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Element } from 'react-scroll';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import soti_barber from "../../../assets/images/soti-barber.webp"
+import services from "../../../assets/images/servicios-2.jpg"
 
 const Home = () => {
-  
   const location = useLocation();
+  const navigate = useNavigate();
 
- useEffect(() => {
-  const hash = location.hash;
+  useEffect(() => {
+    const hash = location.hash;
 
-  if (hash) {
- 
-    setTimeout(() => {
-      const id = hash.replace('#', '');
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 100); 
-  }
-}, [location]);
+    if (hash) {
+      setTimeout(() => {
+        const id = hash.replace('#', '');
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [location]);
 
   return (
     <div>
-          {/* SECTION 1 */}
-        <section className="section-logo d-flex align-items-center padding-y-section">
+      {/* SECTION 1 */}
+      <section className="section-logo d-flex align-items-center pt-5">
         <Container fluid="xxl">
           <Row>
             <Col>
@@ -42,13 +43,13 @@ const Home = () => {
       </section>
       {/* SECTION 2 */}
       <Container fluid="xxl">
-        <section className="section-about padding-y-section">
+        <section className="section-about pt-5">
           <Row>
-            <Col xs={12} md={6} className='order-2 order-md-1'>
-            <div className="d-flex flex-column align-items-start">
-              <h2>Sobre SOTI</h2>
-              <div className="blue-line ms-3"></div>
-            </div>
+            <Col xs={12} md={6} className="order-2 order-md-1 d-flex flex-column justify-content-center">
+              <div className="d-flex flex-column align-items-start">
+                <h2 className="pt-4 pt-md-0">Sobre SOTI</h2>
+                <div className="blue-line ms-3"></div>
+              </div>
               <article>
                 <p>
                   En Soti, Creemos que cada persona merece un estilo único que
@@ -63,25 +64,29 @@ const Home = () => {
                   enorgullece ofrecer un servicio personalizado adaptado a las
                   necesidades especificas de tu cabello.
                 </p>
-                <Button className="btn-home">Contáctanos</Button>
+                <Button onClick={()=>navigate("/contact")} className="btn-home">Contáctanos</Button>
               </article>
             </Col>
-            <Col xs={12} md={6} className="d-flex align-items-center justify-content-center order-1 order-md-2">
-              Imagen
+            <Col
+              xs={12}
+              md={6}
+              className="d-flex align-items-center justify-content-center order-1 order-md-2"
+            >
+              <img src={soti_barber} alt="" />
             </Col>
           </Row>
         </section>
       </Container>
 
       {/* SECTION 3 */}
-        <section className="section-services padding-y-section">
+      <section className="section-services pt-5">
         <Container fluid="xxl">
           <Row>
-            <div className="d-flex flex-column align-items-start">
-              <h3>Nuestros Servicios</h3>
-              <div className="blue-line ms-3"></div>
-            </div>
-            <Col xs={12} md={6} className='order-2 order-md-1'>
+            <Col xs={12} md={6} className="order-2 order-md-1 d-flex flex-column justify-content-center">
+              <div className="d-flex flex-column align-items-start">
+                <h3 className="pt-4 pt-md-0">Nuestros Servicios</h3>
+                <div className="blue-line ms-3"></div>
+              </div>
               <article>
                 <p>
                   En nuestra barbería nos especializamos en cortes de cabello
@@ -90,22 +95,30 @@ const Home = () => {
                   detalle para que salgas con el look que te representa.
                 </p>
 
-                <Button className="btn">Ir a servicios</Button>
+                <Button onClick={()=>navigate("/services")} className="btn">Ir a servicios</Button>
               </article>
             </Col>
-            <Col xs={12} md={6} className="d-flex align-items-center justify-content-center order-1 order-md-2">
-              Imagen
+            <Col
+              xs={12}
+              md={6}
+              className="d-flex align-items-center justify-content-center order-1 order-md-2"
+            >
+              <img src={services} alt="" />
             </Col>
           </Row>
-      </Container>
-        </section>
+        </Container>
+      </section>
 
       {/* SECTION 3 */}
 
-        <section className="section-schedule padding-y-section" id='horarios'>
-          <Container fluid="xxl"></Container>
-        <Row>
-          <Col xs={12} md={6} className="d-flex flex-column align-items-center justify-content-center">
+      <section className="section-schedule pt-5 mx-2" id="horarios">
+        <Container fluid="xxl"></Container>
+        <Row className="align-items-start">
+          <Col
+            xs={12}
+            md={6}
+            className="d-flex flex-column align-items-center justify-content-center pb-md-5"
+          >
             <h2>Información Importante</h2>
             <div className="blue-line"></div>
             <div className="information">
@@ -132,53 +145,36 @@ const Home = () => {
             </div>
           </Col>
 
-          {/* ESTO NO ESTA BIEN ASI */}
-          <Col xs={12} md={6} className="d-flex flex-column align-items-center justify-content-center">
-    
-
-            <h2>Nuestro Horario</h2>
+          <Col
+            xs={12}
+            md={6}
+            className="d-flex flex-column align-items-center justify-content-center horario-col pb-5"
+          >
+            <h2 className="pt-5 pt-md-0">Nuestro Horario</h2>
             <div className="blue-line"></div>
             <div className="information">
-            <p>
-              ¿Tienes alguna pregunta o deseas reservar una cita? No dudes en
-              contactarnos.
-            </p>
-              <h3 className='text-center'>Horario Semanal</h3>
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Lunes</td>
-                    <td>10:00 - 20:00</td>
-                    <td>Viernes</td>
-                    <td>10:00 - 20:00</td>
-                  </tr>
-                  <tr>
-                    <td>Martes</td>
-                    <td>10:00 - 20:00</td>
-                    <td>Sábado</td>
-                    <td>9:00 - 18:00</td>
-                  </tr>
-                  <tr>
-                    <td>Miércoles</td>
-                    <td>10:00 - 20:00</td>
-                    <td>Domingo</td>
-                    <td>Cerrado</td>
-                  </tr>
-                  <tr>
-                    <td>Jueves</td>
-                    <td>10:00 - 20:00</td>
-                    <td>Festivos</td>
-                    <td>A consultar</td>
-                  </tr>
-                </tbody>
-              </table>
+              <p>
+                ¿Tienes alguna pregunta o deseas reservar una cita? No dudes en
+                contactarnos.
+              </p>
+              <div className="schedule-table row w-100 text-center">
+                <div className="col-6 col-md-6">
+                  <p>Lunes: 10:00 - 20:00</p>
+                  <p>Martes: 10:00 - 20:00</p>
+                  <p>Miércoles: 10:00 - 20:00</p>
+                  <p>Jueves: 10:00 - 20:00</p>
+                </div>
+                <div className="col-6 col-md-6">
+                  <p>Viernes: 10:00 - 20:00</p>
+                  <p>Sábado: 9:00 - 18:00</p>
+                  <p>Domingo: Cerrado</p>
+                  <p>Festivos: A consultar</p>
+                </div>
+              </div>
             </div>
-   
           </Col>
         </Row>
       </section>
-
-      
     </div>
   );
 };
