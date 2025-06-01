@@ -207,10 +207,10 @@ const CreateAppointment = ({
   };
 
   return (
-    <section className="register">
+    <section className="sectForm">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Añadir cita</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Container>
@@ -245,8 +245,6 @@ const CreateAppointment = ({
                 </Form>
 
                 <Form className="form-create-appoinment">
-                  <h2 className="text-center">Añadir cita</h2>
-                  <div className="blue-line"></div>
                   <div className="separate">
                     <Form.Group className="mb-3 hour">
                       <Form.Label htmlFor="StartHourTextInput">
@@ -304,7 +302,6 @@ const CreateAppointment = ({
                     <Form.Select
                       aria-label="Default select example"
                       id="EmpleadoTextInput"
-                      className="inputDesc"
                       name="employee_id"
                       onChange={handleChange}
                     >
@@ -326,7 +323,6 @@ const CreateAppointment = ({
                     <Form.Select
                       aria-label="Default select example"
                       id="ServicioTextInput"
-                      className="inputDesc"
                       name="service_id"
                       onChange={handleChange}
                     >
@@ -354,7 +350,6 @@ const CreateAppointment = ({
                       Observaciones
                     </Form.Label>
                     <Form.Control
-                      className="inputDesc"
                       id="ObservationsTextImput"
                       name="observations"
                       value={appointmentData.observations || ''}

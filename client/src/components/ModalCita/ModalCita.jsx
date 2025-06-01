@@ -192,7 +192,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                 <Form.Select
                   aria-label="Default select example"
                   id="EmpleadoTextInput"
-                  className="inputDesc"
+
                   name="employee_user_id"
                   // value={editData.employee_id || ''}
                   onChange={handleChange}
@@ -211,7 +211,6 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                 <Form.Select
                   aria-label="Default select example"
                   id="ServicioTextInput"
-                  className="inputDesc"
                   name="service_id"
                   onChange={handleChange}
                 >
@@ -238,7 +237,6 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                   Observaciones
                 </Form.Label>
                 <Form.Control
-                  className="inputDesc"
                   id="ObservationsTextImput"
                   name="observation"
                   value={editData.observation || ''}
@@ -252,7 +250,6 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                 <Form.Select
                   aria-label="Default select example"
                   id="statusTextInput"
-                  className="inputDesc"
                   name="status"
                   onChange={handleChange}
                 >
@@ -266,11 +263,11 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <div className="d-flex justify-content-between w-100">
+            <div className="botones d-flex justify-content-between w-100">
               <Button onClick={cancelAppointment} className='red-btn'>Cancelar cita</Button>
               <div>
-                <Button className="ms-auto me-2" onClick={onSubmit}>Guardar</Button>
-                <Button onClick={closeModal}>Cancelar</Button>
+                <Button className="boton ms-auto me-2" onClick={onSubmit}>Guardar</Button>
+                <Button onClick={closeModal}>Salir</Button>
               </div>
             </div>
           </Modal.Footer>
