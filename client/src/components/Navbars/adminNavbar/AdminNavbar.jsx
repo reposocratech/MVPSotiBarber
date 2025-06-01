@@ -1,21 +1,19 @@
-import React, { useContext } from 'react'
-
+import React, { useContext } from 'react';
 
 import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { UserIcon } from '../../userIcon/UserIcon';
 
-
 export const AdminNavbar = () => {
-  const {logOut, user} = useContext(AuthContext);
+  const { logOut, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   return (
     <Navbar className="navPublic" expand="lg" collapseOnSelect>
       <Container>
-        <Navbar.Brand className="titleNav" onClick={() => navigate('/admin')}>
-          SOTI
+        <Navbar.Brand className="titleNav" onClick={() => navigate('/')}>
+          <img src="/images/logo/logo_recortado.png" alt="logo Soti" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -30,9 +28,12 @@ export const AdminNavbar = () => {
               Servicios
             </Nav.Link>
 
-                 <div className='nav-icon nav-icon d-none d-lg-flex' onClick={() => navigate("/admin")}>
-                   <UserIcon />
-                 </div>
+            <div
+              className="nav-icon nav-icon d-none d-lg-flex"
+              onClick={() => navigate('/admin')}
+            >
+              <UserIcon />
+            </div>
             <Button className="btn-nav" onClick={logOut}>
               Salir
             </Button>
@@ -40,5 +41,5 @@ export const AdminNavbar = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  )
-}
+  );
+};

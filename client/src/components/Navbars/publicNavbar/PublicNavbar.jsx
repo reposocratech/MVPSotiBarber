@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
 
+
 import "./publicNavbar.css"
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -14,7 +15,9 @@ export const PublicNavbar = () => {
     <>
       <Navbar  className='navPublic'  expand="lg" expanded={isOpen} onToggle={()=> setIsOpen(!isOpen)} collapseOnSelect>
       <Container>
-        <Navbar.Brand className='titleNav' onClick={()=>navigate("/")}>SOTI</Navbar.Brand>
+        <Navbar.Brand className='titleNav' onClick={()=>navigate("/")}>
+          <img src="/images/logo/logo_recortado.png" alt="logo Soti" />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto custom-nav d-flex gap-2">
