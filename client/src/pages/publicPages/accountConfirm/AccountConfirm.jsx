@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from "react-bootstrap"
 import { fetchData } from '../../../helpers/axiosHelpers'
 import { AuthContext } from '../../../context/AuthContextProvider'
@@ -9,7 +9,7 @@ import "./accountConfirm.css"
 export const AccountConfirm = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   
   const onSubmit = async() => {
     try {

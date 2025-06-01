@@ -6,7 +6,7 @@
   height: 100%;
 }
 
-.register {
+.sectForm {
   padding-block: 3rem;
 }
 
@@ -16,7 +16,7 @@
   align-items: center;
 }
 
-.formRegister {
+.formularios {
   background-color: var(--color-componente);
   border-radius: 20px;
   padding: 2rem;

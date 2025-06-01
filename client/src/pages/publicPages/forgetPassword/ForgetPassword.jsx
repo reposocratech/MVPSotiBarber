@@ -49,11 +49,11 @@ const ForgetPassword = () => {
   }
   
   return (
-    <section className='register'>
+    <section className='sectForm'>
       <Container>
         <Row className='engloba'>
           <Col md={12} lg={6} className='cols'>
-            <Form className='formRegister'>
+            <Form className='formularios'>
               <h3 className='text-center'>¿Has olvidado tu contraseña?</h3>
               <div className='blue-line'></div>
               <p>Introduce tu email y te enviaremos un enlace para reestablecer tu contraseña</p>

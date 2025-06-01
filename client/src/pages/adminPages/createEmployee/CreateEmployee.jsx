@@ -70,11 +70,11 @@ const CreateEmployee = () => {
   }
 
   return (
-    <section className='register'>
+    <section className='sectForm'>
       <Container>
         <Row className='engloba'>
           <Col md={12} lg={6} className='cols'>
-            <Form className='formRegister'>
+            <Form className='formularios'>
               <h2 className='text-center'>Crear empleado</h2>
               <div className='blue-line'></div>
               <Form.Group className='mb-3'>
@@ -169,8 +169,9 @@ const CreateEmployee = () => {
                 />
               </Form.Group>
               <p>{errorMsg}</p>
-              <div className='d-flex justify-content-center'>
+              <div className='d-flex justify-content-center gap-3'>
                 <Button className='boton' onClick={onSubmit}>Registrar</Button>
+                <Button className='boton' onClick={()=>navigate("/admin/employeeList")}>Cancelar</Button>
               </div>
             </Form>
           </Col>

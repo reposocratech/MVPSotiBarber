@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { registerSchema } from '../../../schemas/registerSchema';
 import { fetchData } from '../../../helpers/axiosHelpers';
 import { ZodError } from "zod";
-import "./register.css"
+import "./csscommon.css"
 
 const initialValue = { 
   email: "",
@@ -52,11 +52,11 @@ const Register = () => {
   }
 
   return (
-    <section className='register'>
+    <section className='sectForm'>
       <Container>
         <Row className='engloba'>
           <Col md={12} lg={6} className='cols'>
-            <Form className='formRegister'>
+            <Form className='formularios'>
               <h2 className='text-center'>Regístrate</h2>
               <div className='blue-line'></div>
               <Form.Group className='mb-3'>
