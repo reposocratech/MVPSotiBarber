@@ -15,7 +15,7 @@ const ClientDashboard = () => {
   const [appointments, setAppointments] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [totalCortes, setTotalCortes] = useState(0);
-  const [cortesEsteMes, setCortesEsteMes] = useState(0);
+  const [serviciosTotales, setServiciosTotales] = useState(0);
 
 
   const perfilIncompleto =
@@ -32,55 +32,65 @@ const ClientDashboard = () => {
   };
 
   useEffect(() => {
-    if (!user?.user_id) return;
+  if (!user?.user_id) return;
 
-    const fetchAppointments = async () => {
-      try {
-        const res = await fetchData(
-          `client/appointments/${user.user_id}`,
-          'get',
-          null,
-          token
-        );
+  const fetchAppointments = async () => {
+    try {
+      const res = await fetchData(
+        `client/appointments/${user.user_id}`,
+        'get',
+        null,
+        token
+      );
 
-        const citas = res.data || res;
-        setAppointments(citas);
+      const resCortes = await fetchData(
+        `client/cortes-count/${user.user_id}`,
+        'get',
+        null,
+        token
+      );
 
-        // Cortes totales
-        setTotalCortes(citas.length);
+      const { totalCortes = 0 } = resCortes.data || resCortes;
+      setTotalCortes(totalCortes);
 
-        // Cortes de este mes
-        const now = new Date();
-        const currentMonth = now.getMonth();
-        const currentYear = now.getFullYear();
+      const citas = res.data || res;
 
-        const cortesMesActual = citas.filter((cita) => {
-          const citaDate = new Date(cita.start_date);
-          return (
-            citaDate.getMonth() === currentMonth &&
-            citaDate.getFullYear() === currentYear
-          );
-        });
+      // Mapeo para asignar tipoVisible según status
+      const citasMapeadas = citas.map((cita) => ({
+        ...cita,
+        tipoVisible:
+          cita.status === 2
+            ? 'Cancelada'
+            : cita.status === 3
+            ? 'No presentado'
+            : cita.tipo_cita,
+      }));
 
-        setCortesEsteMes(cortesMesActual.length);
-      } catch (err) {
-        console.error("Error cargando citas:", err);
-      }
-    };
+      setAppointments(citasMapeadas);
 
-    fetchAppointments();
-  }, [user?.user_id]);
+      // Servicios totales
+      setServiciosTotales(citas.length);
+    } catch (err) {
+      console.error("Error cargando citas:", err);
+    }
+  };
 
-  // Lógica del buscador
-  const filteredAppointments = appointments.filter((cita) => {
-    const search = searchTerm.toLowerCase();
-    return (
-      cita.start_date.toLowerCase().includes(search) ||
-      cita.tipo_cita.toLowerCase().includes(search) ||
-      cita.empleado.toLowerCase().includes(search) ||
-      cita.precio.toString().includes(search)
-    );
-  });
+  fetchAppointments();
+}, [user?.user_id]);
+
+// Lógica del buscador
+const filteredAppointments = appointments.filter((cita) => {
+  const search = searchTerm.toLowerCase();
+  return (
+    cita.start_date.toLowerCase().includes(search) ||
+    cita.tipoVisible.toLowerCase().includes(search) || // usa tipoVisible
+    cita.empleado.toLowerCase().includes(search) ||
+    cita.precio.toString().includes(search)
+  );
+});
+
+const cortesRestantes = 10 - (totalCortes % 10);
+const tieneCorteGratis = totalCortes !== 0 && totalCortes % 10 === 0;
 
   if (!user) return null;
 
@@ -132,7 +142,7 @@ const ClientDashboard = () => {
                     <p className="mb-0">Cortes totales</p>
                   </div>
                   <div className="text-center summary-box">
-                    <h2>{cortesEsteMes}</h2>
+                    <h2>{serviciosTotales}</h2>
                     <p className="mb-0">Servicios totales</p>
                   </div>
                 </div>
@@ -146,14 +156,19 @@ const ClientDashboard = () => {
                   </Button>
                 </div>
 
-                {totalCortes !== 0 && totalCortes % 10 === 0 && (
-                  <div className="text-center mt-3">
+                <div className="text-center mt-3">
+                  {tieneCorteGratis ? (
                     <p className="fw-bold">
                       ¡Felicidades! Has acumulado {totalCortes} cortes y tienes
                       un corte de pelo GRATIS.
                     </p>
-                  </div>
-                )}
+                  ) : (
+                    <p className="fw-bold">
+                      Te faltan {cortesRestantes} cortes de pelo para conseguir
+                      uno gratis.
+                    </p>
+                  )}
+                </div>
               </div>
             </Col>
 
@@ -196,7 +211,7 @@ const ClientDashboard = () => {
                           (cita, index) => (
                             <tr key={index}>
                               <td data-label="Fecha:">{cita.start_date}</td>
-                              <td data-label="Cita:">{cita.tipo_cita}</td>
+                              <td data-label="Cita:">{cita.tipoVisible}</td>
                               <td data-label="Empleado:">{cita.empleado}</td>
                               <td data-label="Precio:">{cita.precio}€</td>
                             </tr>
@@ -205,7 +220,9 @@ const ClientDashboard = () => {
                       ) : (
                         <tr>
                           <td colSpan="4" className="fw-bold">
-                            Este cliente no ha tenido ningún servicio todavía
+                            {searchTerm
+                              ? 'No se han encontrado resultados para tu búsqueda'
+                              : 'Este cliente no ha tenido ningún servicio todavía'}
                           </td>
                         </tr>
                       )}

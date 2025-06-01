@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthContextProvider';
 import { Col, Container, Row } from 'react-bootstrap';
 import { UserIcon } from '../../../components/userIcon/UserIcon';
 import { fetchData } from '../../../helpers/axiosHelpers';
@@ -7,11 +8,12 @@ import './employeeClientProfile.css';
 
 const EmployeeClientProfile = () => {
   const { id } = useParams();
+  const { token } = useContext(AuthContext);
   const [user, setUser] = useState({});
   const [appointments, setAppointments] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [totalCortes, setTotalCortes] = useState(0);
-  const [cortesEsteMes, setCortesEsteMes] = useState(0);
+  const [serviciosTotales, setServiciosTotales] = useState(0);
   const [totalGasto, setTotalGasto] = useState(0);
   const [canceladas, setCanceladas] = useState(0);
   const [noPresentadas, setNoPresentadas] = useState(0);
@@ -25,7 +27,7 @@ const EmployeeClientProfile = () => {
           `employee/clientProfile/${id}`,
           'get',
           null,
-          localStorage.getItem("token")
+          token
         );
         setUser(userRes.data || userRes);
 
@@ -33,34 +35,32 @@ const EmployeeClientProfile = () => {
           `client/appointments/${id}`,
           'get',
           null,
-          localStorage.getItem("token")
+          token
         );
+
+        const resCortes = await fetchData(
+          `client/cortes-count/${id}`,
+          'get',
+          null,
+          token
+        );
+
         const citas = res.data || res;
         setAppointments(citas);
 
-        setTotalCortes(citas.length);
+        setServiciosTotales(citas.length);
 
-        const now = new Date();
-        const currentMonth = now.getMonth();
-        const currentYear = now.getFullYear();
+        const { totalCortes = 0 } = resCortes.data || resCortes;
+        setTotalCortes(totalCortes);
 
-        const cortesMesActual = citas.filter((cita) => {
-          const citaDate = new Date(cita.start_date);
-          return (
-            citaDate.getMonth() === currentMonth &&
-            citaDate.getFullYear() === currentYear
-          );
-        });
+        const totalGasto = citas.reduce((contador, cita) => contador + parseFloat(cita.precio || 0), 0);
+        setTotalGasto(totalGasto);
 
-          const totalGasto = citas.reduce((contador, cita) => contador + parseFloat(cita.precio || 0), 0);
-          setTotalGasto(totalGasto);
-          setCortesEsteMes(cortesMesActual.length);
-          
-          const canceladasCount = citas.filter(cita => cita.status === 2).length;
-          const noPresentadasCount = citas.filter(cita => cita.status === 3).length;
+        const canceladasCount = citas.filter(cita => cita.status === 2).length;
+        const noPresentadasCount = citas.filter(cita => cita.status === 3).length;
 
-          setCanceladas(canceladasCount);
-          setNoPresentadas(noPresentadasCount);
+        setCanceladas(canceladasCount);
+        setNoPresentadas(noPresentadasCount);
       } catch (err) {
         console.error("Error cargando citas o cliente:", err);
       }
@@ -71,9 +71,16 @@ const EmployeeClientProfile = () => {
 
   const filteredAppointments = appointments.filter((cita) => {
     const search = searchTerm.toLowerCase();
+    const tipoMostrado =
+      cita.status === 2
+        ? 'Cancelada'
+        : cita.status === 3
+        ? 'No presentado'
+        : cita.tipo_cita;
+
     return (
       cita.start_date.toLowerCase().includes(search) ||
-      cita.tipo_cita.toLowerCase().includes(search) ||
+      tipoMostrado.toLowerCase().includes(search) ||
       cita.empleado.toLowerCase().includes(search) ||
       cita.precio.toString().includes(search)
     );
@@ -116,8 +123,8 @@ const EmployeeClientProfile = () => {
                   <p className="mb-0">Cortes totales</p>
                 </div>
                 <div className="text-center summary-box">
-                  <h2>{cortesEsteMes}</h2>
-                  <p className="mb-0">Cortes este mes</p>
+                  <h2>{serviciosTotales}</h2>
+                  <p className="mb-0">Servicios totales</p>
                 </div>
               </div>
 
@@ -172,22 +179,27 @@ const EmployeeClientProfile = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {(searchTerm ? filteredAppointments : appointments).length >
-                    0 ? (
-                      (searchTerm ? filteredAppointments : appointments).map(
-                        (cita, index) => (
-                          <tr key={index}>
-                            <td data-label="Fecha:">{cita.start_date}</td>
-                            <td data-label="Cita:">{cita.tipo_cita}</td>
-                            <td data-label="Empleado:">{cita.empleado}</td>
-                            <td data-label="Precio:">{cita.precio}€</td>
-                          </tr>
-                        )
-                      )
+                    {(searchTerm ? filteredAppointments : appointments).length > 0 ? (
+                      (searchTerm ? filteredAppointments : appointments).map((cita, index) => (
+                        <tr key={index}>
+                          <td data-label="Fecha:">{cita.start_date}</td>
+                          <td data-label="Cita:">
+                            {cita.status === 2
+                              ? 'cancelada'
+                              : cita.status === 3
+                              ? 'no presentado'
+                              : cita.tipo_cita}
+                          </td>
+                          <td data-label="Empleado:">{cita.empleado}</td>
+                          <td data-label="Precio:">{cita.precio}€</td>
+                        </tr>
+                      ))
                     ) : (
                       <tr>
                         <td colSpan="4" className="fw-bold">
-                          Este cliente no ha tenido ningún servicio todavía
+                          {searchTerm
+                            ? 'No se han encontrado resultados para tu búsqueda'
+                            : 'Este cliente no ha tenido ningún servicio todavía'}
                         </td>
                       </tr>
                     )}
