@@ -3,12 +3,11 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import './servicelist.css';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { Link } from 'react-router-dom';
-import defaultService from '../../../assets/images/defaultservice.jpg';
+import defaultService from '../../../assets/images/servicios-2.jpg';
 
 const ServiceList = () => {
   const { services } = useContext(AuthContext);
   const [enabledServices, setEnabledServices] = useState(services);
-  const [hasActivePromo, setHasActivePromo] = useState(false);
 
 
   useEffect(() => {

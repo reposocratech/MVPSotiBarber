@@ -31,7 +31,6 @@ const AdminDashboard = () => {
           handleClose={handleClose}
         />
       </div>
-      <div></div>
     </section>
   );
 };

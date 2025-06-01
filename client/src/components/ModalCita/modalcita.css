@@ -8,6 +8,14 @@
   }
 }
 
+.botones {
+  @media(width < 500px) {
+    .boton {
+      display: flex;
+    }
+  }
+}
+
 
 
 
