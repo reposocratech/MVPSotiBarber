@@ -21,8 +21,9 @@ router.post("/forgetPassword", validateForms(forgetPasswordSchema), clientContro
 router.put("/passRecovery", verifyTokenPassword, validateForms(changePasswordSchema) , clientControllers.passRecovery)
 router.put("/confirmAccount", clientControllers.confirmAccount)
 router.put("/completeFormRegister", validateForms(completeRegisterSchema), clientControllers.completeFormRegister)
-router.post('/contact', clientControllers.contactForm);
-router.put('/editClient',verifyToken, uploadImage("users"), clientControllers.editClient)
+router.post("/contact", clientControllers.contactForm);
+router.put("/editClient",verifyToken, uploadImage("users"), clientControllers.editClient)
 router.get("/appointments/:id", verifyToken, clientControllers.getAppointmentsByClientId);
+router.get("/cortes-count/:id", verifyToken, clientControllers.getCortesCount);
 
 export default router;

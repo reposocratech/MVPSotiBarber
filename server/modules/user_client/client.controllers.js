@@ -210,6 +210,15 @@ class ClientControllers {
     }
   };
 
+  getCortesCount = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const totalCortes = await clientDal.countCortesByClientId(id);
+    res.json({ totalCortes });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al contar cortes', error });
+  }
+};
 
 
 

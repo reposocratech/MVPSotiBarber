@@ -21,7 +21,7 @@ class ClientDal {
       throw { message: 'error de bd' };
     }
   };
-
+  
   findUserByEmailLogin = async (email) => {
     try {
       let sql =
@@ -130,6 +130,32 @@ class ClientDal {
       throw error;
     }
   };
+
+  countCortesByClientId = async (clientId) => {
+  try {
+    const sql = `
+      SELECT COUNT(*) AS totalCortes
+      FROM appointment a
+      JOIN service s ON s.service_id = a.service_id
+      WHERE a.client_user_id = ?
+        AND a.status NOT IN (2, 3)
+        AND (
+          LOWER(s.service_name) LIKE 'corte%' OR
+          LOWER(s.service_name) LIKE '% corte%' OR
+          LOWER(s.service_name) LIKE 'rapado%' OR
+          LOWER(s.service_name) LIKE '% rapado%'
+        )
+    `;
+    const result = await executeQuery(sql, [clientId]);
+    return result[0].totalCortes;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
 }
 
 export default new ClientDal();

@@ -1,0 +1,39 @@
+.client-footer{
+  background-color: var(--color-negro);
+  width: 100vw;       
+  margin: 0;         
+  padding: 1.5rem;  
+  
+}
+
+.enlaces {
+  list-style: none;        
+  padding-left: 0;          
+  margin-bottom: 0;
+}
+
+.enlaces li {
+  margin-bottom: 0.5rem; 
+  color: var(--color-blanco);
+}
+.enlaces .nav-link {
+  color: var(--color-blanco);
+  text-decoration: none;
+}
+
+.enlaces .nav-link:hover {
+  color: var(--color-azul);
+}
+
+.footer-divider {
+  height: 1px;
+  background-color: var(--color-blanco); 
+  opacity: 0.3;
+  margin-bottom: 0.2rem;
+  
+}
+
+.footer-copy {
+  text-align: center;
+  padding-block: 0.3rem 0;
+}
