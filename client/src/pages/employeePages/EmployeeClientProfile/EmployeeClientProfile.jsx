@@ -48,12 +48,18 @@ const EmployeeClientProfile = () => {
         const citas = res.data || res;
         setAppointments(citas);
 
-        setServiciosTotales(citas.length);
+        const citasValidas = citas.filter(
+          (cita) => cita.status !== 2 && cita.status !== 3
+        );
+        setServiciosTotales(citasValidas.length);
 
         const { totalCortes = 0 } = resCortes.data || resCortes;
         setTotalCortes(totalCortes);
 
-        const totalGasto = citas.reduce((contador, cita) => contador + parseFloat(cita.precio || 0), 0);
+        const totalGasto = citas.reduce(
+          (contador, cita) => contador + parseFloat(cita.precio || 0),
+          0
+        );
         setTotalGasto(totalGasto);
 
         const canceladasCount = citas.filter(cita => cita.status === 2).length;
@@ -162,6 +168,22 @@ const EmployeeClientProfile = () => {
                   />
                 </div>
               </div>
+
+               <div className="tabla-head mb-2 d-flex justify-content-between px-4">
+                  <div className="col-fecha fw-semibold text-white text-center">
+                    Fecha
+                  </div>
+                  <div className="col-tipo fw-semibold text-white text-center">
+                    Tipo de cita
+                  </div>
+                  <div className="col-empleado fw-semibold text-white text-center">
+                    Empleado
+                  </div>
+                  <div className="col-precio fw-semibold text-white text-center">
+                    Precio
+                  </div>
+                </div>
+
               <div className="mt-3 rounded p-3 table-scroll-wrapper">
                 <table className="tabla-citas text-white mb-0">
                   <colgroup>
@@ -170,14 +192,6 @@ const EmployeeClientProfile = () => {
                     <col className="col-empleado" />
                     <col className="col-precio" />
                   </colgroup>
-                  <thead>
-                    <tr>
-                      <th>Fecha</th>
-                      <th>Tipo de cita</th>
-                      <th>Empleado</th>
-                      <th>Precio</th>
-                    </tr>
-                  </thead>
                   <tbody>
                     {(searchTerm ? filteredAppointments : appointments).length > 0 ? (
                       (searchTerm ? filteredAppointments : appointments).map((cita, index) => (

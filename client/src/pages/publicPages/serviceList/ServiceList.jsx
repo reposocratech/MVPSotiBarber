@@ -4,11 +4,13 @@ import './servicelist.css';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { Link } from 'react-router-dom';
 import defaultService from '../../../assets/images/servicios-2.jpg';
+import { fetchData } from '../../../helpers/axiosHelpers';
 
 const ServiceList = () => {
   const { services } = useContext(AuthContext);
   const [enabledServices, setEnabledServices] = useState(services);
-
+  const [images, setImages] = useState([]);
+  const [filteredImages, setFilteredImages] = useState(images)
 
   useEffect(() => {
     const filtered = services.filter(
@@ -17,9 +19,29 @@ const ServiceList = () => {
     setEnabledServices(filtered);
   }, [services]);
 
+  const fetchImages = async () => {
+      try {
+        let result = await fetchData(
+          `client/allImages`,
+          'get',
+          null,
+        );
+        setImages(result.data.result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchImages();
+    }, [services]);
 
-  const today = new Date();
+    useEffect(() => {
+      setFilteredImages(images);
+    }, [images]);
 
+
+    console.log("IMAGESSS", images)
 
   const promoIsActive = (service) => {
     if (
@@ -36,12 +58,18 @@ const ServiceList = () => {
     return false;
   };
 
+  const filterImages = (id)=>{
+    let result = images.filter((image)=>image.service_id === id)
+    setFilteredImages(result)
+    
+  }
+
   return (
     <section className="padding-y-section">
       <Container fluid="xxl">
         {services.length !== 0 && (
           <Row>
-            <div className="d-flex flex-column align-items-center justify-content-center">
+            <div className="d-flex flex-column align-items-center justify-content-center mb-3">
               <h3>Precios y Servicios</h3>
               <div className="blue-line"></div>
             </div>
@@ -101,19 +129,34 @@ const ServiceList = () => {
         {services.length !== 0 && (
           <Row>
             <section className="padding-y-section">
-              <div className="d-flex flex-column justify-content-center align-items-center">
+              <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                 <h3>Conoce nuestros trabajos</h3>
                 <div className="blue-line"></div>
               </div>
-              <div className="gallery d-flex justify-content-center align-items-center">
+
+              <div className="d-flex justify-content-center align-items-center">
+                <button className='filter' onClick={()=>setFilteredImages(images)}>All</button>
+
                 {services.map((service) => {
                   return (
-                    <Link className="filter" to="" key={service.service_id}>
+                    <button onClick={()=>filterImages(service.service_id)} className="filter" key={service.service_id}>
                       {service.service_name}
-                    </Link>
+                    </button>
                   );
                 })}
               </div>
+                <div className='d-flex align-items-center justify-content-center'>
+                  {filteredImages.length ? filteredImages.map((image)=>{
+                    return(
+                      <img className='photo mt-4' src={`${
+                        import.meta.env.VITE_SERVER_URL
+                      }images/servicesImages/${image.image_name}`}
+                      alt="foto servicio" />
+                    )
+                  }): <div className='d-flex align-items-center justify-content-center'>
+                    <p className='pt-5'>No hay fotos todavía</p>
+                  </div>}
+                </div>
             </section>
           </Row>
         )}

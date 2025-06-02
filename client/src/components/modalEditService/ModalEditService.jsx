@@ -7,7 +7,7 @@ import { editServiceSchema } from '../../schemas/editServiceSchema';
 import { ZodError } from 'zod';
 import { FormEditService } from '../formEditService/FormEditService';
 
-const ModalEditService = ({ service, show, handleClose, onUpdated }) => {
+const ModalEditService = ({ service, show, handleClose, onUpdated, cancel}) => {
 
   return (
     <Modal
@@ -19,7 +19,7 @@ const ModalEditService = ({ service, show, handleClose, onUpdated }) => {
         <Modal.Title className="modal-title">Editar Servicio</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <FormEditService onUpdated={onUpdated} service={service} handleClose={handleClose}/>
+        <FormEditService cancel={cancel} onUpdated={onUpdated} service={service} handleClose={handleClose}/>
       </Modal.Body>
       <Modal.Footer>
       </Modal.Footer>

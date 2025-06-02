@@ -1,5 +1,6 @@
 import executeQuery, { dbPool } from '../../config/db.js';
 import enviarCuponRegalo from '../../services/cuponRegaloNodemailer.js';
+import deleteFile from '../../utils/fileSystem.js';
 import { hashString } from '../../utils/hashUtils.js';
 
 class AdminDal {
@@ -473,11 +474,11 @@ class AdminDal {
         await connection.query(sqlImage, values);
       })
 
-      let sqlNewImages = 'SELECT * FROM image WHERE service_id = ? AND image_is_deleted = 0'
-      let resultNewImgs = await connection.query(sqlNewImages, [service_id]);
+      // let sqlNewImages = 'SELECT * FROM image WHERE service_id = ? AND image_is_deleted = 0'
+      // let resultNewImgs = await connection.query(sqlNewImages, [service_id]);
       
       await connection.commit();
-      return resultNewImgs;
+      // return resultNewImgs;
       
  
     } catch (error) {
@@ -487,6 +488,33 @@ class AdminDal {
     }
     finally {
       connection.release()
+    }
+  }
+
+  getImages = async(id)=>{
+    try {
+      let sql = 'SELECT * FROM image WHERE service_id = ? AND image_is_deleted = 0'
+      let result = await executeQuery(sql, [id])
+      return result;
+
+    } catch (error) {
+      console.log(error);
+      throw error;
+      
+    }
+  }
+
+  delImage = async(service_id, image_id, file_name)=>{
+    try {
+      let sql = "UPDATE image SET image_is_deleted = 1 WHERE service_id=? AND image_id =?"
+      let values = [service_id, image_id]
+
+      await executeQuery(sql, values);
+
+      deleteFile(file_name, "servicesImages");
+    } catch (error) {
+      console.log(error);
+      throw error;
     }
   }
 }
