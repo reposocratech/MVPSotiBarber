@@ -16,6 +16,7 @@ const ClientDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [totalCortes, setTotalCortes] = useState(0);
   const [serviciosTotales, setServiciosTotales] = useState(0);
+  const [isBirthday, setIsBirthday] = useState(false);
 
 
   const perfilIncompleto =
@@ -68,8 +69,20 @@ const ClientDashboard = () => {
 
       setAppointments(citasMapeadas);
 
-      // Servicios totales
-      setServiciosTotales(citas.length);
+      const citasValidas = citas.filter(
+        (cita) => cita.status !== 2 && cita.status !== 3
+      );
+      setServiciosTotales(citasValidas.length);
+
+      if (user?.birth_date) {
+        const today = new Date();
+        const birthDate = new Date(user.birth_date);
+        const cumple =
+          birthDate.getDate() === today.getDate() &&
+          birthDate.getMonth() === today.getMonth();
+        setIsBirthday(cumple);
+      }
+
     } catch (err) {
       console.error("Error cargando citas:", err);
     }
@@ -83,7 +96,7 @@ const filteredAppointments = appointments.filter((cita) => {
   const search = searchTerm.toLowerCase();
   return (
     cita.start_date.toLowerCase().includes(search) ||
-    cita.tipoVisible.toLowerCase().includes(search) || // usa tipoVisible
+    cita.tipoVisible.toLowerCase().includes(search) || 
     cita.empleado.toLowerCase().includes(search) ||
     cita.precio.toString().includes(search)
   );
@@ -91,6 +104,10 @@ const filteredAppointments = appointments.filter((cita) => {
 
 const cortesRestantes = 10 - (totalCortes % 10);
 const tieneCorteGratis = totalCortes !== 0 && totalCortes % 10 === 0;
+
+
+
+
 
   if (!user) return null;
 
@@ -103,7 +120,7 @@ const tieneCorteGratis = totalCortes !== 0 && totalCortes % 10 === 0;
       )}
 
       <Container>
-        <section>
+        <section className="titulo-wrapper mt-5">
           <Row>
             <Col className="pb-4">
               <h2 className="titulomvl text-center">
@@ -136,7 +153,7 @@ const tieneCorteGratis = totalCortes !== 0 && totalCortes % 10 === 0;
                   </div>
                 </div>
 
-                <div className="contadores d-flex justify-content-between mt-4 summary-row">
+                <div className="contadores d-flex justify-content-between mt-3 summary-row">
                   <div className="text-center summary-box">
                     <h2>{totalCortes}</h2>
                     <p className="mb-0">Cortes totales</p>
@@ -168,6 +185,12 @@ const tieneCorteGratis = totalCortes !== 0 && totalCortes % 10 === 0;
                       uno gratis.
                     </p>
                   )}
+                  {isBirthday && (
+                    <div className="fw-bold">
+                       ¡Felicidades por tu cumpleaños! Hoy tienes un
+                      corte gratis.
+                    </div>
+                  )}
                 </div>
               </div>
             </Col>
@@ -188,6 +211,21 @@ const tieneCorteGratis = totalCortes !== 0 && totalCortes % 10 === 0;
                   </div>
                 </div>
 
+                <div className="tabla-head mb-2 d-flex justify-content-between px-4">
+                  <div className="col-fecha fw-semibold text-white text-center">
+                    Fecha
+                  </div>
+                  <div className="col-tipo fw-semibold text-white text-center">
+                    Tipo de cita
+                  </div>
+                  <div className="col-empleado fw-semibold text-white text-center">
+                    Empleado
+                  </div>
+                  <div className="col-precio fw-semibold text-white text-center">
+                    Precio
+                  </div>
+                </div>
+
                 <div className="mt-3  rounded p-3 table-scroll-wrapper">
                   <table className="tabla-citas text-white mb-0">
                     <colgroup>
@@ -196,14 +234,6 @@ const tieneCorteGratis = totalCortes !== 0 && totalCortes % 10 === 0;
                       <col className="col-empleado" />
                       <col className="col-precio" />
                     </colgroup>
-                    <thead>
-                      <tr>
-                        <th>Fecha</th>
-                        <th>Tipo de cita</th>
-                        <th>Empleado</th>
-                        <th>Precio</th>
-                      </tr>
-                    </thead>
                     <tbody>
                       {(searchTerm ? filteredAppointments : appointments)
                         .length > 0 ? (
