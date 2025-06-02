@@ -1,0 +1,79 @@
+.service-list{
+  background-color: var(--color-componente);
+  padding: 1rem;
+  border-radius: 20px;
+
+
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  
+  
+  @media (max-width: 500px) {
+    .gallery {
+      flex-direction: column;
+    }
+  }
+
+.tabla {
+  @media(width < 500px) {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+  
+  table tr:not(:last-child) {
+    border-bottom: 1px solid var(--color-fondo);
+  }
+
+  img{
+    width: 100px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+}
+
+.line-through{
+  text-decoration: line-through;
+}
+
+.filter{
+  text-decoration: none;
+  color: var(--color-blanco);
+  margin-inline: 1rem;
+
+
+  &:hover{
+    font-weight: bold;
+  }
+  &:active{
+    font-weight: bold;
+  }
+}
+
+.photo {
+  width: 150px;
+  height: 200px;
+  border-radius: 1rem;
+  margin-right: 1rem;
+  object-fit: cover;
+}
+
+.cont-img{
+  position: relative;
+}
+
+.delete{
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+}

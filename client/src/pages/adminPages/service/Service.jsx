@@ -18,9 +18,9 @@ const Service = () => {
   const { token, services, setServices } = useContext(AuthContext);
 
   const [isMobile, setIsMobile] = useState(false);
-  const [modalService, setModalService] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [images, setImages] = useState([]);
+  // const [modalService, setModalService] = useState(null);
+  // const [showModal, setShowModal] = useState(false);
+  // const [images, setImages] = useState([]);
 
  
 
@@ -39,12 +39,6 @@ const Service = () => {
     window.addEventListener('resize', handleResizeScreen);
     return () => window.removeEventListener('resize', handleResizeScreen);
   }, []);
-
-
-  
- 
-
-  
 
   const enableSwitch = async (id) => {
     //me busca el servicio que quiero cambiar y le cambia el estado
@@ -77,7 +71,7 @@ const Service = () => {
     }
   };
   
-  const editService = async (service) => {
+  /* const editService = async (service) => {
     try {
       if (isMobile) {
         navigate(`/admin/editService/${service.service_id}`);
@@ -95,19 +89,19 @@ const Service = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }; */
 
-  const handleClose = async () => {
+  /* const handleClose = async () => {
     setShowModal(false);
-  };
+  }; */
 
   const handleButton = () => {
     navigate('/admin/createService');
   };
 
-  const cancel = () => {
+  /* const cancel = () => {
     navigate('/admin/service');
-  };
+  }; */
 
   const onUpdated = (updatedService) => {
     setServices((prev) =>
@@ -132,7 +126,7 @@ const Service = () => {
     }
   };
 
-  const handleChange = async(e, service_id) => {
+  /* const handleChange = async(e, service_id) => {
     let uploadImgs = e.target.files;
  
     
@@ -153,12 +147,7 @@ const Service = () => {
         
       }
     }
-  }
-
-  const goToServices = () => {
-    navigate("/admin/serviceList", { state: { images } });
-  }
-
+  } */
   
 
   return (
@@ -183,18 +172,21 @@ const Service = () => {
                           <td>
                             <button
                               className="btn-icon"
-                              onClick={() => editService(e)}
+                              /* onClick={() => editService(e)} */
+                              onClick={() => navigate(`/admin/oneService/${e.service_id}`)}
                             >
                               <img src={editbtn} alt="Editar" />
                             </button>
                           </td>
-                          <td>
+                            {/* INPUT GALERIA IMGS */}
+                          {/* <td>
+
                             <div>
                               <label htmlFor="imgId"> <img src={addImage} alt="añadir imagen servicios" /> </label>
                               <input type="file" id='imgId' hidden multiple onChange={(event)=>handleChange(event, e?.service_id)} />
                             </div>
                             
-                          </td>
+                          </td> */}
                           <td>
                             <button
                               className="btn-icon"
@@ -222,7 +214,7 @@ const Service = () => {
               </div>
               <div className='pt-4'>
 
-                    <Button onClick={goToServices} >Ir a servicios</Button>
+                    {/* <Button onClick={goToServices} >Ir a servicios</Button> */}
               </div>
               {isMobile && (
                 <Button onClick={handleButton} className="mt-3">
@@ -244,7 +236,7 @@ const Service = () => {
         )}
       </Row>
 
-      {!isMobile && modalService && (
+      {/* {!isMobile && modalService && (
         <ModalEditService
           cancel={cancel}
           show={showModal}
@@ -252,7 +244,7 @@ const Service = () => {
           service={modalService}
           onUpdated={onUpdated}
         ></ModalEditService>
-      )}
+      )} */}
     </section>
   );
 };

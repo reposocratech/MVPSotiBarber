@@ -40,7 +40,6 @@ class ClientControllers {
 
       const result = await clientDal.findUserByEmailLogin(email);
 
-
       if (result.length === 0) {
         res.status(401).json({ message: 'Email o contraseña no válidas' });
       } else {
@@ -99,7 +98,6 @@ class ClientControllers {
         process.env.TOKEN_KEY_FORGETPASSWORD
       );
       sendMailPassword(email, tokenFP);
-
     } catch (error) {
       console.log('errForgetPassword', error);
     }
@@ -124,7 +122,6 @@ class ClientControllers {
         await clientDal.passRecovery(newPasswordHashed, user_id);
         res.status(200).json({ message: 'contraseña actualiza correctamente' });
       }
-
     } catch (error) {
       res.status(400).json({ message: 'token inválido' });
     }
@@ -151,9 +148,8 @@ class ClientControllers {
 
   completeFormRegister = async (req, res) => {
     try {
-
-      const {user_name, lastname, birthdate, phone} = req.body;
-      const data = {user_name, lastname, birthdate, phone}
+      const { user_name, lastname, birthdate, phone } = req.body;
+      const data = { user_name, lastname, birthdate, phone };
 
       const authHeader = req.headers.authorization;
       const token = authHeader && authHeader.split(' ')[1];
@@ -205,23 +201,31 @@ class ClientControllers {
       const appointments = await clientDal.findAppointmentsByClientId(clientId);
       res.status(200).json(appointments);
     } catch (error) {
-      console.error("Error al obtener citas del cliente:", error);
-      res.status(500).json({ message: "Error al obtener citas del cliente" });
+      console.error('Error al obtener citas del cliente:', error);
+      res.status(500).json({ message: 'Error al obtener citas del cliente' });
     }
   };
 
   getCortesCount = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const totalCortes = await clientDal.countCortesByClientId(id);
-    res.json({ totalCortes });
-  } catch (error) {
-    res.status(500).json({ message: 'Error al contar cortes', error });
-  }
-};
+    try {
+      const { id } = req.params;
+      const totalCortes = await clientDal.countCortesByClientId(id);
+      res.json({ totalCortes });
+    } catch (error) {
+      res.status(500).json({ message: 'Error al contar cortes', error });
+    }
+  };
 
+  getAllImages = async (req, res) => {
+    try {
+      const result = await clientDal.getImages();
 
-
+      res.status(200).json({ message: 'images', result });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Error al contar cortes', error });
+    }
+  };
 }
 
 export default new ClientControllers();
