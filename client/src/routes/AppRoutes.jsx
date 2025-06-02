@@ -35,8 +35,8 @@ import CreateService from '../pages/adminPages/createService/CreateService.jsx';
 //Usuario del context
 import { AuthContext } from '../context/AuthContextProvider';
 import { AccountConfirm } from '../pages/publicPages/accountConfirm/AccountConfirm';
-import AdminServiceList from '../pages/adminPages/adminServiceList/AdminServiceList.jsx';
 import ScrollToTop from '../components/scrollToTop/ScrollToTop.jsx';
+import ServiceProfile from '../pages/adminPages/adminServiceList/ServiceProfile.jsx';
 
 //componentes públicos
 
@@ -120,7 +120,7 @@ export const AppRoutes = () => {
               <Route path="/admin/editService/:id" element={<EditService/>} />
               <Route path="/admin/createService" element={<CreateService/>} />
               <Route path="/admin/clientProfile/:id" element={<EmployeeClientProfile />} />
-              <Route path="/admin/serviceList" element={<AdminServiceList />} />
+              <Route path="/admin/oneService/:id" element={<ServiceProfile/>} />
               
            
               {/* <Route path="/admin/createAppointment" element={<CreateAppointment/>} /> */}{/* DESCOMENTAR IMPORTACION!!! */}

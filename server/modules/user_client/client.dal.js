@@ -153,6 +153,17 @@ class ClientDal {
   }
 };
 
+  getImages = async()=>{
+    try {
+      let sql = 'SELECT * FROM image WHERE image_is_deleted = 0'
+      let result = await executeQuery(sql)
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
 
 
 

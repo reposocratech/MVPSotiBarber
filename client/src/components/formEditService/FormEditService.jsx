@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchData } from '../../helpers/axiosHelpers';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 
-export const FormEditService = ({service, handleClose, onUpdated}) => {
+export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
   
     const navigate = useNavigate();
     const { token } = useContext(AuthContext);
@@ -70,9 +70,6 @@ export const FormEditService = ({service, handleClose, onUpdated}) => {
       }
     };
 
-    const cancel = () => {
-      navigate('/admin/service');
-    };
 
   return (
     <Form className="edit-form">

@@ -25,5 +25,6 @@ router.post("/contact", clientControllers.contactForm);
 router.put("/editClient",verifyToken, uploadImage("users"), clientControllers.editClient)
 router.get("/appointments/:id", verifyToken, clientControllers.getAppointmentsByClientId);
 router.get("/cortes-count/:id", verifyToken, clientControllers.getCortesCount);
+router.get("/allImages", clientControllers.getAllImages)
 
 export default router;
