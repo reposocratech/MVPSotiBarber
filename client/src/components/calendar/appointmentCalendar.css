@@ -1,25 +1,68 @@
-
-.calendario-citas{
-  height: 90vh;
+.calendario-citas {
+  /*height: 90vh;*/
   width: 70vw;
 }
 
+.rbc-calendar{
+  height:90vh;
+}
+
+
+.rbc-toolbar > .rbc-btn-group:first-of-type {
+  margin-top: 0.625rem;
+  margin-bottom: 0.625rem;
+}
+
+
+.rbc-btn-group button {
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+}
+
+.rbc-btn-group button.rbc-active,
+.rbc-btn-group button:focus,
+.rbc-btn-group button:active,
+.rbc-btn-group button:hover {
+  background-color: #607D8B;
+  color: #ffffff;
+  outline: none;
+}
+
+
+.rbc-toolbar-label {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .rbc-toolbar-label {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+}
 
 
 .rbc-day-bg {
-  background-color: #ffffff;
+  background-color: #000000;
+}
+
+
+.rbc-time-view,
+.rbc-time-content,
+.rbc-time-gutter,
+.rbc-timeslot-group {
+  background-color: #000000;
+}
+
+
+.rbc-today {
+  background-color: #000000 !important;
 }
 
 .rbc-off-range-bg {
   background-color: #e7e7e7;
-}
-
-.rbc-today {
-  background-color: #eaf6ff;
-}
-
-.rbc-btn-group button{
-  background-color: #ffffff;
 }
 
 .rbc-month-header {
@@ -35,6 +78,35 @@
   background-color: #021330;
 }
 
-.rbc-allday-cell{
+.rbc-allday-cell {
   display: none;
+}
+
+.rbc-time-gutter .rbc-timeslot-group {
+  display: flex;
+  align-items: center;   
+  justify-content: center; 
+}
+
+.rbc-time-gutter .rbc-label {
+  font-weight: bold;
+  color: #ffffff;
+  display: flex;
+  align-items: center;     
+  justify-content: center;  
+  height: 100%;             
+}
+
+.rbc-event {
+  background-color: #607D8B;
+  color: #ffffff;
+  border: none;
+  font-size: 0.85rem;
+  padding: 0.15rem 0.6rem;        
+  border-radius: 0.6rem;
+  margin: 0.1rem 0.4rem;         
+  display: flex;
+  align-items: center;
+  height: auto;                  
+  box-sizing: border-box;       
 }
