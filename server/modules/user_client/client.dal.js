@@ -25,7 +25,7 @@ class ClientDal {
   findUserByEmailLogin = async (email) => {
     try {
       let sql =
-        'SELECT user_id, password FROM user WHERE email = ? AND user_is_deleted = 0';
+        'SELECT user_id, password, user_is_confirmed FROM user WHERE email = ? AND user_is_deleted = 0';
       let result = await executeQuery(sql, [email]);
       return result;
     } catch (error) {
