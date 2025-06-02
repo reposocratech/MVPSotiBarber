@@ -18,6 +18,9 @@
     border-radius: 20px;
   }
 
+  @media(width < 500px) {
+    width: 350px;
+  }
 }
 
 .line-through{
@@ -35,5 +38,21 @@
   &:hover,
   &:active {
     font-weight: bold;
+  }
+}
+
+.gallery {
+  @media(width < 500px) {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.tabla {
+  @media(width < 500px) {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
   }
 }

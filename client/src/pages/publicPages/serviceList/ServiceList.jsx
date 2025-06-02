@@ -82,7 +82,7 @@ const ServiceList = () => {
                       const hasPromo = promoIsActive(service);
 
                       return (
-                        <tr key={service.service_id}>
+                        <tr className='tabla' key={service.service_id}>
                           <td>{service.service_name}</td>
                           <td>
                             <div className="d-flex flex-column">
@@ -133,8 +133,10 @@ const ServiceList = () => {
                 <h3>Conoce nuestros trabajos</h3>
                 <div className="blue-line"></div>
               </div>
+
               <div className="d-flex justify-content-center align-items-center">
                 <button className='filter' onClick={()=>setFilteredImages(images)}>All</button>
+
                 {services.map((service) => {
                   return (
                     <button onClick={()=>filterImages(service.service_id)} className="filter" key={service.service_id}>
