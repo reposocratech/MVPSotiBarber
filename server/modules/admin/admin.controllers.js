@@ -260,12 +260,9 @@ class AdminControllers {
     
     const service_id = JSON.parse(req.body.data)
     
-    
-    
     try {
-      const [result] = await adminDal.addImages(service_id, req.files);
+      const result = await adminDal.addImages(service_id, req.files);
      
-      
       res.status(200).json({ message: 'images' });
       
     } catch (error) {
@@ -274,6 +271,31 @@ class AdminControllers {
       res.status(500).json({ message: 'error 500' });
     }
   };
+
+  getImages = async (req, res)=>{
+    const {id} = req.params;
+    try {
+      const result = await adminDal.getImages(id);
+     
+      res.status(200).json({ message: 'images', result });
+    } catch (error) {
+      console.log(error);
+
+      res.status(500).json({ message: 'error 500' });
+    }
+  }
+
+  delImage = async(req, res)=>{
+    const {service_id, image_id, file_name} = req.params
+    try {
+      await adminDal.delImage(service_id, image_id, file_name)
+      res.status(200).json({ message: 'borrado ok'});    
+    } catch (error) {
+      console.log(error);
+
+      res.status(500).json({ message: 'error 500' });
+    }
+  }
 }
 
 export default new AdminControllers();

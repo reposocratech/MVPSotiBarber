@@ -36,15 +36,14 @@
 }
 
 
-.navPublic .nav-link,
+.navPublic a,
 .navPublic .navbar-toggler-icon {
   color: var(--color-blanco);
-    &:hover, &.active {
+  text-decoration: none;
+  &:hover,
+  &.active {
     color: var(--color-azul);
-    
   }
- 
-
 }
 
 
@@ -59,5 +58,11 @@
     display: flex;
     flex-direction: column;
     align-items: center 
+  }
+}
+
+a .nav-link {
+   &.active {
+    color: var(--color-azul);
   }
 }

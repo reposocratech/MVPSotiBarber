@@ -24,16 +24,16 @@
   text-decoration: line-through;
 }
 
-.filter{
+.filter {
+  all: unset;
+  width: 120px; /* Fijo, suficiente para el texto más largo */
+  text-align: center;
   text-decoration: none;
   color: var(--color-blanco);
   margin-inline: 1rem;
 
-
-  &:hover{
-    font-weight: bold;
-  }
-  &:active{
+  &:hover,
+  &:active {
     font-weight: bold;
   }
 }
