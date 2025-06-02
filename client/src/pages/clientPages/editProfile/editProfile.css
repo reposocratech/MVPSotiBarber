@@ -19,4 +19,8 @@
   input {
     background-color: var(--color-blanco);
   }
+
+  @media(width < 500px) {
+    width: 350px;
+  }
 }

@@ -119,7 +119,7 @@ const AdminClientList = () => {
                     <tbody>
           
                       {clientsToDisplay.map((e) => (
-                        <tr key={e.user_id}>
+                        <tr className='tr' key={e.user_id}>
                           <td>
                             {e.user_name} {e.lastname}
                           </td>

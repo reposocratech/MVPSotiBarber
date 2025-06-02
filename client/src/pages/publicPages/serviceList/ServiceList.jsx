@@ -54,7 +54,7 @@ const ServiceList = () => {
                       const hasPromo = promoIsActive(service);
 
                       return (
-                        <tr key={service.service_id}>
+                        <tr className='tabla' key={service.service_id}>
                           <td>{service.service_name}</td>
                           <td>
                             <div className="d-flex flex-column">
@@ -105,7 +105,7 @@ const ServiceList = () => {
                 <h3>Conoce nuestros trabajos</h3>
                 <div className="blue-line"></div>
               </div>
-              <div className="d-flex justify-content-center align-items-center">
+              <div className="gallery d-flex justify-content-center align-items-center">
                 {services.map((service) => {
                   return (
                     <Link className="filter" to="" key={service.service_id}>

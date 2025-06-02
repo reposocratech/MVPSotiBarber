@@ -16,8 +16,6 @@
     scrollbar-width: thin;
     scrollbar-color: var(--color-fondo) var(--color-componente);
     padding: 1rem;
-    
-    
   }
   
   
@@ -174,5 +172,6 @@
     }
   }
 }
+
 
 

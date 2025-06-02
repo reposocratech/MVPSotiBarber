@@ -11,10 +11,15 @@
     scrollbar-width: thin;
     scrollbar-color: var(--color-fondo) var(--color-componente);
     padding: 1rem;
+
+    @media(width < 500px) {
+      width: 310px;
+    }
   }
 
   table {
     max-height: calc(4 * 2.5rem);
+
     tr {
       height: 2.5rem;
        border-block: 1px solid var(--color-blanco);
@@ -90,4 +95,11 @@
       }
     }
   }
+
+  @media (width < 500px) {
+    width: 350px;
+    height: 400px;
+  }
 }
+
+

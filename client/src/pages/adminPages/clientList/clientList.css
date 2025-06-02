@@ -19,6 +19,8 @@
       height: 2.5rem;
        border-block: 1px solid var(--color-blanco);
       padding: 10px 40px;
+      /* display: flex;
+      flex-direction: ; */
     }
 
     td {
@@ -89,5 +91,9 @@
         }
       }
     }
+  }
+
+  @media(width < 500px){
+    width: 350px;
   }
 }
