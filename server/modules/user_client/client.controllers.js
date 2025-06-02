@@ -35,33 +35,38 @@ class ClientControllers {
   };
 
   login = async (req, res) => {
-    try {
-      const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
+    const result = await clientDal.findUserByEmailLogin(email);
 
-      const result = await clientDal.findUserByEmailLogin(email);
-
-
-      if (result.length === 0) {
-        res.status(401).json({ message: 'Email o contraseña no válidas' });
-      } else {
-        let match = await compareString(password, result[0].password);
-
-        if (!match) {
-          res.status(401).json({ message: 'Email o contraseña no válidas' });
-        } else {
-          const token = jwt.sign(
-            { user_id: result[0].user_id },
-            process.env.TOKEN_KEY,
-            { expiresIn: '1d' }
-          );
-          res.status(200).json({ token });
-        }
-      }
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: 'ups, esto es un error 500' });
+    if (result.length === 0) {
+      return res.status(401).json({ message: 'Email o contraseña no válidas' });
     }
-  };
+
+    const user = result[0];
+    const match = await compareString(password, user.password);
+
+    if (!match) {
+      return res.status(401).json({ message: 'Email o contraseña no válidas' });
+    }
+
+  
+    if (!user.user_is_confirmed) {
+      return res.status(403).json({ message: 'Debes verificar tu cuenta antes de iniciar sesión.' });
+    }
+
+    const token = jwt.sign(
+      { user_id: user.user_id },
+      process.env.TOKEN_KEY,
+      { expiresIn: '1d' }
+    );
+
+    return res.status(200).json({ token });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'ups, esto es un error 500' });
+  }
+};
 
   userById = async (req, res) => {
     try {

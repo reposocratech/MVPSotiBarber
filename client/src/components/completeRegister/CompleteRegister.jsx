@@ -60,7 +60,7 @@ const CompleteRegister = ({onCompletar}) => {
       <Container>
         <Row className='engloba'>
           <Col md={12} lg={6} className='cols'>
-            <Form className='formRegister'>
+            <Form className='formularios'>
               <h2 className='text-center'>Completa tus datos</h2>
               <div className='blue-line'></div>
               <Form.Group className='mb-3'>

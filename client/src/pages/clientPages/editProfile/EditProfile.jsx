@@ -113,7 +113,7 @@ const EditProfile = () => {
                   type="date"
                   name="birth_date"
                   onChange={handleChange}
-                  value={editData.birth_date ? editData.birth_date : ''}
+                 value={editData.birth_date ? editData.birth_date.slice(0, 10) : ''}
                 />
               </Form.Group>
 

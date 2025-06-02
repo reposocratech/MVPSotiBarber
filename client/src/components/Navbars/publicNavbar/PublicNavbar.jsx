@@ -3,7 +3,7 @@ import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
 
 
 import "./publicNavbar.css"
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 
 export const PublicNavbar = () => {
@@ -20,11 +20,11 @@ export const PublicNavbar = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto custom-nav d-flex gap-2">
-            <Nav.Link as={Link} to="/" onClick={()=>setIsOpen(false)} >Inicio</Nav.Link>
-            <Nav.Link as={Link} to="/services" onClick={()=>setIsOpen(false)}>Servicios</Nav.Link>
-            <Nav.Link onClick={() => navigate("/#horarios")}>Horario</Nav.Link>
-            <Nav.Link as={Link} to="/contact" onClick={()=>setIsOpen(false)}>Contacto</Nav.Link>
+          <Nav className="ms-auto custom-nav d-flex align-items-center gap-2">
+            <NavLink className={({isActive})=>isActive ? "active": ""} as={Link} to="/" onClick={()=>setIsOpen(false)} >Inicio</NavLink>
+            <NavLink className={({isActive})=>isActive ? "active": ""} to="/services" onClick={()=>setIsOpen(false)}>Servicios</NavLink>
+            <Nav.Link className={({isActive})=>isActive ? "active": ""} onClick={() => navigate("/#horarios")}>Horario</Nav.Link>
+            <NavLink className={({isActive})=>isActive ? "active": ""}  to="/contact" onClick={()=>setIsOpen(false)}>Contacto</NavLink>
               <Button className='btn-nav' onClick={() => { navigate("/register"); setIsOpen(false); }}>Registro</Button>
             <Button className='btn-nav' onClick={() => { navigate("/login"); setIsOpen(false); }}>Acceder</Button>
           </Nav>
