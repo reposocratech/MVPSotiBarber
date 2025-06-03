@@ -42,6 +42,10 @@ class AdminDal {
         service_description,
         service_is_enabled: 0,
         service_avatar,
+        promo_name: null,
+        promo_price: null,
+        promo_start_date: null,
+        promo_end_date:null
       };
     } catch (error) {
       throw { message: 'error de bd' };

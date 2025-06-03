@@ -86,6 +86,8 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
       }
     };
 
+    console.log("editedservice", editedService)
+
 
   return (
     <Form className="edit-form">

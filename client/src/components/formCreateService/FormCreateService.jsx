@@ -69,13 +69,14 @@ export const FormCreateService = () => {
 
       const res = await fetchData('admin/createService', 'post', newFormData, token);
 
-    
+    console.log("RESSSS:DATA", res.data)
 
       //seteo services con el nuevo servicio y le pongo el campo de habilitado
       setErrorMsg(res.data.message);
       setValErrors({});
       //seteo servicios con el servicio nuevo que ya tiene el id incluido (me lo traigo del return de la query)
       setServices([...services, res.data.service]);
+
       setService(initialValue);
       navigate("/admin/service")
     } catch (error) {
