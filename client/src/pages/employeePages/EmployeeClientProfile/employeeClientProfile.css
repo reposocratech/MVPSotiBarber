@@ -253,6 +253,10 @@
     margin-bottom: 0.25rem;
     color: var(--color-blanco);
   }
+
+  .history table tr td:last-child {
+    border-bottom: none;
+  }
 }
 
  @media (min-width: 701px) and (max-width: 850px) {
@@ -330,6 +334,9 @@
     color: var(--color-blanco);
   }
 
+  .history table tr td:last-child {
+    border-bottom: none;
+  }
  
   .client-profile .summary-box {
     width: 80%;
