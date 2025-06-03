@@ -81,7 +81,7 @@ const combineDateTime = (dateStr, timeStr) => {
 
 export const createAppointmentSchema = z
   .object({
-    date: z.string({
+    start_date: z.string({
       required_error: 'La fecha es obligatoria',
     }),
     start_hour: z.string({
@@ -132,7 +132,7 @@ export const createAppointmentSchema = z
     path: ['end_hour'],
   })
   .refine((data) => {
-    const startDateTime = combineDateTime(data.date, data.start_hour);
+    const startDateTime = combineDateTime(data.start_date, data.start_hour);
     const now = new Date();
     return startDateTime >= now;
   }, {

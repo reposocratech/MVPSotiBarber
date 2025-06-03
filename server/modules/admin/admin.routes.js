@@ -33,7 +33,8 @@ router.put("/editAppointment", verifyToken, validateForms(editAppointmentSchema)
 router.put("/cancelAppointment", verifyToken, adminControllers.cancelAppointment);
 router.post("/addImages", verifyToken, uploadImageMulti('servicesImages'), adminControllers.addImages)
 router.get("/getImages/:id", verifyToken, adminControllers.getImages)
-router.put("/delImage/:service_id/:image_id/:file_name", verifyToken, adminControllers.delImage)
+router.delete("/delImage/:service_id/:image_id/:file_name", verifyToken, adminControllers.delImage)
+router.post("/reorderServiceImages", verifyToken, adminControllers.reorderServiceImages)
 
 
 

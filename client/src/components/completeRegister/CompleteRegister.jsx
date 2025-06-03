@@ -9,7 +9,7 @@ import { ZodError } from 'zod'
 const initialValue = {
   user_name: "",
   lastname: "",
-  birthdate: "",
+  birth_date: "",
   phone: "",
   description: ""
 }
@@ -56,7 +56,7 @@ const CompleteRegister = ({onCompletar}) => {
   }
 
   return (
-    <section className='register'>
+    <section className='sectForm'>
       <Container>
         <Row className='engloba'>
           <Col md={12} lg={6} className='cols'>
@@ -95,15 +95,15 @@ const CompleteRegister = ({onCompletar}) => {
                 </Form.Label>
                 <Form.Control 
                   id="BirthdateTextInput"
-                  name="birthdate"
-                  value={completeRegister.birthdate}
+                  name="birth_date"
+                  value={completeRegister.birth_date}
                   onChange={handleChange}
                   type='date'
                 />
                 <div className='d-flex justify-content-end'>
                   <p>y tendrás un regalo el día de tu cumpleaños</p>
                 </div>
-                {valErrors.birthdate && <p>{valErrors.birthdate}</p>}
+                {valErrors.birth_date && <p>{valErrors.birth_date}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='PhoneTextInput'>

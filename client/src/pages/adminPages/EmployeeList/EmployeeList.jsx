@@ -76,11 +76,11 @@ const EmployeeList = () => {
           {employeeList.length === 0 ? (
             <div>
               <p>No hay empleados registrados.</p>
-              <h2 className="text-center">Empleados</h2>
-              <div className="blue-line"></div>
-              <Button onClick={() => navigate('/admin/createEmployee')}>
-                Crear empleados
-              </Button>
+              <div className='d-flex justify-content-center'>
+                <Button onClick={() => navigate('/admin/createEmployee')}>
+                  Crear empleados
+                </Button>
+              </div>
             </div>
           ) : (
             <Col className="d-flex justify-content-center align-items-center">
