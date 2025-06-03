@@ -1,16 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { UserIcon } from '../../userIcon/UserIcon';
 
 export const AdminNavbar = () => {
   const { logOut, user } = useContext(AuthContext);
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   return (
-    <Navbar className="navPublic" expand="lg" collapseOnSelect>
+    <Navbar
+      className="navPublic"
+      expand="lg"
+      expanded={isOpen}
+      onToggle={() => setIsOpen(!isOpen)}
+      collapseOnSelect
+    >
       <Container>
         <Navbar.Brand className="titleNav" onClick={() => navigate('/')}>
           <img src="/images/logo/logo_recortado.png" alt="logo Soti" />
@@ -18,15 +25,27 @@ export const AdminNavbar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto custom-nav d-flex  align-items-center gap-2">
-            <Nav.Link as={Link} to="/admin/clientlist">
+            <NavLink
+              className={({ isActive }) => (isActive ? 'active' : '')}
+              to="/admin/clientlist"
+              onClick={() => setIsOpen(false)}
+            >
               Clientes
-            </Nav.Link>
-            <Nav.Link as={Link} to="/admin/employeelist">
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? 'active' : '')}
+              to="/admin/employeelist"
+              onClick={() => setIsOpen(false)}
+            >
               Empleados
-            </Nav.Link>
-            <Nav.Link as={Link} to="/admin/service">
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? 'active' : '')}
+              to="/admin/service"
+              onClick={() => setIsOpen(false)}
+            >
               Servicios
-            </Nav.Link>
+            </NavLink>
 
             <div
               className="nav-icon nav-icon d-none d-lg-flex"
