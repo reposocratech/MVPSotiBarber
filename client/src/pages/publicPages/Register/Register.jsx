@@ -103,7 +103,7 @@ const Register = () => {
                 <Button className='boton' onClick={onSubmit}>Registrar</Button>
               </div>
             </Form>
-            <p className='pe-5 text-center'>¿Ya estás registrado? <Link className='inicio' to="/login">Inicia sesión aquí</Link></p>
+            <p className='text-center'>¿Ya estás registrado? <Link className='inicio' to="/login">Inicia sesión aquí</Link></p>
           </Col>
         </Row>
       </Container>
