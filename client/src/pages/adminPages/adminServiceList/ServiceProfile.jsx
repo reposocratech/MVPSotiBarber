@@ -157,7 +157,7 @@ const ServiceProfile = () => {
     <section className="padding-y-section">
       <Container fluid="xxl">
         <Row>
-          <div className="d-flex flex-column align-items-center justify-content-center">
+          <div className="d-flex flex-column align-items-center justify-content-center mb-3">
             <h3>{service.service_name}</h3>
             <div className="blue-line"></div>
           </div>
@@ -169,7 +169,7 @@ const ServiceProfile = () => {
                   <tr className="tabla" key={service.service_id}>
                     <td>{service.service_name}</td>
                     <td>
-                      <div className="d-flex flex-column">
+                      <div className="d-flex flex-column align-items-center justify-content-center">
                         <span className={hasPromo ? 'line-through' : ''}>
                           {service.price}€
                         </span>
@@ -222,7 +222,7 @@ const ServiceProfile = () => {
         {service && (
           <Row>
             <section className="padding-y-section">
-              <div className="d-flex flex-column justify-content-center align-items-center">
+              <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                 <h3>Conoce nuestros trabajos</h3>
                 <div className="blue-line"></div>
               </div>

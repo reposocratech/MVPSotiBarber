@@ -133,7 +133,7 @@ class AdminDal {
       const hashedPassword = await hashString(password);
 
       let sql =
-        'insert into user (user_name, lastname, email, phone, password, description, user_type) values (?,?,?,?,?,?,?)';
+        'insert into user (user_name, lastname, email, phone, password, description, user_type, user_is_confirmed) values (?,?,?,?,?,?,?,?)';
       let values = [
         user_name,
         lastname,
@@ -142,6 +142,7 @@ class AdminDal {
         hashedPassword,
         description,
         2,
+        1
       ];
 
       if (data.img) {

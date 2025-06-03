@@ -50,10 +50,10 @@
 }
 
 .section-services{
-  background-color: var(--color-fondo);
+  background-color: var(--color-componente);
 
   img{
-    width: 250px;
+    width: 200px;
     border-radius: 1rem;
   }
 
@@ -75,6 +75,7 @@
     background-color: var(--color-componente);
     border-radius: 20px;
     padding: 2rem;
+    min-height: 400.5px;
 
     @media (max-width: 768px) {
       .schedule-table > div {

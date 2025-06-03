@@ -39,19 +39,39 @@ export const editServiceSchema = z.object({
     .min(10, "Introduce una descripción mayor de 10 caracteres")
     .max(250, "La descripción debe ser menor de 250 caracteres"),
 
-  promo_start_date: z.preprocess(
-    val => val ? new Date(String(val)) : undefined,
-    z.date({
-      required_error: "Fecha de inicio es obligatoria"
-    }).optional()
-  ),
+    promo_start_date: z.preprocess((val) => {
+      if (val === "" || val === null) return val;
+      if (typeof val === "string" || val instanceof Date) {
+        const date = new Date(val);
+        return isNaN(date.getTime()) ? val : date;
+      }
+      return val;
+    },
+    z.union([
+      z.date(),
+      z.literal(""),
+      z.null()
+    ])
+    .refine(val => val instanceof Date || val === "" || val === null, {
+      message: "Debe ser una fecha válida o estar vacío"
+    })),
 
-  promo_end_date: z.preprocess(
-    val => val ? new Date(String(val)) : undefined,
-    z.date({
-      required_error: "Fecha de fin es obligatoria"
-    }).optional()
-  ),
+    promo_end_date: z.preprocess((val) => {
+      if (val === "" || val === null) return val;
+      if (typeof val === "string" || val instanceof Date) {
+        const date = new Date(val);
+        return isNaN(date.getTime()) ? val : date;
+      }
+      return val;
+    },
+    z.union([
+      z.date(),
+      z.literal(""),
+      z.null()
+    ])
+    .refine(val => val instanceof Date || val === "" || val === null, {
+      message: "Debe ser una fecha válida o estar vacío"
+    })),
 })
   .refine((data) => {
     if (data.promo_start_date && !data.promo_end_date) return false;
