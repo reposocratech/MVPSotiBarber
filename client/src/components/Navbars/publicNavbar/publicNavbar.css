@@ -1,4 +1,3 @@
-
 .navPublic {
   background-color: var(--color-negro);
 
@@ -6,63 +5,50 @@
     background-color: transparent;
     border: 2px solid var(--color-blanco);
 
-     &:hover {
-     background-color: var(--color-azul);
-     border: 2px solid var(--color-blanco);
-  }
-  }
-}
-
-
-.navPublic .navbar-brand {
-  color: var(--color-blanco) ;
-  cursor: pointer;
-  &:hover {
-    color: var(--color-azul);
-  }
-  
-  &.active {
-    color: var(--color-azul);
+    &:hover {
+      background-color: var(--color-azul);
+      border: 2px solid var(--color-blanco);
+    }
   }
 
-  img{
-    width: 100px;
-  
-    object-fit: contain;
-    object-position: center;
+  .navbar-brand {
+    color: var(--color-blanco);
+    cursor: pointer;
+
+    &:hover,
+    &.active {
+      color: var(--color-azul);
+    }
+
+    img {
+      width: 100px;
+      object-fit: contain;
+      object-position: center;
+      filter: invert(1);
+    }
+  }
+
+  a,
+  .navbar-toggler-icon,
+  .nav-link {
+    color: var(--color-blanco);
+    text-decoration: none;
+
+    &:hover,
+    &.active {
+      color: var(--color-azul);
+    }
+  }
+
+  .navbar-toggler-icon {
     filter: invert(1);
   }
- 
 }
-
-
-.navPublic a,
-.navPublic .navbar-toggler-icon {
-  color: var(--color-blanco);
-  text-decoration: none;
-  &:hover,
-  &.active {
-    color: var(--color-azul);
-  }
-}
-
-
-.navPublic .navbar-toggler-icon {
-  filter: invert(1);
-}
-
-
 
 @media (max-width: 991.98px) {
   .custom-nav {
     display: flex;
     flex-direction: column;
-    align-items: center 
-  }
-}
-
-a .nav-link {
-   &.active {
-    color: var(--color-azul);
+    align-items: center;
   }
 }
