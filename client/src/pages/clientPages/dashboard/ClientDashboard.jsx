@@ -111,13 +111,9 @@ const tieneCorteGratis = totalCortes !== 0 && totalCortes % 10 === 0;
 
   return (
     <>
-      {mostrarModal && (
-        <div>
+     {mostrarModal ? <div>
           <CompleteRegister onCompletar={handleCompletado} />
-        </div>
-      )}
-
-      <Container>
+        </div>:<Container>
         <section className="titulo-wrapper mt-5">
           <Row>
             <Col className="pb-4">
@@ -262,6 +258,13 @@ const tieneCorteGratis = totalCortes !== 0 && totalCortes % 10 === 0;
           </Row>
         </section>
       </Container>
+
+
+     }
+        
+      
+
+      
     </>
   );
 };
