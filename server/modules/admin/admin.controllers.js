@@ -52,11 +52,12 @@ class AdminControllers {
     try {
       const data = {
         data: JSON.parse(req.body.data),
-        img: req.file,
+        img: req.file
       };
-
-      let result = await adminDal.editService(data);
-      res.status(200).json({ result });
+console.log("REQ: BODY", req.body)
+       await adminDal.editService(data);
+       let img = req.file?.filename? req.file.filename : undefined;
+      res.status(200).json({img });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: 'ups, hay algún problema' });

@@ -23,8 +23,13 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
       }, [editedService]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+    console.log("EEE.TARGET",e.target.value)
 
+    if(name === "promo_price" && value === ""){
+      value = null
+    }
+    
     setEditedService({ ...editedService, [name]: value });
   };
 
@@ -38,8 +43,14 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
         editServiceSchema.parse(editedService);
   
         const newFormData = new FormData();
-  
-        newFormData.append("data", JSON.stringify(editedService));
+        let temporalService = {...editedService}
+        if(editedService.promo_start_date === ""){
+          temporalService = {...temporalService, promo_start_date:null}
+        }
+        if(editedService.promo_end_date === ""){
+          temporalService = {...temporalService, promo_end_date:null}
+        }
+        newFormData.append("data", JSON.stringify(temporalService));
         if(file){
           newFormData.append("file", file)
         }
@@ -50,9 +61,14 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
           newFormData,
           token
         );
-  
-    
-        onUpdated(editedService);
+        console.log("RESSS", res)
+
+        
+        if(res.data.img){
+          onUpdated({...editedService, service_avatar: res.data.img})
+        }else{
+          onUpdated(editedService)
+        }
         handleClose();
       } catch (error) {
         if (error instanceof ZodError){
@@ -149,8 +165,8 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
                   <InputGroup.Text>€</InputGroup.Text>
                   <Form.Control
                     name="promo_price"
-                    value={editedService.promo_price}
-                    type="number"
+                    value={editedService.promo_price?editedService.promo_price:""}
+                    type="text"
                     onChange={handleChange}
                     placeholder="Precio Promoción"
                   />
@@ -164,7 +180,7 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
                 <Form.Control
                   type="date"
                   name="promo_start_date"
-                  value={editedService.promo_start_date}
+                  value={editedService.promo_start_date?editedService.promo_start_date:""}
                   onChange={handleChange}
                   autoFocus
                 />
@@ -177,7 +193,7 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
                 <Form.Control
                   type="date"
                   name="promo_end_date"
-                  value={editedService.promo_end_date}
+                  value={editedService.promo_end_date?editedService.promo_end_date:""}
                   onChange={handleChange}
                   autoFocus
                 />
@@ -192,7 +208,7 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
                 <Form.Control
                   id="imageInput"
                   type="file"
-                  
+                  hidden
                   onChange={handleChangeFile}
                 />
               </Form.Group>
@@ -200,7 +216,7 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
               <div>
                 <div className="d-flex align-items-center justify-content-center">
 
-                  <Button className="btn" onClick={cancel}>
+                  <Button className="btn me-3" onClick={cancel}>
                     Cancelar
                   </Button>
                   <Button className="btn" onClick={onSubmit}>

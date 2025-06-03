@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <div>
       {/* SECTION 1 */}
-      <section className="section-logo d-flex align-items-center pt-5">
+      <section className="section-logo d-flex align-items-center pt-5 padding-y-section">
         <Container fluid="xxl">
           <Row>
             <Col>
@@ -43,7 +43,7 @@ const Home = () => {
       </section>
       {/* SECTION 2 */}
       <Container fluid="xxl">
-        <section className="section-about pt-5">
+        <section className="section-about pt-5 padding-y-section">
           <Row>
             <Col xs={12} md={6} className="order-2 order-md-1 d-flex flex-column justify-content-center">
               <div className="d-flex flex-column align-items-start">
@@ -79,7 +79,7 @@ const Home = () => {
       </Container>
 
       {/* SECTION 3 */}
-      <section className="section-services pt-5">
+      <section className="section-services pt-5 padding-y-section">
         <Container fluid="xxl">
           <Row>
             <Col xs={12} md={6} className="order-2 order-md-1 d-flex flex-column justify-content-center">
@@ -111,7 +111,7 @@ const Home = () => {
 
       {/* SECTION 3 */}
 
-      <section className="section-schedule pt-5 mx-2" id="horarios">
+      <section className="section-schedule pt-5 mx-2 padding-y-section" id="horarios">
         <Container fluid="xxl"></Container>
         <Row className="align-items-start">
           <Col
@@ -121,7 +121,7 @@ const Home = () => {
           >
             <h2>Información Importante</h2>
             <div className="blue-line"></div>
-            <div className="information">
+            <div className="information d-flex flex-column align-items-center justify-content-center">
               <p>
                 <span className="fw-bold">Reservas:</span> Te recomendamos
                 reservar con antelación para garantizar disponibilidad.
@@ -136,7 +136,7 @@ const Home = () => {
                 llegar 10 minutos antes de tu cita para prepararte
                 adecuadamente.
               </p>
-              <p>
+              <p className='m-0'>
                 <span className="fw-bold">Días especiales:</span> En fechas
                 señaladas como Navidad o Año Nuevo nuestro horario puede variar.
                 Consulta nuestra web o redes sociales para información
@@ -152,7 +152,7 @@ const Home = () => {
           >
             <h2 className="pt-5 pt-md-0">Nuestro Horario</h2>
             <div className="blue-line"></div>
-            <div className="information">
+            <div className="information d-flex flex-column align-items-center justify-content-center">
               <p>
                 ¿Tienes alguna pregunta o deseas reservar una cita? No dudes en
                 contactarnos.

@@ -85,12 +85,12 @@ const ServiceList = () => {
                         <tr className='tabla' key={service.service_id}>
                           <td>{service.service_name}</td>
                           <td>
-                            <div className="d-flex flex-column">
+                            <div className="d-flex flex-column align-items-center justify-content-center">
                               <span className={hasPromo ? 'line-through' : ''}>
                                 {service.price}€
                               </span>
                               {hasPromo && (
-                                <div className="d-flex flex-column align-items-center">
+                                <div className="d-flex flex-column align-items-center justify-content-center">
                                   <span>{service.promo_name}</span>
                                   <span className="text-success fw-bold">
                                     {service.promo_price}€
