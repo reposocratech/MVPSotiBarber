@@ -155,8 +155,8 @@ class ClientControllers {
 
   completeFormRegister = async (req, res) => {
     try {
-      const { user_name, lastname, birthdate, phone } = req.body;
-      const data = { user_name, lastname, birthdate, phone };
+      const { user_name, lastname, birth_date, phone } = req.body;
+      const data = { user_name, lastname, birth_date, phone };
 
       const authHeader = req.headers.authorization;
       const token = authHeader && authHeader.split(' ')[1];

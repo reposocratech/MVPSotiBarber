@@ -27,7 +27,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
     const getOneAppointment = async () => {
       try {
         let result = await fetchData(
-          `admin/getOneAppointment/${event.id}`,
+          `admin/getOneAppointment/${event?.id}`,
           'get',
           null,
           token
@@ -135,6 +135,34 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
             <Form className="form-create-appoinment">
               <h2 className="text-center">Editar cita</h2>
               <div className="blue-line"></div>
+              <div className='separate'>
+                                    <Form.Group className="mb-3 hour">
+                                      <Form.Label htmlFor="DayTextInput">
+                                        Fecha inicio cita
+                                      </Form.Label>
+                                      <Form.Control
+                                        id="DayTextInput"
+                                        name='start_date'
+                                        value={appointmentData?.start_date}
+                                        onChange={handleChange}
+                                        type="date"
+                                      />
+                                      {valErrors.start_date && <p>{valErrors.start_date}</p>}
+                                    </Form.Group>
+                                    <Form.Group className="mb-3 hour">
+                                      <Form.Label htmlFor="FinDayTextInput">
+                                        Fecha fin cita
+                                      </Form.Label>
+                                      <Form.Control
+                                        id="FinDayTextInput"
+                                        name='end_date'
+                                        value={appointmentData?.end_date}
+                                        onChange={handleChange}
+                                        type="date"
+                                      />
+                                      {valErrors.start_date && <p>{valErrors.start_date}</p>}
+                                    </Form.Group>
+                                  </div>
               <div className="separate">
                 <Form.Group className="mb-3 hour">
                   <Form.Label htmlFor="StartHourTextInput">
@@ -169,7 +197,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                 </Form.Label>
                 <Form.Control
                   id="ClientNameTextImput"
-                  value={editData.client_name || ''}
+                  value={editData?.client_name || ''}
                   onChange={handleChange}
                 />
                 {valErrors.client_name && <p>{valErrors.client_name}</p>}
@@ -180,7 +208,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                 </Form.Label>
                 <Form.Control
                   id="ClientLastnameTextImput"
-                  value={editData.client_lastname || ''}
+                  value={editData?.client_lastname || ''}
                   onChange={handleChange}
                 />
                 {valErrors.client_lastname && (
@@ -197,9 +225,8 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                   // value={editData.employee_id || ''}
                   onChange={handleChange}
                 >
-                  <option>Selecciona un empleado</option>
                   {employeeList.map((emp) => (
-                    <option key={emp.user_id} value={emp.user_id}>
+                    <option selected key={emp.user_id} value={emp.user_id}>
                       {emp.user_name} {emp.lastname}
                     </option>
                   ))}
@@ -214,9 +241,8 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                   name="service_id"
                   onChange={handleChange}
                 >
-                  <option>Selecciona un servicio</option>
                   {enabledServices.map((serv) => (
-                    <option key={serv.service_id} value={serv.service_id}>
+                    <option selected key={serv.service_id} value={serv.service_id}>
                       {serv.service_name}
                     </option>
                   ))}
@@ -227,7 +253,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                 <Form.Label htmlFor="PhoneTextInput">Teléfono</Form.Label>
                 <Form.Control
                   id="PhoneTextImput"
-                  value={editData.client_phone || ''}
+                  value={editData?.client_phone || ''}
                   onChange={handleChange}
                 />
                 {valErrors.client_phone && <p>{valErrors.client_phone}</p>}
@@ -239,7 +265,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                 <Form.Control
                   id="ObservationsTextImput"
                   name="observation"
-                  value={editData.observation || ''}
+                  value={editData?.observation || ''}
                   onChange={handleChange}
                   as="textarea"
                 />
@@ -253,8 +279,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                   name="status"
                   onChange={handleChange}
                 >
-                  <option>Selecciona un estado</option>
-                  <option value={1}>Reservada</option>
+                  <option selected value={1}>Reservada</option>
                   <option value={3}>No presentado</option>
                 </Form.Select>
                 {valErrors.status && <p>{valErrors.status}</p>}

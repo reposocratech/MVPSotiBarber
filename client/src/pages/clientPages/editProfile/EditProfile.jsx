@@ -33,6 +33,8 @@ const EditProfile = () => {
     setFile(e.target.files[0]);
   };
 
+  console.log("useerrr", user)
+
   const onSubmit = async () => {
     try {
       
@@ -46,6 +48,7 @@ const EditProfile = () => {
 
       }
 
+      console.log("editttt", editData)
 
       let res = await fetchData('client/editClient', 'put', newFormData, token);
 

@@ -254,7 +254,7 @@ class AdminDal {
     const [res] = await connection.query(
       'SELECT IFNULL(MAX(appointment_id), 0) AS max_id FROM appointment'
     );
-    let maxId = res[0].max_id + 1;
+    let maxId = Number(res[0].max_id) + 1;
 
 
     const insertSql = `
@@ -279,7 +279,14 @@ class AdminDal {
 
     await connection.query(insertSql, values);
 
+    const [servicio] = await connection.query(
+      'SELECT service_name FROM service WHERE service_id = ?',
+      [service_id]
+    );
 
+    const serviceName = servicio[0]?.service_name?.toLowerCase() || '';
+
+    if (serviceName.includes('corte') || serviceName.includes('rapa')) {
     const [result] = await connection.query(
       `SELECT COUNT(*) AS total_servicios
        FROM appointment a
@@ -308,9 +315,10 @@ class AdminDal {
         await enviarCuponRegalo(email, user_name);
         console.log(`Enviado email de recompensa a ${user_name} (${email})`);
       } else {
-        console.warn("No se encontró email o nombre para el cliente:", client_id);
+        console.log("No se encontró email o nombre para el cliente:", client_id);
       }
     }
+  }
 
     await connection.commit();
   } catch (error) {
@@ -494,7 +502,7 @@ class AdminDal {
 
   getImages = async(id)=>{
     try {
-      let sql = 'SELECT * FROM image WHERE service_id = ? AND image_is_deleted = 0'
+      let sql = 'SELECT * FROM image WHERE service_id = ? AND image_is_deleted = 0 order by image_id'
       let result = await executeQuery(sql, [id])
       return result;
 
@@ -507,7 +515,7 @@ class AdminDal {
 
   delImage = async(service_id, image_id, file_name)=>{
     try {
-      let sql = "UPDATE image SET image_is_deleted = 1 WHERE service_id=? AND image_id =?"
+      let sql = "delete from image where service_id=? AND image_id =?"
       let values = [service_id, image_id]
 
       await executeQuery(sql, values);
@@ -516,6 +524,36 @@ class AdminDal {
     } catch (error) {
       console.log(error);
       throw error;
+    }
+  }
+
+  reorderServiceImages = async(images) => {
+    const {service_id} = images[0]
+    let connection = await dbPool.getConnection()
+    console.log("imagesss", images)
+    try {
+      await connection.beginTransaction()
+      let sql = "delete from image where service_id = ?"
+      await connection.execute(sql, [service_id])
+
+      let imageId = 0;
+      for(const img of images) {
+        imageId++;
+
+        let sqlSave = "insert into image (image_id, service_id, image_name) values (?,?,?)"
+        let values = [imageId, service_id, img.image_name]
+
+        await connection.execute(sqlSave, values)
+      }
+
+      await connection.commit();
+
+    } catch (error) {
+      await connection.rollback()
+      console.log(error)
+      throw error;
+    } finally {
+      connection.release();
     }
   }
 }

@@ -245,6 +245,34 @@ const CreateAppointment = ({
                 </Form>
 
                 <Form className="form-create-appoinment">
+                    <div className='separate'>
+                      <Form.Group className="mb-3 hour">
+                        <Form.Label htmlFor="DayTextInput">
+                          Fecha inicio cita
+                        </Form.Label>
+                        <Form.Control
+                          id="DayTextInput"
+                          name='start_date'
+                          value={appointmentData?.start_date}
+                          onChange={handleChange}
+                          type="date"
+                        />
+                        {valErrors.start_date && <p>{valErrors.start_date}</p>}
+                      </Form.Group>
+                      <Form.Group className="mb-3 hour">
+                        <Form.Label htmlFor="FinDayTextInput">
+                          Fecha fin cita
+                        </Form.Label>
+                        <Form.Control
+                          id="FinDayTextInput"
+                          name='end_date'
+                          value={appointmentData?.end_date}
+                          onChange={handleChange}
+                          type="date"
+                        />
+                        {valErrors.start_date && <p>{valErrors.start_date}</p>}
+                      </Form.Group>
+                    </div>
                   <div className="separate">
                     <Form.Group className="mb-3 hour">
                       <Form.Label htmlFor="StartHourTextInput">

@@ -7,9 +7,9 @@ import defaultService from '../../../assets/images/defaultservice.jpg';
 import { fetchData } from '../../../helpers/axiosHelpers';
 import editbtn from '../../../assets/icons/editicon.png';
 import ModalEditService from '../../../components/modalEditService/ModalEditService';
-import addImage from '../../../assets/icons/add_image.png';
 import deletecross from '../../../assets/icons/deletecross.png';
-
+import ImagesDragList from '../../../components/imagesDragList/ImagesDragList';
+import addImage from '../../../assets/icons/add_image.png';
 
 const ServiceProfile = () => {
   const { services, setServices, token } = useContext(AuthContext);
@@ -36,10 +36,12 @@ const ServiceProfile = () => {
   // }, []);
 
   useEffect(() => {
-    const updatedService = services.find(
-      (service) => service.service_id == service_id.id
-    );
-    setService(updatedService);
+    if (services) {
+      const updatedService = services.find(
+        (service) => service.service_id == service_id.id
+      );
+      setService(updatedService);
+    }
   }, [services, service_id.id]);
 
   const fetchImages = async () => {
@@ -92,7 +94,6 @@ const ServiceProfile = () => {
           : service
       )
     );
-
   };
 
   //PARA LA GALERIA
@@ -120,19 +121,16 @@ const ServiceProfile = () => {
     }
   };
 
-
-  console.log("SERVICE",service)
-
   const cancel = () => {
     setShowModal(false);
   };
 
   const promoIsActive = (service) => {
     if (
-      service.promo_name &&
-      service.promo_price &&
-      service.promo_start_date &&
-      service.promo_end_date
+      service?.promo_name &&
+      service?.promo_price &&
+      service?.promo_start_date &&
+      service?.promo_end_date
     ) {
       const today = new Date();
       const start = new Date(service.promo_start_date);
@@ -142,14 +140,19 @@ const ServiceProfile = () => {
     return false;
   };
 
-  const deleteImg = async(image_id, file_name)=>{
+  const deleteImg = async (image_id, file_name) => {
     try {
-      await fetchData(`admin/delImage/${service_id.id}/${image_id}/${file_name}`, "put", null, token)
-      setImages(images.filter((elem)=> elem.image_id !== image_id))
+      await fetchData(
+        `admin/delImage/${service_id.id}/${image_id}/${file_name}`,
+        'delete',
+        null,
+        token
+      );
+      setImages(images.filter((elem) => elem.image_id !== image_id));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const hasPromo = promoIsActive(service);
 
@@ -158,7 +161,7 @@ const ServiceProfile = () => {
       <Container fluid="xxl">
         <Row>
           <div className="d-flex flex-column align-items-center justify-content-center mb-3">
-            <h3>{service.service_name}</h3>
+            <h3>{service?.service_name}</h3>
             <div className="blue-line"></div>
           </div>
           <Col>
@@ -166,18 +169,18 @@ const ServiceProfile = () => {
               <table>
                 <thead></thead>
                 <tbody>
-                  <tr className="tabla" key={service.service_id}>
-                    <td>{service.service_name}</td>
+                  <tr className="tabla" key={service?.service_id}>
+                    <td>{service?.service_name}</td>
                     <td>
                       <div className="d-flex flex-column align-items-center justify-content-center">
                         <span className={hasPromo ? 'line-through' : ''}>
-                          {service.price}€
+                          {service?.price}€
                         </span>
                         {hasPromo && (
                           <div className="d-flex flex-column align-items-center">
-                            <span>{service.promo_name}</span>
+                            <span>{service?.promo_name}</span>
                             <span className="text-success fw-bold">
-                              {service.promo_price}€
+                              {service?.promo_price}€
                             </span>
                           </div>
                         )}
@@ -186,16 +189,16 @@ const ServiceProfile = () => {
 
                     <td>
                       <div className="d-flex align-items-center justify-content-center">
-                        {service.estimated_time} min
+                        {service?.estimated_time} min
                       </div>
                     </td>
                     <td>
                       <img
                         src={
-                          service.service_avatar
+                          service?.service_avatar
                             ? `${
                                 import.meta.env.VITE_SERVER_URL
-                              }images/service/${service.service_avatar}`
+                              }images/service/${service?.service_avatar}`
                             : defaultService
                         }
                         alt="servicio"
@@ -220,16 +223,14 @@ const ServiceProfile = () => {
           ></ModalEditService>
         )}
         {service && (
-          <Row>
-            <section className="padding-y-section">
-              <div className="d-flex flex-column justify-content-center align-items-center mb-3">
-                <h3>Conoce nuestros trabajos</h3>
-                <div className="blue-line"></div>
-              </div>
-              <div className="gallery d-flex justify-content-center align-items-center">
-                <div>
-                  <Col className='d-flex flex-wrap align-items-center gap-3 justify-content-center'>
-                    {images.length ?
+          <section className="padding-y-section">
+            <div className="d-flex flex-column justify-content-center align-items-center mb-3">
+              <h3>Conoce nuestros trabajos</h3>
+              <div className="blue-line"></div>
+            </div>
+            <Row className="gallery justify-content-center align-items-center">
+              {/* <Col className="d-flex flex-wrap align-items-center gap-3 justify-content-center"> */}
+                {/* {images.length ?
                       images.map((e) => {
                         return (
                           <div className='cont-img' key={e.image_id}>
@@ -246,8 +247,37 @@ const ServiceProfile = () => {
                             </div>
                           </div>
                         );
-                      }): <div className='d-flex align-items-center justify-content-center'><p className='m-0'>Agrega algunas fotos</p></div>}
-                  <label htmlFor="imgId">
+                      }): <div className='d-flex align-items-center justify-content-center'><p className='m-0'>Agrega algunas fotos</p></div>} */}
+
+                {images.length ? (
+                  <ImagesDragList
+                    service={service}
+                    handleChange={handleChange}
+                    images={images}
+                    setImages={setImages}
+                    deleteImg={deleteImg}
+                  />
+                ) : (
+                  <div className="d-flex gap-3">
+                    <div className="d-flex align-items-center justify-content-center">
+                      <p className="m-0">Agrega algunas fotos</p>
+                    </div>
+                    <label htmlFor="imgId">
+                      {' '}
+                      <img src={addImage} alt="añadir imagen servicios" />{' '}
+                    </label>
+                    <input
+                      type="file"
+                      id="imgId"
+                      hidden
+                      multiple
+                      onChange={(event) =>
+                        handleChange(event, service.service_id)
+                      }
+                    />
+                  </div>
+                )}
+                {/* <label htmlFor="imgId">
                     {' '}
                     <img src={addImage} alt="añadir imagen servicios" />{' '}
                   </label>
@@ -259,14 +289,10 @@ const ServiceProfile = () => {
                     onChange={(event) =>
                       handleChange(event, service.service_id)
                     }
-                  />
-                  </Col>
-                </div>
-                
-                
-              </div>
-            </section>
-          </Row>
+                  /> */}
+              {/* </Col> */}
+            </Row>
+          </section>
         )}
       </Container>
     </section>

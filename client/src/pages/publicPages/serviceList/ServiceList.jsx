@@ -148,7 +148,7 @@ const ServiceList = () => {
                 <div className='d-flex align-items-center justify-content-center'>
                   {filteredImages.length ? filteredImages.map((image)=>{
                     return(
-                      <img className='photo mt-4' src={`${
+                      <img key={image.image_id} className='photo mt-4' src={`${
                         import.meta.env.VITE_SERVER_URL
                       }images/servicesImages/${image.image_name}`}
                       alt="foto servicio" />

@@ -297,6 +297,16 @@ console.log("REQ: BODY", req.body)
       res.status(500).json({ message: 'error 500' });
     }
   }
-}
+
+  reorderServiceImages = async(req, res) => {
+    try {
+      await adminDal.reorderServiceImages(req.body)
+      res.status(200).json({message: "reorder ok"})
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ message: 'error 500' });
+    }
+  }
+ }
 
 export default new AdminControllers();

@@ -73,8 +73,8 @@ class ClientDal {
   };
 
   completeFormRegister = async (data, user_id) => {
-    const { user_name, lastname, birthdate, phone } = data;
-    let values = [user_name, lastname, birthdate, phone, user_id];
+    const { user_name, lastname, birth_date, phone } = data;
+    let values = [user_name, lastname, birth_date, phone, user_id];
     try {
       let sql =
         'update user set user_name = ?, lastname = ?, birth_date = ?, phone = ? where user_id = ? ';
