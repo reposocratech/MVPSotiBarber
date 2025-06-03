@@ -20,6 +20,7 @@ const ServiceProfile = () => {
   const [showModal, setShowModal] = useState(false);
   const [images, setImages] = useState([]);
 
+  console.log("SERVICESSS", services)
   const service_id = useParams();
 
   //PARA MEJORA EN EL FUTURO; EN LUGAR DE PINTAR MODALES EN MOVIL, CAMBIAR A VISTA NUEVA

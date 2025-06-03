@@ -39,14 +39,14 @@ const Home = () => {
               </article>
             </Col>
           </Row>
-        </Container>
+        </Container>,
       </section>
       {/* SECTION 2 */}
       <Container fluid="xxl">
         <section className="section-about pt-5 padding-y-section">
           <Row>
-            <Col xs={12} md={6} className="order-2 order-md-1 d-flex flex-column justify-content-center">
-              <div className="d-flex flex-column align-items-start">
+            <Col xs={12} md={6} className="order-2 order-md-1 d-flex flex-column justify-content-center xs align-items-center">
+              <div className="d-flex flex-column md align-items-start">
                 <h2 className="pt-4 pt-md-0">Sobre SOTI</h2>
                 <div className="blue-line ms-3"></div>
               </div>
@@ -112,16 +112,19 @@ const Home = () => {
       {/* SECTION 3 */}
 
       <section className="section-schedule pt-5 mx-2 padding-y-section" id="horarios">
-        <Container fluid="xxl"></Container>
+        <Container fluid="fluid">
+
         <Row className="align-items-start">
           <Col
             xs={12}
             md={6}
             className="d-flex flex-column align-items-center justify-content-center pb-md-5"
-          >
-            <h2>Información Importante</h2>
-            <div className="blue-line"></div>
-            <div className="information d-flex flex-column align-items-center justify-content-center">
+            >
+            <div className='d-flex flex-column align-items-center justify-content-center mb-3'>
+              <h2>Información Importante</h2>
+              <div className="blue-line"></div>
+            </div>
+            <div className="information d-flex flex-column align-items-start justify-content-center">
               <p>
                 <span className="fw-bold">Reservas:</span> Te recomendamos
                 reservar con antelación para garantizar disponibilidad.
@@ -148,15 +151,18 @@ const Home = () => {
           <Col
             xs={12}
             md={6}
-            className="d-flex flex-column align-items-center justify-content-center horario-col pb-5"
-          >
-            <h2 className="pt-5 pt-md-0">Nuestro Horario</h2>
-            <div className="blue-line"></div>
+            className="d-flex flex-column justify-content-center horario-col pb-5 mx-0"
+            >
+            <div className='d-flex flex-column align-items-center justify-content-center mb-3'>
+              <h2 className="pt-5 pt-md-0">Nuestro Horario</h2>
+              <div className="blue-line"></div>
+            </div>
             <div className="information d-flex flex-column align-items-center justify-content-center">
-              <p>
-                ¿Tienes alguna pregunta o deseas reservar una cita? No dudes en
-                contactarnos.
+              <p className='text-center mb-0'>
+                ¿Tienes alguna pregunta o deseas reservar una cita?
               </p>
+              <p className='text-center'>No dudes en
+              contactarnos.</p>
               <div className="schedule-table row w-100 text-center">
                 <div className="col-6 col-md-6">
                   <p>Lunes: 10:00 - 20:00</p>
@@ -174,6 +180,7 @@ const Home = () => {
             </div>
           </Col>
         </Row>
+            </Container>
       </section>
     </div>
   );

@@ -77,6 +77,8 @@
     padding: 2rem;
     min-height: 400.5px;
 
+    
+
     @media (max-width: 768px) {
       .schedule-table > div {
         width: 100%;
