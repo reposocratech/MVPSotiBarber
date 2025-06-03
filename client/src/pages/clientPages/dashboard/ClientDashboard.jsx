@@ -246,7 +246,7 @@ const tieneCorteGratis = totalCortes !== 0 && totalCortes % 10 === 0;
                           <td colSpan="4" className="fw-bold">
                             {searchTerm
                               ? 'No se han encontrado resultados para tu búsqueda'
-                              : 'Este cliente no ha tenido ningún servicio todavía'}
+                              : 'Todavía no has tenido un servicio con nosotros'}
                           </td>
                         </tr>
                       )}

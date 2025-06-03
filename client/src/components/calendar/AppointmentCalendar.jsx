@@ -25,12 +25,12 @@ const AppointmentCalendar = ({
     end: '',
   });
   const [events, setEvents] = useState([]);
-  const [allAppointments, setAllAppointments] = useState([])
+  const [allAppointments, setAllAppointments] = useState([]);
   const [selectionEvent, setSelectionEvent] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const { token } = useContext(AuthContext);
-  const [filterAppointmentBy, setFilterAppointmentBy] = useState()
-  const [filteredAppointments, setFilteredAppointments] = useState([])
+  const [filterAppointmentBy, setFilterAppointmentBy] = useState();
+  const [filteredAppointments, setFilteredAppointments] = useState([]);
 
   const fetchAppointments = async () => {
     try {
@@ -41,24 +41,36 @@ const AppointmentCalendar = ({
         token
       );
       const appointments = result.data.result;
-      setAllAppointments(result.data.result)
+      setAllAppointments(appointments);
 
-      const formattedEvents = appointments.map((e) => ({
-        id: e.appointment_id,
-        start: new Date(`${e.start_date}T${e.start_hour}`),
-        end: new Date(`${e.end_date}T${e.end_hour}`),
-        title: `${e.client_name} ${e.client_lastname} (${e.employee_name})`,
-        description: e.observation,
-        
-        resource: {
-          created_by: `${e.created_by_name} ${e.created_by_lastname}`,
-          employee_name: `${e.employee_name} ${e.employee_lastname}`,
-          service: e.service_name,
-          employee_user_id: e.employee_user_id
-        },
-      }));
+      const coloresEmpleado = [
+  '#00ACC1', '#00897B', '#3949AB', '#5C6BC0', '#9575CD', '#26C6DA'
+];
+
+      const colorMap = {};
+
+      const formattedEvents = appointments.map((e) => {
+        if (!colorMap[e.employee_user_id]) {
+          const colorIndex = Object.keys(colorMap).length % coloresEmpleado.length;
+          colorMap[e.employee_user_id] = coloresEmpleado[colorIndex];
+        }
+
+        return {
+          id: e.appointment_id,
+          start: new Date(`${e.start_date}T${e.start_hour}`),
+          end: new Date(`${e.end_date}T${e.end_hour}`),
+          title: `${e.client_name} ${e.client_lastname}`,
+          description: e.observation,
+          employee_user_id: e.employee_user_id,
+          bgColor: colorMap[e.employee_user_id],
+          resource: {
+            created_by: `${e.created_by_name} ${e.created_by_lastname}`,
+            employee_name: `${e.employee_name} ${e.employee_lastname}`,
+            service: e.service_name,
+          },
+        };
+      });
       setEvents(formattedEvents);
-      
     } catch (error) {
       console.log(error);
     }
@@ -67,37 +79,46 @@ const AppointmentCalendar = ({
   useEffect(() => {
     fetchAppointments();
   }, [token]);
-  
 
   useEffect(() => {
+    const coloresEmpleado = [
+  '#00ACC1', '#00897B', '#3949AB', '#5C6BC0', '#9575CD', '#26C6DA'
+];
+    const colorMap = {};
+
     const source = filterAppointmentBy
       ? allAppointments.filter((e) => e.employee_user_id == filterAppointmentBy)
       : allAppointments;
-  
-    const formattedEvents = source.map((e) => ({
-      id: e.appointment_id,
-      start: new Date(`${e.start_date}T${e.start_hour}`),
-      end: new Date(`${e.end_date}T${e.end_hour}`),
-      title: `${e.client_name} ${e.client_lastname} (${e.employee_name})`,
-      description: e.observation,
-      employee_user_id: e.employee_user_id, 
-      resource: {
-        created_by: `${e.created_by_name} ${e.created_by_lastname}`,
-        employee_name: `${e.employee_name} ${e.employee_lastname}`,
-        service: e.service_name,
-      },
-    }));
-  
+
+    const formattedEvents = source.map((e) => {
+      if (!colorMap[e.employee_user_id]) {
+        const colorIndex = Object.keys(colorMap).length % coloresEmpleado.length;
+        colorMap[e.employee_user_id] = coloresEmpleado[colorIndex];
+      }
+
+      return {
+        id: e.appointment_id,
+        start: new Date(`${e.start_date}T${e.start_hour}`),
+        end: new Date(`${e.end_date}T${e.end_hour}`),
+        title: `${e.client_name} ${e.client_lastname} (${e.employee_name})`,
+        description: e.observation,
+        employee_user_id: e.employee_user_id,
+        bgColor: colorMap[e.employee_user_id],
+        resource: {
+          created_by: `${e.created_by_name} ${e.created_by_lastname}`,
+          employee_name: `${e.employee_name} ${e.employee_lastname}`,
+          service: e.service_name,
+        },
+      };
+    });
+
     setEvents(formattedEvents);
   }, [allAppointments, filterAppointmentBy]);
-
-console.log("EEEEEEEE", events)
 
   const handleNavigate = (newDate) => {
     setCurrentdate(newDate);
   };
 
-  //Sirve para abrir la cita del calendario
   const selectEvent = (event) => {
     setSelectionEvent(event);
     setShowModal(true);
@@ -117,8 +138,6 @@ console.log("EEEEEEEE", events)
     setFilterAppointmentBy(e.target.value);
   };
 
-
-
   return (
     <div className="calendario-citas">
       <Form>
@@ -137,7 +156,6 @@ console.log("EEEEEEEE", events)
                 {emp.user_name} {emp.lastname}
               </option>
             ))}
-
           </Form.Select>
         </Form.Group>
       </Form>
@@ -162,7 +180,17 @@ console.log("EEEEEEEE", events)
         onSelectEvent={selectEvent}
         selectable
         onSelectSlot={selectSlot}
+        eventPropGetter={(event) => ({
+          style: {
+            backgroundColor: event.bgColor || 'var(--color-azul)',
+            color: '#ffffff',
+            borderRadius: '0.5rem',
+            padding: '0.1rem 0.4rem',
+            fontSize: '0.8rem',
+          }
+        })}
       />
+
       <ModalCita
         onUpdate={fetchAppointments}
         setShowModal={setShowModal}

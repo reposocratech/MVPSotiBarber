@@ -96,7 +96,7 @@ const EmployeeClientProfile = () => {
 
   return (
     <Container>
-      <section>
+      <section className="padding-y-section">
         <Row>
           <Col className="pb-4">
             <h2 className="titulomvl text-center">
