@@ -26,7 +26,7 @@ export const EmployeeNavbar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto custom-nav d-flex align-items-center gap-3">
             <NavLink className={({isActive})=>isActive ? "active": ""} to="/employee" onClick={() => setIsOpen(false)}>
-              Inicio
+              Citas
             </NavLink>
             <NavLink
               className={({isActive})=>isActive ? "active": ""}
@@ -35,13 +35,7 @@ export const EmployeeNavbar = () => {
             >
               Clientes
             </NavLink>
-            <NavLink
-              className={({isActive})=>isActive ? "active": ""}
-              to="/employee/calendar"
-              onClick={() => setIsOpen(false)}
-            >
-              Citas
-            </NavLink>
+          
 
             <div
               className="nav-icon nav-icon d-none d-lg-flex"

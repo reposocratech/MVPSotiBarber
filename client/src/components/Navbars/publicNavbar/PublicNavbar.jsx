@@ -43,7 +43,7 @@ export const PublicNavbar = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto custom-nav d-flex align-items-center gap-2">
+          <Nav className="ms-auto custom-nav d-flex align-items-center gap-4">
             <NavLink className={({ isActive }) => isActive ? "active" : ""} as={Link} to="/" onClick={() => setIsOpen(false)}>Inicio</NavLink>
             <NavLink className={({ isActive }) => isActive ? "active" : ""} to="/services" onClick={() => setIsOpen(false)}>Servicios</NavLink>
             <Nav.Link className={horarioActive ? "active" : ""} onClick={handleHorario}>Horario</Nav.Link>
