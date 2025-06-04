@@ -45,10 +45,10 @@ const Home = () => {
       <Container fluid="xxl">
         <section className="section-about pt-5 padding-y-section">
           <Row>
-            <Col xs={12} md={6} className="order-2 order-md-1 d-flex flex-column justify-content-center xs align-items-center">
-              <div className="d-flex flex-column md align-items-start">
+            <Col xs={12} md={6} className="order-2 order-md-1 d-flex flex-column justify-content-center xs align-items-center text-center text-md-start">
+              <div className="d-flex flex-column align-items-center align-items-md-start">
                 <h2 className="pt-4 pt-md-0">Sobre SOTI</h2>
-                <div className="blue-line ms-3"></div>
+                <div className="blue-line"></div>
               </div>
               <article>
                 <p>
@@ -82,10 +82,10 @@ const Home = () => {
       <section className="section-services pt-5 padding-y-section">
         <Container fluid="xxl">
           <Row>
-            <Col xs={12} md={6} className="order-2 order-md-1 d-flex flex-column justify-content-center">
-              <div className="d-flex flex-column align-items-start">
+            <Col xs={12} md={6} className="order-2 order-md-1 d-flex flex-column justify-content-center align-items-center text-center text-md-start">
+              <div className="d-flex flex-column align-items-start align-items-md-start">
                 <h3 className="pt-4 pt-md-0">Nuestros Servicios</h3>
-                <div className="blue-line ms-3"></div>
+                <div className="blue-line"></div>
               </div>
               <article>
                 <p>

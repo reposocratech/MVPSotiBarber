@@ -137,7 +137,7 @@ const ServiceList = () => {
               <div className="d-flex justify-content-center align-items-center">
                 <button className='filter' onClick={()=>setFilteredImages(images)}>All</button>
 
-                {services.map((service) => {
+                {enabledServices.map((service) => {
                   return (
                     <button onClick={()=>filterImages(service.service_id)} className="filter" key={service.service_id}>
                       {service.service_name}
