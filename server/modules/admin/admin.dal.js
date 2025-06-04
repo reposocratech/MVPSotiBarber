@@ -297,10 +297,11 @@ class AdminDal {
        LEFT JOIN service s ON a.service_id = s.service_id
        WHERE a.client_user_id = ?
          AND a.status = 1
-         AND (s.service_name LIKE '%corte%' OR s.service_name LIKE '%rapa%')`,
+         AND s.service_promo = 1`,
       [client_id]
     );
 
+   
     const totalServicios = result[0]?.total_servicios || 0;
 
     console.log("Total de cortes/rapados:", totalServicios);

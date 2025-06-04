@@ -45,7 +45,7 @@ useEffect(() => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto custom-nav d-flex align-items-center gap-3">
+          <Nav className="ms-auto custom-nav d-flex align-items-center gap-4">
             <NavLink className={({ isActive }) => isActive ? "active" : ""} to="/client/inicio" onClick={() => setIsOpen(false)}>
               Inicio
             </NavLink>

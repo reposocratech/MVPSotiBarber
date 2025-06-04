@@ -24,7 +24,7 @@ export const AdminNavbar = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto custom-nav d-flex  align-items-center gap-2">
+          <Nav className="ms-auto custom-nav d-flex  align-items-center gap-4">
             <NavLink
               className={({ isActive }) => (isActive ? 'active' : '')}
               to="/admin/clientlist"
@@ -48,7 +48,7 @@ export const AdminNavbar = () => {
             </NavLink>
 
             <div
-              className="nav-icon nav-icon d-none d-lg-flex"
+              className="nav-icon nav-icon d-flex justify-content-center align-content-center d-none d-lg-flex"
               onClick={() => navigate('/admin')}
             >
               <UserIcon />
