@@ -96,7 +96,7 @@ export const FormCreateService = () => {
   };
 
   return (
-    <Form className="form-create-service">
+    <Form className="form-create-service form-add-service">
       <div className="d-flex flex-column align-items-center justify-content-center">
         <h3>Añade un servicio</h3>
       </div>

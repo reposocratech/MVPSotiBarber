@@ -165,7 +165,7 @@ const ServiceProfile = () => {
             <h3>{service?.service_name}</h3>
             <div className="blue-line"></div>
           </div>
-          <Col>
+          <Col className='d-flex align-items-center justify-content-center'>
             <div className="service-list d-flex justify-content-center align-items-center">
               <table>
                 <thead></thead>
@@ -230,26 +230,7 @@ const ServiceProfile = () => {
               <div className="blue-line"></div>
             </div>
             <Row className="gallery justify-content-center align-items-center">
-              {/* <Col className="d-flex flex-wrap align-items-center gap-3 justify-content-center"> */}
-                {/* {images.length ?
-                      images.map((e) => {
-                        return (
-                          <div className='cont-img' key={e.image_id}>
-                            <div>
-                              <img key={e.image_id} className='photo'
-                                src={`${
-                                  import.meta.env.VITE_SERVER_URL
-                                }images/servicesImages/${e.image_name}`}
-                                alt="foto servicio"
-                              />
-                            </div>
-                            <div className='delete'>
-                              <img onClick={()=>deleteImg(e.image_id, e.image_name)} src={deletecross} alt="borrar foto" />
-                            </div>
-                          </div>
-                        );
-                      }): <div className='d-flex align-items-center justify-content-center'><p className='m-0'>Agrega algunas fotos</p></div>} */}
-
+             
                 {images.length ? (
                   <ImagesDragList
                     service={service}
@@ -278,20 +259,7 @@ const ServiceProfile = () => {
                     />
                   </div>
                 )}
-                {/* <label htmlFor="imgId">
-                    {' '}
-                    <img src={addImage} alt="añadir imagen servicios" />{' '}
-                  </label>
-                  <input
-                    type="file"
-                    id="imgId"
-                    hidden
-                    multiple
-                    onChange={(event) =>
-                      handleChange(event, service.service_id)
-                    }
-                  /> */}
-              {/* </Col> */}
+               
             </Row>
           </section>
         )}

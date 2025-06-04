@@ -1,38 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 // import image from '../../../assets/icons/uploadimage.svg';
 import './service.css';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { fetchData } from '../../../helpers/axiosHelpers';
-import ModalEditService from '../../../components/modalEditService/ModalEditService';
-/* import { createServiceSchema } from '../../../schemas/createServiceSchema'; */
-import { ZodError } from 'zod';
 import deletebtn from '../../../assets/icons/deleteicon.png';
 import editbtn from '../../../assets/icons/editicon.png';
-import addImage from '../../../assets/icons/add_image.png';
 import { FormCreateService } from '../../../components/formCreateService/FormCreateService';
-
 
 const Service = () => {
   const { token, services, setServices } = useContext(AuthContext);
 
   const [isMobile, setIsMobile] = useState(false);
-  // const [modalService, setModalService] = useState(null);
-  // const [showModal, setShowModal] = useState(false);
-  // const [images, setImages] = useState([]);
-
- 
 
   const navigate = useNavigate();
- 
 
-  //comprobar anchura de pantalla para elegir modal o vista neuva en el editService
   useEffect(() => {
     const handleResizeScreen = () => {
-      if (window.innerWidth <= 768) {
-        setIsMobile(true);
-      }
+      setIsMobile(window.innerWidth <= 768);
     };
 
     handleResizeScreen();
@@ -41,7 +27,6 @@ const Service = () => {
   }, []);
 
   const enableSwitch = async (id) => {
-    //me busca el servicio que quiero cambiar y le cambia el estado
     const updatedServices = services.map((service) => {
       if (service.service_id === id) {
         return {
@@ -52,10 +37,8 @@ const Service = () => {
       return service;
     });
 
-    // actualizo services con el servicio que he cambiado
     setServices(updatedServices);
 
-    //cojo el servicio que he actualizado y le guardo el estado para pasarselo al back por la data en la petición put
     const updatedService = updatedServices.find((e) => e.service_id === id);
     const status = updatedService.service_is_enabled;
 
@@ -70,181 +53,136 @@ const Service = () => {
       console.log(error);
     }
   };
-  
-  /* const editService = async (service) => {
-    try {
-      if (isMobile) {
-        navigate(`/admin/editService/${service.service_id}`);
-      } else {
-        //cierro y limpio el modal
-        setShowModal(false);
-        setModalService(null);
-
-        //esto hace que espere un momento antes de volverlo abrir, para que una vez se abra de nuevo, ya lo haya reseteado y borrado los datos del modal anterior
-        setTimeout(() => {
-          setModalService(service);
-          setShowModal(true);
-        }, 0);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }; */
-
-  /* const handleClose = async () => {
-    setShowModal(false);
-  }; */
 
   const handleButton = () => {
     navigate('/admin/createService');
-  };
-
-  /* const cancel = () => {
-    navigate('/admin/service');
-  }; */
-
-  const onUpdated = (updatedService) => {
-    setServices((prev) =>
-      prev.map((service) =>
-        service.service_id === updatedService.service_id
-          ? updatedService
-          : service
-      )
-    );
   };
 
   const onDelete = async (id) => {
     try {
       await fetchData('admin/deleteService', 'put', { id }, token);
 
-      //seteo los servicios eliminando el que he borrado
-      setServices((prev) =>
-        prev.filter((service) => service.service_id !== id)
-      );
+      setServices((prev) => prev.filter((service) => service.service_id !== id));
     } catch (error) {
       console.log(error);
     }
   };
 
-  /* const handleChange = async(e, service_id) => {
-    let uploadImgs = e.target.files;
- 
-    
-    const newFormData = new FormData();
-    if (uploadImgs && uploadImgs.length) {
-      for (const elem of uploadImgs) {
-        newFormData.append("file", elem);
-
-      }
-      newFormData.append("data", JSON.stringify(service_id))
-
-      try {
-         let res = await fetchData('admin/addImages', 'post', newFormData, token)
-          setImages(res.data);
-         
-      } catch (error) {
-        console.log(error);
-        
-      }
-    }
-  } */
-  
-
   return (
     <section className="padding-y-section">
-      <div className="d-flex flex-column align-items-center justify-content-center py-4">
-        <h3>Servicios</h3>
-        <div className="blue-line"></div>
-      </div>
-      <Row>
-        {services.length !== 0 && (
-          <Col className="d-flex justify-content-center align-items-center">
-            <div className="table-services d-flex flex-column align-items-center justify-content-center">
-              <div className="table-scroll-wrapper">
-                <table>
-                  <tbody>
-                    {services.map((e) => {
-                      return (
-                        <tr key={e.service_id}>
-                          <td>{e.service_name}</td>
-                          <td>{e.price}€</td>
-                          <td>{e.estimated_time}min</td>
-                          <td>
+      <Container fluid="xxl">
+        <div className="d-flex flex-column align-items-center justify-content-center py-4">
+          <h3>Servicios</h3>
+          <div className="blue-line"></div>
+        </div>
+        <Row>
+          {services.length !== 0 && (
+            <Col className="d-flex justify-content-center align-items-center">
+              <div className="table-services d-flex flex-column align-items-center justify-content-center">
+                <div className="table-scroll-wrapper">
+                  {!isMobile ? (
+                    <table>
+                      <tbody>
+                        {services.map((e) => (
+                          <tr className="tr-responsive" key={e.service_id}>
+                            <td>{e.service_name}</td>
+                            <td>{e.price}€</td>
+                            <td>{e.estimated_time}min</td>
+                            <td>
+                              <button
+                                className="btn-icon"
+                                onClick={() =>
+                                  navigate(`/admin/oneService/${e.service_id}`)
+                                }
+                              >
+                                <img src={editbtn} alt="Editar" />
+                              </button>
+                            </td>
+                            <td>
+                              <button
+                                className="btn-icon"
+                                onClick={() => onDelete(e.service_id)}
+                              >
+                                <img src={deletebtn} alt="Eliminar" />
+                              </button>
+                            </td>
+                            <td>
+                              <Form>
+                                <Form.Check
+                                  className="enabled"
+                                  type="switch"
+                                  id={`custom-switch-${e.service_id}`}
+                                  checked={e.service_is_enabled === 1}
+                                  onChange={() => enableSwitch(e.service_id)}
+                                />
+                              </Form>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <div className="mobile-services-list">
+                      {services.map((service) => (
+                        <div key={service.service_id} className="service-card">
+                          <div>
+                            <span>Servicio:</span> {service.service_name}
+                          </div>
+                          <div>
+                            <span>Precio:</span> {service.price}€
+                          </div>
+                          <div>
+                            <span>Duración:</span> {service.estimated_time} min
+                          </div>
+                          <div className="actions">
                             <button
                               className="btn-icon"
-                              /* onClick={() => editService(e)} */
-                              onClick={() => navigate(`/admin/oneService/${e.service_id}`)}
+                              onClick={() =>
+                                navigate(`/admin/oneService/${service.service_id}`)
+                              }
                             >
                               <img src={editbtn} alt="Editar" />
                             </button>
-                          </td>
-                            {/* INPUT GALERIA IMGS */}
-                          {/* <td>
-
-                            <div>
-                              <label htmlFor="imgId"> <img src={addImage} alt="añadir imagen servicios" /> </label>
-                              <input type="file" id='imgId' hidden multiple onChange={(event)=>handleChange(event, e?.service_id)} />
-                            </div>
-                            
-                          </td> */}
-                          <td>
                             <button
                               className="btn-icon"
-                              onClick={() => onDelete(e?.service_id)}
+                              onClick={() => onDelete(service.service_id)}
                             >
                               <img src={deletebtn} alt="Eliminar" />
                             </button>
-                          </td>
-                          <td>
-                            <Form>
-                              <Form.Check
-                                className='enabled' // prettier-ignore
-                                type="switch"
-                                id="custom-switch"
-                                checked={e.service_is_enabled === 0}
-                                onChange={() => enableSwitch(e?.service_id)}
-                              />
-                            </Form>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                            <Form.Check
+                              className="enabled"
+                              type="switch"
+                              id={`custom-switch-${service.service_id}`}
+                              checked={service.service_is_enabled === 1}
+                              onChange={() => enableSwitch(service.service_id)}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div className="pt-4"></div>
+                {isMobile && (
+                  <Button onClick={handleButton} className="mt-3">
+                    Añadir servicio
+                  </Button>
+                )}
               </div>
-              <div className='pt-4'>
-
-                    {/* <Button onClick={goToServices} >Ir a servicios</Button> */}
-              </div>
-              {isMobile && (
-                <Button onClick={handleButton} className="mt-3">
-                  Añadir servicio
-                </Button>
-              )}
-            </div>
-          </Col>
-        )}
-        {isMobile && services.length === 0 && (
-          <Button onClick={handleButton} className="mt-3">
-            Añadir servicio
-          </Button>
-        )}
-        {!isMobile && (
-          <Col className="d-flex justify-content-center align-items-center my-4">
-            <FormCreateService />
-          </Col>
-        )}
-      </Row>
-
-      {/* {!isMobile && modalService && (
-        <ModalEditService
-          cancel={cancel}
-          show={showModal}
-          handleClose={handleClose}
-          service={modalService}
-          onUpdated={onUpdated}
-        ></ModalEditService>
-      )} */}
+            </Col>
+          )}
+          {isMobile && services.length === 0 && (
+            <Button onClick={handleButton} className="mt-3">
+              Añadir servicio
+            </Button>
+          )}
+          {!isMobile && (
+            <Col className="d-flex justify-content-center align-items-center my-4">
+              <FormCreateService />
+            </Col>
+          )}
+        </Row>
+      </Container>
     </section>
   );
 };

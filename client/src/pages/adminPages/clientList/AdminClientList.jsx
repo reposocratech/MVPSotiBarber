@@ -1,23 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { fetchData } from '../../../helpers/axiosHelpers';
-import { Button, Col, Form, FormCheck, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, FormCheck, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import eye from '../../../assets/icons/eye.png';
 
 import './clientList.css';
 
 const AdminClientList = () => {
   const [clientList, setClientList] = useState([]);
   const { token } = useContext(AuthContext);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [clientResults, setClientResults] = useState([]);
   const clientsToDisplay = search.length >= 3 ? clientResults : clientList;
   const navigate = useNavigate();
-   
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchClients = async () => {
       try {
+        setLoading(true);
         const resClients = await fetchData(
           'admin/clientList',
           'get',
@@ -33,53 +35,67 @@ const AdminClientList = () => {
     fetchClients();
   }, [token]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchClients = async () => {
-      if(search.length >= 3){
+      if (search.length >= 3) {
         try {
-          const res = await fetchData(`admin/clientListSearch?search=${search}`, "get", null, token)
-          
-          setClientResults(res.data.clients || [])
+          const res = await fetchData(
+            `admin/clientListSearch?search=${search}`,
+            'get',
+            null,
+            token
+          );
+
+          setClientResults(res.data.clients || []);
         } catch (error) {
-          console.log("Error al buscar clientes", error)
+          console.log('Error al buscar clientes', error);
         }
       } else {
-        setClientResults([])
+        setClientResults([]);
       }
-    }
+    };
 
     fetchClients();
-  },[search, token])
+  }, [search, token]);
 
-    const handleSearch = (e) => {
-    setSearch(e.target.value)
-  }
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   const enableSwitch = async (id) => {
-    const updateClients = clientList.map((e) => {
-      if(e.user_id === id){
-        return {
-          ...e, 
-          user_is_enabled: e.user_is_enabled === 1 ? 0 : 1,
-        };
-      }
-      return e;
-    });
+    const isSearching = search.length >= 3;
 
-    setClientList(updateClients);
+    const updateList = (list) =>
+      list.map((e) =>
+        e.user_id === id
+          ? { ...e, user_is_enabled: e.user_is_enabled === 1 ? 0 : 1 }
+          : e
+      );
 
-    const updatedClient = updateClients.find((e)=> e.user_id === id);
+    const updatedList = isSearching
+      ? updateList(clientResults)
+      : updateList(clientList);
+
+    if (isSearching) {
+      setClientResults(updatedList);
+    } else {
+      setClientList(updatedList);
+    }
+
+    const updatedClient = updatedList.find((e) => e.user_id === id);
     const status = updatedClient.user_is_enabled;
 
     try {
       await fetchData(
-        `admin/enabledClient/${id}`, 'put', {
+        `admin/enabledClient/${id}`,
+        'put',
+        {
           user_is_enabled: status,
-        }, token
+        },
+        token
       );
     } catch (error) {
       console.log(error);
-            
     }
   };
 
@@ -88,47 +104,55 @@ const AdminClientList = () => {
   };
 
   return (
-    <>
-      <section className="padding-y-section">
+    <section className="padding-y-section">
+      <Container fluid="xxl">
         <div className="d-flex flex-column align-items-center justify-content-center py-4">
-          <h2 className="text-center">Clientes</h2>
+          <h3 className="text-center">Clientes</h3>
           <div className="blue-line"></div>
-          <div>
-             <Form>
-                            <Form.Group className="mb-3">
-                              <Form.Control
-                                id="searchInput"
-                                type="text"
-                                placeholder="Buscar"
-                                value={search}
-                                onChange={handleSearch}
-                              />
-                              
-                            </Form.Group>
-                          </Form>
+        </div>
+        <div className="d-flex justify-content-center align-items-center">
+          <div className="w-50">
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Control
+                  id="searchInput"
+                  type="text"
+                  placeholder="Buscar"
+                  value={search}
+                  onChange={handleSearch}
+                />
+              </Form.Group>
+            </Form>
           </div>
         </div>
         <Row>
-          {clientList.length === 0 ? (
-            <p>No hay clientes registrados</p>
-          ) : (
-            <Col className="d-flex justify-content-center align-items-center">
-              <div className="clients-table d-flex flex-column align-items-center justify-content-center">
-                <div className="table-scroll-wrapper">
-                  <table>
-                    <tbody>
-          
-                      {clientsToDisplay.map((e) => (
-                        <tr className='tr' key={e.user_id}>
-                          <td>
+          <Col className="d-flex justify-content-center align-items-center">
+            <div className="clients-table d-flex flex-column align-items-center justify-content-center">
+              <div className="table-scroll-wrapper">
+                <table>
+                  <tbody>
+                    {clientsToDisplay.length === 0 ? (
+                      <tr>
+                        <td colSpan="2" className="text-center py-3">
+                          {search.length >= 3
+                            ? 'No se encontraron resultados.'
+                            : 'No hay clientes registrados.'}
+                        </td>
+                      </tr>
+                    ) : (
+                      clientsToDisplay.map((e) => (
+                        <tr className="tr" key={e.user_id}>
+                          <td className="px-4">
                             {e.user_name} {e.lastname}
                           </td>
                           <td>
                             <div className="d-flex">
-                              <Button 
-                               onClick={()=> handleViewProfile(e.user_id)}
-                               >Ver más</Button>
-                              <Form>
+                              <img
+                                src={eye}
+                                onClick={() => handleViewProfile(e.user_id)}
+                                alt="ver perfil"
+                              />
+                              <Form className="d-flex justify-content-center align-items-center">
                                 <Form.Check
                                   className="enabled"
                                   type="switch"
@@ -140,16 +164,16 @@ const AdminClientList = () => {
                             </div>
                           </td>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                      ))
+                    )}
+                  </tbody>
+                </table>
               </div>
-            </Col>
-          )}
+            </div>
+          </Col>
         </Row>
-      </section>
-    </>
+      </Container>
+    </section>
   );
 };
 
