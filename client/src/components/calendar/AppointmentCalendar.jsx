@@ -4,7 +4,7 @@ import { calendarMessages } from '../../helpers/calendarMessages.js';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './appointmentCalendar.css';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { fetchData } from '../../helpers/axiosHelpers.js';
 import { AuthContext } from '../../context/AuthContextProvider.jsx';
 import CreateAppointment from '../createAppointment/CreateAppointment.jsx';
@@ -30,47 +30,47 @@ const AppointmentCalendar = ({
   const [showModal, setShowModal] = useState(false);
   const { token } = useContext(AuthContext);
   const [filterAppointmentBy, setFilterAppointmentBy] = useState();
-  const [filteredAppointments, setFilteredAppointments] = useState([]);
+  const colorMapRef = useRef({});
+
+  const coloresEmpleado = [
+    '#00ACC1', '#00897B', '#3949AB', '#5C6BC0', '#9575CD', '#26C6DA'
+  ];
+
+  const assignColor = (employeeId) => {
+    if (!colorMapRef.current[employeeId]) {
+      const colorIndex = Object.keys(colorMapRef.current).length % coloresEmpleado.length;
+      colorMapRef.current[employeeId] = coloresEmpleado[colorIndex];
+    }
+    return colorMapRef.current[employeeId];
+  };
+
+  const formatEvents = (appointments) => {
+    return appointments.map((e) => {
+      const color = assignColor(e.employee_user_id);
+      return {
+        id: e.appointment_id,
+        start: new Date(`${e.start_date}T${e.start_hour}`),
+        end: new Date(`${e.end_date}T${e.end_hour}`),
+        title: `${e.client_name} ${e.client_lastname} (${e.employee_name})`,
+        description: e.observation,
+        employee_user_id: e.employee_user_id,
+        bgColor: color,
+        resource: {
+          created_by: `${e.created_by_name} ${e.created_by_lastname}`,
+          employee_name: `${e.employee_name} ${e.employee_lastname}`,
+          service: e.service_name,
+        },
+      };
+    });
+  };
 
   const fetchAppointments = async () => {
     try {
-      let result = await fetchData(
-        'admin/getAllAppointments',
-        'get',
-        null,
-        token
-      );
+      let result = await fetchData('admin/getAllAppointments', 'get', null, token);
       const appointments = result.data.result;
       setAllAppointments(appointments);
-
-      const coloresEmpleado = [
-  '#00ACC1', '#00897B', '#3949AB', '#5C6BC0', '#9575CD', '#26C6DA'
-];
-
-      const colorMap = {};
-
-      const formattedEvents = appointments.map((e) => {
-        if (!colorMap[e.employee_user_id]) {
-          const colorIndex = Object.keys(colorMap).length % coloresEmpleado.length;
-          colorMap[e.employee_user_id] = coloresEmpleado[colorIndex];
-        }
-
-        return {
-          id: e.appointment_id,
-          start: new Date(`${e.start_date}T${e.start_hour}`),
-          end: new Date(`${e.end_date}T${e.end_hour}`),
-          title: `${e.client_name} ${e.client_lastname}`,
-          description: e.observation,
-          employee_user_id: e.employee_user_id,
-          bgColor: colorMap[e.employee_user_id],
-          resource: {
-            created_by: `${e.created_by_name} ${e.created_by_lastname}`,
-            employee_name: `${e.employee_name} ${e.employee_lastname}`,
-            service: e.service_name,
-          },
-        };
-      });
-      setEvents(formattedEvents);
+      const formatted = formatEvents(appointments);
+      setEvents(formatted);
     } catch (error) {
       console.log(error);
     }
@@ -81,38 +81,12 @@ const AppointmentCalendar = ({
   }, [token]);
 
   useEffect(() => {
-    const coloresEmpleado = [
-  '#00ACC1', '#00897B', '#3949AB', '#5C6BC0', '#9575CD', '#26C6DA'
-];
-    const colorMap = {};
-
     const source = filterAppointmentBy
       ? allAppointments.filter((e) => e.employee_user_id == filterAppointmentBy)
       : allAppointments;
 
-    const formattedEvents = source.map((e) => {
-      if (!colorMap[e.employee_user_id]) {
-        const colorIndex = Object.keys(colorMap).length % coloresEmpleado.length;
-        colorMap[e.employee_user_id] = coloresEmpleado[colorIndex];
-      }
-
-      return {
-        id: e.appointment_id,
-        start: new Date(`${e.start_date}T${e.start_hour}`),
-        end: new Date(`${e.end_date}T${e.end_hour}`),
-        title: `${e.client_name} ${e.client_lastname} (${e.employee_name})`,
-        description: e.observation,
-        employee_user_id: e.employee_user_id,
-        bgColor: colorMap[e.employee_user_id],
-        resource: {
-          created_by: `${e.created_by_name} ${e.created_by_lastname}`,
-          employee_name: `${e.employee_name} ${e.employee_lastname}`,
-          service: e.service_name,
-        },
-      };
-    });
-
-    setEvents(formattedEvents);
+    const formatted = formatEvents(source);
+    setEvents(formatted);
   }, [allAppointments, filterAppointmentBy]);
 
   const handleNavigate = (newDate) => {

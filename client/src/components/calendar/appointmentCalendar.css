@@ -21,7 +21,7 @@
 .rbc-btn-group button:focus,
 .rbc-btn-group button:active,
 .rbc-btn-group button:hover {
-  background-color:var(--color-azul);
+  background-color: var(--color-azul);
   color: var(--color-blanco);
   outline: none;
 }
@@ -37,14 +37,11 @@
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
   }
-  
 }
-
-
-
 
 .rbc-day-bg {
   background-color: var(--color-componente);
+  cursor: pointer;
 }
 
 .rbc-time-view,
@@ -52,11 +49,12 @@
 .rbc-time-gutter,
 .rbc-timeslot-group {
   background-color: var(--color-componente);
+  cursor: pointer;
 }
 
-
 .rbc-time-slot {
-  min-height: 4rem; 
+  min-height: 2.5rem; 
+  cursor: pointer;    
 }
 
 .rbc-today {
@@ -85,12 +83,10 @@
 
 .rbc-time-gutter .rbc-timeslot-group {
   display: flex;
-  align-items: center;   
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
-
-
-
 
 .rbc-time-gutter .rbc-label {
   font-weight: bold;
@@ -98,8 +94,8 @@
   height: 100%;
   width: 100%;
   display: flex;
-  align-items: center;     
-  justify-content: center;  
+  align-items: center;
+  justify-content: center;
   line-height: normal;
 }
 
@@ -111,19 +107,16 @@
   padding: 0.1rem 0.5rem;
   border-radius: 0.5rem;
   margin: 0 0.4rem;
-  max-height: 2.1rem;        
-  overflow: hidden;          
+  max-height: 2.1rem;
+  overflow: hidden;
   display: flex;
   align-items: center;
   box-sizing: border-box;
 }
 
-
-
 .rbc-toolbar-label {
   text-transform: lowercase;
 }
-
 
 .rbc-toolbar-label::first-letter {
   text-transform: uppercase;
@@ -131,10 +124,12 @@
 
 .rbc-time-view {
   border-radius: 1rem;
-  overflow: hidden; 
+  overflow: hidden;
+  border: 1px solid var(--color-blanco);
 }
 
 .rbc-calendar {
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   overflow: hidden;
 }
+
