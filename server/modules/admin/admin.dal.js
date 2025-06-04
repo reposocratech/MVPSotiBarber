@@ -225,7 +225,7 @@ class AdminDal {
       let textoBuscado = search;
       let palabras = textoBuscado.split(' ');
 
-      let sql = `select user_id, user_name, lastname, phone, email from user where user_type = 3 and user_is_deleted = 0`;
+      let sql = `select user_id, user_name, lastname, phone, email, user_is_enabled from user where user_type = 3 and user_is_deleted = 0`;
 
       for (let palabra of palabras) {
         sql += ` and (user_name like "%${palabra}%" or lastname like "%${palabra}%" or phone like "%${palabra}%" or email like "%${palabra}%")`;

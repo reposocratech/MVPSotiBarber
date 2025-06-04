@@ -99,8 +99,10 @@ const ImagesDragList = ({images, setImages, deleteImg, handleChange, service }) 
                       <div><Button onClick={()=>setReorder(true)} disabled={!images.length}>Ordenar</Button></div> :
                       <div>
                         <p>Elige nuevo orden</p>
-                        <Button onClick={saveImages}>Aceptar</Button>
-                        <Button onClick={cancelReorder}>Cancelar</Button>
+                        <div className='d-flex justify-content-center align-items-center gap-3'>
+                          <Button onClick={saveImages}>Aceptar</Button>
+                          <Button onClick={cancelReorder}>Cancelar</Button>
+                        </div>
                       </div>}
             </div>
           </div>
