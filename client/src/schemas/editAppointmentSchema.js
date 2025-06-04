@@ -5,8 +5,18 @@ const parseTime = (timeStr) => {
   return hours * 60 + minutes;
 };
 
+const combineDateTime = (dateStr, timeStr) => {
+  const date = new Date(dateStr);
+  const { hours, minutes } = parseTime(timeStr);
+  date.setHours(hours, minutes, 0, 0);
+  return date;
+};
+
 export const editAppointmentSchema = z
   .object({
+    start_date: z.string({
+      required_error: 'La fecha es obligatoria',
+    }),
     start_hour: z.string({ required_error: "La hora de inicio es obligatoria" }),
     end_hour: z.string({ required_error: "La hora de fin es obligatoria" }),
     client_name: z
@@ -35,21 +45,19 @@ export const editAppointmentSchema = z
       .max(250, "La observación debe tener menos de 250 caracteres")
       .optional(),
   })
-  .refine(
-    (data) => parseTime(data.end_hour) > parseTime(data.start_hour),
-    {
-      message: "La hora de fin debe ser posterior a la hora de inicio",
-      path: ["end_hour"],
-    }
-  )
-  .refine(
-    (data) => {
-      const now = new Date();
-      const currentTimeStr = now.toTimeString().slice(0, 5);
-      return parseTime(data.start_hour) >= parseTime(currentTimeStr);
-    },
-    {
-      message: "La hora de inicio no puede ser anterior a la hora actual",
-      path: ["start_hour"],
-    }
-  );
+  .refine((data) => {
+    const start = parseTime(data.start_hour);
+    const end = parseTime(data.end_hour);
+    return end.hours * 60 + end.minutes > start.hours * 60 + start.minutes;
+  }, {
+    message: 'La hora de fin debe ser posterior a la hora de inicio',
+    path: ['end_hour'],
+  })
+  .refine((data) => {
+    const startDateTime = combineDateTime(data.start_date, data.start_hour);
+    const now = new Date();
+    return startDateTime >= now;
+  }, {
+    message: 'La hora de inicio no puede ser anterior a la fecha y hora actual',
+    path: ['start_hour'],
+  });
