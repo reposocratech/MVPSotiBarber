@@ -2,7 +2,6 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import deletecross from "../../assets/icons/deletecross.png"; 
 
-
 export const SortableImage = ({ id, src, isDraggable, deleteImg }) => {
   const {
     attributes,
@@ -29,7 +28,7 @@ export const SortableImage = ({ id, src, isDraggable, deleteImg }) => {
       {...(isDraggable? listeners: {})}
     >
       
-      <img className="object-fit-cover w-100 h-100" src={`http://localhost:4000/images/servicesImages/${src}`} alt={`Imagen ${id}`} width={100} height={100} />
+      <img className="object-fit-cover w-100 h-100" src={`${import.meta.env.VITE_SERVER_URL}images/servicesImages/${src}`} alt={`Imagen ${id}`} width={100} height={100} />
 
       <div className='delete'>
                               <img onClick={()=>deleteImg(id, src)} src={deletecross} alt="borrar foto" />

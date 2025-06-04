@@ -116,6 +116,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
     }
   }
 
+  console.log("ediiiit", editData)
   return (
     <section>
       {event && (

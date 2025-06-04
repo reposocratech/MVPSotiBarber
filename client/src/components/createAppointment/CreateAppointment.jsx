@@ -206,6 +206,7 @@ const CreateAppointment = ({
     setClientResults([]);
   };
 
+  console.log("aaaaaa", appointmentData)
   return (
     <section className="sectForm">
       <Modal show={show} onHide={handleClose}>
