@@ -19,61 +19,75 @@ const EmployeeClientProfile = () => {
   const [noPresentadas, setNoPresentadas] = useState(0);
 
   useEffect(() => {
-    if (!id) return;
+  if (!id) return;
 
-    const fetchDataCliente = async () => {
-      try {
-        const userRes = await fetchData(
-          `employee/clientProfile/${id}`,
-          'get',
-          null,
-          token
-        );
-        setUser(userRes.data || userRes);
+  const fetchDataCliente = async () => {
+    try {
+      const userRes = await fetchData(
+        `employee/clientProfile/${id}`,
+        'get',
+        null,
+        token
+      );
+      setUser(userRes.data || userRes);
 
-        const res = await fetchData(
-          `client/appointments/${id}`,
-          'get',
-          null,
-          token
-        );
+      const res = await fetchData(
+        `client/appointments/${id}`,
+        'get',
+        null,
+        token
+      );
 
-        const resCortes = await fetchData(
-          `client/cortes-count/${id}`,
-          'get',
-          null,
-          token
-        );
+      const resCortes = await fetchData(
+        `client/cortes-count/${id}`,
+        'get',
+        null,
+        token
+      );
 
-        const citas = res.data || res;
-        setAppointments(citas);
+      const citasSimples = res.data || res;
 
-        const citasValidas = citas.filter(
-          (cita) => cita.status !== 2 && cita.status !== 3
-        );
-        setServiciosTotales(citasValidas.length);
+      const citas = citasSimples.map((cita) => {
+        const isCancelada = cita.status === 2;
+        const isNoPresentada = cita.status === 3;
 
-        const { totalCortes = 0 } = resCortes.data || resCortes;
-        setTotalCortes(totalCortes);
+        return {
+          ...cita,
+          tipoVisible: isCancelada
+            ? 'Cancelada'
+            : isNoPresentada
+            ? 'No presentado'
+            : cita.tipo_cita,
+          precio: isCancelada || isNoPresentada ? 0 : parseFloat(cita.precio) || 0
+        };
+      });
 
-        const totalGasto = citas.reduce(
-          (contador, cita) => contador + parseFloat(cita.precio || 0),
-          0
-        );
-        setTotalGasto(totalGasto);
+      setAppointments(citas);
 
-        const canceladasCount = citas.filter(cita => cita.status === 2).length;
-        const noPresentadasCount = citas.filter(cita => cita.status === 3).length;
+      
+      const citasValidas = citas.filter(cita => cita.status !== 2 && cita.status !== 3);
+      setServiciosTotales(citasValidas.length);
 
-        setCanceladas(canceladasCount);
-        setNoPresentadas(noPresentadasCount);
-      } catch (err) {
-        console.error("Error cargando citas o cliente:", err);
-      }
-    };
+      
+      const gasto = citas.reduce((acc, cita) => {
+        if (cita.status === 2) return acc; 
+        if (cita.status === 3) return acc - cita.precio; 
+        return acc + cita.precio;
+      }, 0);
+      setTotalGasto(gasto);
 
-    fetchDataCliente();
-  }, [id]);
+      const { totalCortes = 0 } = resCortes.data || resCortes;
+      setTotalCortes(totalCortes);
+
+      setCanceladas(citas.filter(cita => cita.status === 2).length);
+      setNoPresentadas(citas.filter(cita => cita.status === 3).length);
+    } catch (err) {
+      console.error("Error cargando citas o cliente:", err);
+    }
+  };
+
+  fetchDataCliente();
+}, [id]);
 
   const filteredAppointments = appointments.filter((cita) => {
     const search = searchTerm.toLowerCase();
@@ -205,7 +219,7 @@ const EmployeeClientProfile = () => {
                               : cita.tipo_cita}
                           </td>
                           <td data-label="Empleado:">{cita.empleado}</td>
-                          <td data-label="Precio:">{cita.precio}€</td>
+                          <td data-label="Precio:">{parseFloat(cita.precio).toFixed(2)}€</td>
                         </tr>
                       ))
                     ) : (

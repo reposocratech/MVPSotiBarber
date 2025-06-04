@@ -147,6 +147,12 @@ const CreateAppointment = ({
         token
       );
 
+      const coloresEmpleado = [
+        '#00ACC1', '#00897B', '#3949AB', '#5C6BC0', '#9575CD', '#26C6DA'
+      ];
+      const colorMap = {};
+
+
       const result = await fetchData(
         'admin/getAllAppointments',
         'get',
@@ -155,19 +161,30 @@ const CreateAppointment = ({
       );
       const appointments = result.data.result;
 
-      const formattedEvents = appointments.map((e) => ({
-        id: e.appointment_id,
-        start: new Date(`${e.start_date}T${e.start_hour}`),
-        end: new Date(`${e.end_date}T${e.end_hour}`),
-        title: `${e.client_name} ${e.client_lastname} (${e.employee_name})`,
-        description: e.observation,
-        resource: {
-          created_by: `${e.created_by_name} ${e.created_by_lastname}`,
-        },
-      }));
+      const formattedEvents = appointments.map((e) => {
+        if (!colorMap[e.employee_user_id]) {
+          const colorIndex =
+            Object.keys(colorMap).length % coloresEmpleado.length;
+          colorMap[e.employee_user_id] = coloresEmpleado[colorIndex];
+        }
+        return {
+          id: e.appointment_id,
+          start: new Date(`${e.start_date}T${e.start_hour}`),
+          end: new Date(`${e.end_date}T${e.end_hour}`),
+          title: `${e.client_name} ${e.client_lastname} (${e.employee_name})`,
+          description: e.observation,
+          employee_user_id: e.employee_user_id,
+          bgColor: colorMap[e.employee_user_id],
+          resource: {
+            created_by: `${e.created_by_name} ${e.created_by_lastname}`,
+            employee_name: `${e.employee_name} ${e.employee_lastname}`,
+            service: e.service_name,
+          },
+        };
+      });
 
       setEvents(formattedEvents);
-      setAppointmentData(initialValue)
+      setAppointmentData(initialValue);
       setSearch("");
       handleClose();
     } catch (error) {
