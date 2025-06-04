@@ -151,7 +151,7 @@ class AdminDal {
 
       if (data.img) {
         sql =
-          'insert into user (user_name, lastname, email, phone, password, description, user_type, avatar) values (?,?,?,?,?,?,?,?)';
+          'insert into user (user_name, lastname, email, phone, password, description, user_type, user_is_confirmed, avatar) values (?,?,?,?,?,?,?,?,?)';
         values = [
           user_name,
           lastname,
@@ -160,7 +160,8 @@ class AdminDal {
           hashedPassword,
           description,
           2,
-          data.img.filename,
+          1,
+          data.img.filename
         ];
       }
       await executeQuery(sql, values);

@@ -18,8 +18,8 @@ router.put("/enabledService/:id", verifyToken, adminControllers.enabledService)
 router.put("/editService", verifyToken, uploadImage("service"), adminControllers.editService)
 router.get("/employeeList", verifyToken,adminControllers.getAllEmployees);
 router.put("/enabledEmployee/:id", verifyToken, adminControllers.enabledEmployee)
-router.post("/createEmployee", uploadImage("employee"), validateForms(createEmployeeSchema), verifyToken, adminControllers.createEmployee)
-router.put("/editEmployee", uploadImage("employee"), validateForms(editEmployeeSchema), verifyToken, adminControllers.editEmployee)
+router.post("/createEmployee", uploadImage("users"), validateForms(createEmployeeSchema), verifyToken, adminControllers.createEmployee)
+router.put("/editEmployee", uploadImage("users"), validateForms(editEmployeeSchema), verifyToken, adminControllers.editEmployee)
 router.post("/createAppointment",verifyToken, validateForms(createAppointmentSchema), adminControllers.createAppointment)
 router.put("/deleteService", verifyToken, adminControllers.deleteService);
 router.get("/clientListAppointment", verifyToken, adminControllers.clientListAppointment)

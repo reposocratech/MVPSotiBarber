@@ -210,10 +210,10 @@ const CreateAppointment = ({
   return (
     <section className="sectForm">
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header className='background' closeButton>
           <Modal.Title>Añadir cita</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='background'>
           <Container>
             <Row className="engloba">
               <Col md={12} lg={6} className="cols">
@@ -307,6 +307,7 @@ const CreateAppointment = ({
                       Nombre del cliente
                     </Form.Label>
                     <Form.Control
+                      className="input"
                       id="ClientNameTextImput"
                       value={appointmentData.client_name || ''}
                     />
@@ -392,7 +393,7 @@ const CreateAppointment = ({
             </Row>
           </Container>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className='background justify-content-center'>
           <p>{errorMsg}</p>
           <Button className="boton" onClick={onCancel}>
             Cancelar

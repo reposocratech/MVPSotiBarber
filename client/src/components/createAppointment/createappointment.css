@@ -38,3 +38,11 @@
   border-radius: 4px;
 }
 
+.background {
+  background-color: var(--color-fondo) !important;
+  color: var(--color-blanco) !important;
+}
+
+.input {
+  width: 466px !important;
+}

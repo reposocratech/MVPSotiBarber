@@ -118,24 +118,22 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
 
   console.log("ediiiit", editData)
   return (
-    <section>
+    <section className='sectForm'>
       {event && (
         <Modal
+          className='modal'
           show={showModal}
           onHide={closeModal}
-          size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
-          <Modal.Header closeButton>
+          <Modal.Header className='background' closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              Cita para: {event?.title?.split('(')[0] || 'Sin título'}
+              Editar cita
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <Form className="form-create-appoinment">
-              <h2 className="text-center">Editar cita</h2>
-              <div className="blue-line"></div>
+          <Modal.Body className='background'>
+            <Form className="form-create-appoinment mb-5">
               <div className='separate'>
                                     <Form.Group className="mb-3 hour">
                                       <Form.Label htmlFor="DayTextInput">
@@ -197,6 +195,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                   Nombre del cliente
                 </Form.Label>
                 <Form.Control
+                  className="input"
                   id="ClientNameTextImput"
                   value={editData?.client_name || ''}
                   onChange={handleChange}
@@ -288,7 +287,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
               <p className='text-center text-danger'>{errorMsg}</p>
             </Form>
           </Modal.Body>
-          <Modal.Footer>
+          <Modal.Footer className='background justify-content-center'>
             <div className="botones d-flex justify-content-between w-100">
               <Button onClick={cancelAppointment} className='red-btn'>Cancelar cita</Button>
               <div>
