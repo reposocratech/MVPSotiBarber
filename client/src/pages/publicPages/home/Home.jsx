@@ -25,7 +25,7 @@ const Home = () => {
   }, [location]);
 
   return (
-    <div>
+    <>
       {/* SECTION 1 */}
       <section className="section-logo d-flex align-items-center pt-5 padding-y-section">
         <Container fluid="xxl">
@@ -182,7 +182,7 @@ const Home = () => {
         </Row>
             </Container>
       </section>
-    </div>
+    </>
   );
 };
 export default Home;
