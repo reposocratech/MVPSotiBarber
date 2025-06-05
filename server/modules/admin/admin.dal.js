@@ -303,16 +303,17 @@ class AdminDal {
     );
 
    
-    const totalServicios = result[0]?.total_servicios || 0;
+    const totalServiciosPrevios = result[0]?.total_servicios || 0;
+    const totalServiciosConActual = totalServiciosPrevios + 1;
 
-    console.log("Total de cortes/rapados:", totalServicios);
 
-    if (totalServicios % 10 === 0) {
+    console.log("Total de cortes/rapados:", totalServiciosConActual);
+
+    if (totalServiciosConActual % 10 === 0) {
+
+      let sql = 'SELECT email, user_name FROM user WHERE user_id = ? AND user_is_deleted = 0'
     
-      const [userResult] = await connection.query(
-        'SELECT email, user_name FROM user WHERE user_id = ? AND user_is_deleted = 0',
-        [client_id]
-      );
+      const [userResult] = await connection.query(sql ,[client_id]);
 
       const email = userResult[0]?.email;
       const user_name = userResult[0]?.user_name;
