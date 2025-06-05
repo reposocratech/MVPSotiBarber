@@ -164,3 +164,8 @@
   border-radius: 10px;
 }
 
+.rbc-time-view {
+  border: 5px solid var(--color-componente);
+  border-radius: 0.8rem;
+  overflow: hidden;
+} 

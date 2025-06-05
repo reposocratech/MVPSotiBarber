@@ -277,13 +277,14 @@ const CreateAppointment = ({
                   </Form.Group>
                 </Form>
 
-                <Form className="form-create-appoinment">
+                <Form className="form-create-appointment">
                     <div className='separate'>
                       <Form.Group className="mb-3 hour">
                         <Form.Label htmlFor="DayTextInput">
                           Fecha inicio cita
                         </Form.Label>
                         <Form.Control
+                          className='fechas'
                           id="DayTextInput"
                           name='start_date'
                           value={appointmentData?.start_date}
@@ -297,6 +298,7 @@ const CreateAppointment = ({
                           Fecha fin cita
                         </Form.Label>
                         <Form.Control
+                          className='fechas'
                           id="FinDayTextInput"
                           name='end_date'
                           value={appointmentData?.end_date}
@@ -312,6 +314,7 @@ const CreateAppointment = ({
                         Hora de inicio
                       </Form.Label>
                       <Form.Control
+                        className='fechas'
                         id="StartHourTextInput"
                         name="start_hour"
                         value={appointmentData?.start_hour}
@@ -325,6 +328,7 @@ const CreateAppointment = ({
                         Hora de fin
                       </Form.Label>
                       <Form.Control
+                        className='fechas'
                         id="EndHourTextInput"
                         name="end_hour"
                         value={appointmentData?.end_hour}
@@ -351,6 +355,7 @@ const CreateAppointment = ({
                       Apellidos del cliente
                     </Form.Label>
                     <Form.Control
+                      className="input"
                       id="ClientLastnameTextImput"
                       value={appointmentData.client_lastname || ''}
                       readOnly
@@ -364,6 +369,7 @@ const CreateAppointment = ({
                       Empleado
                     </Form.Label>
                     <Form.Select
+                      className="input"
                       aria-label="Default select example"
                       id="EmpleadoTextInput"
                       name="employee_id"
@@ -385,6 +391,7 @@ const CreateAppointment = ({
                       Servicio
                     </Form.Label>
                     <Form.Select
+                      className="input"
                       aria-label="Default select example"
                       id="ServicioTextInput"
                       name="service_id"
@@ -404,7 +411,8 @@ const CreateAppointment = ({
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="PhoneTextInput">Teléfono</Form.Label>
                     <Form.Control
-                    readOnly
+                      className="input"
+                      readOnly
                       id="PhoneTextImput"
                       value={appointmentData.phone || ''}
                     />
@@ -415,6 +423,7 @@ const CreateAppointment = ({
                       Observaciones
                     </Form.Label>
                     <Form.Control
+                      className='input'
                       id="ObservationsTextImput"
                       name="observations"
                       value={appointmentData.observations || ''}

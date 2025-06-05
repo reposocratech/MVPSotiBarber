@@ -24,8 +24,12 @@
 
 .botones {
   @media(width < 500px) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+
     .boton {
-      display: flex;
+      width: 150px;
     }
   }
 }

@@ -145,6 +145,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                                         Fecha inicio cita
                                       </Form.Label>
                                       <Form.Control
+                                        className='fechas'
                                         id="DayTextInput"
                                         name='start_date'
                                         value={appointmentData?.start_date}
@@ -158,6 +159,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                                         Fecha fin cita
                                       </Form.Label>
                                       <Form.Control
+                                        className='fechas'
                                         id="FinDayTextInput"
                                         name='end_date'
                                         value={appointmentData?.end_date}
@@ -173,6 +175,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                     Hora de inicio
                   </Form.Label>
                   <Form.Control
+                    className='fechas'
                     id="StartHourTextInput"
                     name="start_hour"
                     value={editData?.start_hour}
@@ -186,6 +189,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                     Hora de fin
                   </Form.Label>
                   <Form.Control
+                    className='fechas'
                     id="EndHourTextInput"
                     name="end_hour"
                     value={editData?.end_hour}
@@ -294,6 +298,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
           </Modal.Body>
           <Modal.Footer className='background justify-content-center'>
             <div className="botones d-flex justify-content-between w-100">
+
               <button type="button" onClick={cancelAppointment} className='btn'>Cancelar cita</button>
               <div>
                 <button  type="button" className="btn ms-auto me-2" onClick={onSubmit}>Guardar</button>
