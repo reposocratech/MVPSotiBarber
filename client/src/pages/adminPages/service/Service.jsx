@@ -164,17 +164,17 @@ const Service = () => {
                 </div>
                 <div className="pt-4"></div>
                 {isMobile && (
-                  <Button onClick={handleButton} className="mt-3">
+                  <button type='button' onClick={handleButton} className="btn mt-3">
                     Añadir servicio
-                  </Button>
+                  </button>
                 )}
               </div>
             </Col>
           )}
           {isMobile && services.length === 0 && (
-            <Button onClick={handleButton} className="mt-3">
+            <button type='button' onClick={handleButton} className="btn w-50 mt-3">
               Añadir servicio
-            </Button>
+            </button>
           )}
           {!isMobile && (
             <Col className="cols d-flex justify-content-center align-items-center my-4">

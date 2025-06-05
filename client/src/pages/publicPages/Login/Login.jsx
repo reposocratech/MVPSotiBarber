@@ -61,7 +61,7 @@ const Login = () => {
     <section className='padding-y-section'>
       <Container>
         <Row>
-          <Col>
+          <Col className='d-flex flex-column align-items-center justify-content-center'>
             <Form className="formLogin">
               <div className='d-flex flex-column align-items-center justify-content-center'>
                 <h3 >Inicia sesión</h3>
@@ -85,6 +85,7 @@ const Login = () => {
                   Contraseña
                 </Form.Label>
                 <Form.Control
+                  type='password'
                   id="passwordInput"
                   name="password"
                   value={loginData.password}

@@ -5,9 +5,16 @@ const parseTime = (timeStr) => {
   return hours * 60 + minutes;
 };
 
+// const combineDateTime = (dateStr, timeStr) => {
+//   const date = new Date(dateStr);
+//   const { hours, minutes } = parseTime(timeStr);
+//   date.setHours(hours, minutes, 0, 0);
+//   return date;
+// };
+
 const combineDateTime = (dateStr, timeStr) => {
   const date = new Date(dateStr);
-  const { hours, minutes } = parseTime(timeStr);
+  const [hours, minutes] = timeStr.split(":").map(Number);
   date.setHours(hours, minutes, 0, 0);
   return date;
 };
@@ -15,6 +22,9 @@ const combineDateTime = (dateStr, timeStr) => {
 export const editAppointmentSchema = z
   .object({
     start_date: z.string({
+      required_error: 'La fecha es obligatoria',
+    }),
+    end_date: z.string({
       required_error: 'La fecha es obligatoria',
     }),
     start_hour: z.string({ required_error: "La hora de inicio es obligatoria" }),
@@ -47,8 +57,10 @@ export const editAppointmentSchema = z
   })
   .refine((data) => {
     const start = parseTime(data.start_hour);
+    console.log("satar", start)
     const end = parseTime(data.end_hour);
-    return end.hours * 60 + end.minutes > start.hours * 60 + start.minutes;
+    console.log("end", end)
+    return end > start
   }, {
     message: 'La hora de fin debe ser posterior a la hora de inicio',
     path: ['end_hour'],

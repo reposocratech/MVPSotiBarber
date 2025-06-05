@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { registerSchema } from '../../../schemas/registerSchema';
 import { fetchData } from '../../../helpers/axiosHelpers';
 import { ZodError } from "zod";
-import "./csscommon.css"
+import "./csscommon.css";
 
 const initialValue = { 
   email: "",
@@ -76,13 +76,17 @@ const Register = () => {
                 <Form.Label htmlFor='PasswordTextInput'>
                   Contraseña
                 </Form.Label>
-                <Form.Control 
-                  id="PasswordTextImput"
-                  name="password"
-                  value={registerData.password}
-                  onChange={handleChange}
-                  placeholder='Escribe tu contraseña'
-                />
+                <div className='position'>
+                  <Form.Control
+                    type="password"
+                    id="PasswordTextImput"
+                    name="password"
+                    value={registerData.password}
+                    onChange={handleChange}
+                    placeholder='Escribe tu contraseña'
+                    className='borde'
+                  />
+                </div>
                 {valErrors.password && <p className="error">{valErrors.password}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
@@ -90,6 +94,7 @@ const Register = () => {
                   Repite Contraseña
                 </Form.Label>
                 <Form.Control 
+                  type='password'
                   id="RepPasswordTextImput"
                   name="repPassword"
                   value={registerData.repPassword}

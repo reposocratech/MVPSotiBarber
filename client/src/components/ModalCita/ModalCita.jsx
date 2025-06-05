@@ -148,7 +148,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                                         className='fechas'
                                         id="DayTextInput"
                                         name='start_date'
-                                        value={appointmentData?.start_date}
+                                        value={editData?.start_date}
                                         onChange={handleChange}
                                         type="date"
                                       />
@@ -162,7 +162,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                                         className='fechas'
                                         id="FinDayTextInput"
                                         name='end_date'
-                                        value={appointmentData?.end_date}
+                                        value={editData?.end_date}
                                         onChange={handleChange}
                                         type="date"
                                       />
@@ -302,7 +302,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
               <button type="button" onClick={cancelAppointment} className='btn'>Cancelar cita</button>
               <div>
                 <button  type="button" className="btn ms-auto me-2" onClick={onSubmit}>Guardar</button>
-                <button className="btn" onClick={closeModal}>Salir</button>
+                <button className="btn" onClick={close}>Salir</button>
 
               </div>
             </div>

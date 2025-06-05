@@ -21,7 +21,7 @@ export const AccountConfirm = () => {
   }
 
   return (
-    <section>
+    <section className='d-flex flex-column justify-content-center align-items-center'>
       <h2>Confirma tu cuenta </h2>
       <div className='d-flex justify-content-center'>
         <button type="button" className='btn' onClick={onSubmit}>Confirmar</button>

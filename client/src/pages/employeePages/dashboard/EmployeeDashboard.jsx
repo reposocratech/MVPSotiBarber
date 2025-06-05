@@ -10,12 +10,12 @@ const EmployeeDashboard = () => {
   }
 
   return (
-    <section>
+    <section className='padding-y-section'>
       <div className='d-flex flex-column align-items-center justify-content-center mt-3'>
         <h2>Perfil del Empleado</h2>
         <div className="blue-line"></div>
       </div>
-      <div>
+      <div className='d-flex justify-content-center'>
         <AppointmentCalendar
           employeeList={employeeList}
           setEmployeeList={setEmployeeList}

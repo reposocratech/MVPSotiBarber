@@ -22,7 +22,7 @@ const AdminDashboard = () => {
         <h2>Perfil del Administrador</h2>
         <div className="blue-line"></div>
       </div>
-      <div>
+      <div className='d-flex justify-content-center'>
         <AppointmentCalendar
           employeeList={employeeList}
           setEmployeeList={setEmployeeList}

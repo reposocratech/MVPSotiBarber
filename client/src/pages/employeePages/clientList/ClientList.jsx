@@ -44,7 +44,7 @@ const ClientList = () => {
         </div>
         <Row>
           {clients.length !== 0 ? (
-            <Col>
+            <Col className='d-flex justify-content-center'>
               <div className="table-clients">
                 <div className="search-bar-wrapper mb-4">
                   <Form.Control

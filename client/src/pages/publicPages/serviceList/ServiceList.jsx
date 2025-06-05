@@ -174,7 +174,7 @@ const ServiceList = () => {
           </Row>
         )}
         {services.length === 0 && (
-          <section>
+          <section className='text-center'>
             <h3>En construcción</h3>
           </section>
         )}
