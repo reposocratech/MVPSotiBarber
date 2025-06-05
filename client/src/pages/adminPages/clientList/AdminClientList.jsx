@@ -110,24 +110,25 @@ const AdminClientList = () => {
           <h3 className="text-center">Clientes</h3>
           <div className="blue-line"></div>
         </div>
-        <div className="d-flex justify-content-center align-items-center">
-          <div className="w-50">
-            <Form>
-              <Form.Group className="mb-3">
-                <Form.Control
-                  id="searchInput"
-                  type="text"
-                  placeholder="Buscar"
-                  value={search}
-                  onChange={handleSearch}
-                />
-              </Form.Group>
-            </Form>
-          </div>
-        </div>
         <Row>
           <Col className="d-flex justify-content-center align-items-center">
             <div className="clients-table d-flex flex-column align-items-center justify-content-center">
+              <div className="d-flex justify-content-center align-items-center">
+                <div className="search">
+                  <Form>
+                    <Form.Group className="mb-3">
+                      <Form.Control
+                        id="searchInput"
+                        className="search-input"
+                        type="text"
+                        placeholder="Buscar"
+                        value={search}
+                        onChange={handleSearch}
+                      />
+                    </Form.Group>
+                  </Form>
+                </div>
+              </div>
               <div className="table-scroll-wrapper">
                 <table>
                   <tbody>

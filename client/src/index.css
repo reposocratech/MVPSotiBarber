@@ -3,8 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 *{
-  padding: 0;
-  margin: 0;
+
   box-sizing: border-box;
 }
 :root {
@@ -60,12 +59,20 @@ h1, h2, h3{
   all: unset;
   color: var(--color-azul);
   font-weight: bold;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
 
 html, body {
   overflow-x: hidden;
 }
 
+.error{
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+  color: rgb(190, 147, 147);
+}
 
 
 

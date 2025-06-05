@@ -48,15 +48,15 @@ export const createAppointmentSchema = z
       .number({
         required_error: 'Debes seleccionar un empleado',
       })
-      .min(1, 'Debes seleccionar un empleado válido'),
+      .min(1, 'Debes seleccionar un empleado'),
     service_id: z.coerce
       .number({
         required_error: 'Debes seleccionar un servicio',
       })
-      .min(1, 'Debes seleccionar un servicio válido'),
+      .min(1, 'Debes seleccionar un servicio'),
     observations: z
       .string()
-      .max(250, 'La observación debe tener menos de 250 caracteres')
+      .max(250, 'No debe ser mayor de 250 caracteres')
       .optional(),
   })
   .refine((data) => {

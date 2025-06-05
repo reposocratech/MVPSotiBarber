@@ -101,7 +101,7 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
                   placeholder="Nombre"
                   autoFocus
                 />
-                {valErrors.service_name && <p>{valErrors.service_name}</p>}
+                {valErrors.service_name && <p className='error'>{valErrors.service_name}</p>}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Precio</Form.Label>
@@ -116,8 +116,8 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
                     onChange={handleChange}
                     placeholder="Precio"
                   />
-                  {valErrors.price && <p>{valErrors.price}</p>}
                 </InputGroup>
+                  {valErrors.price && <p className='error'>{valErrors.price}</p>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="estimatedTimeInput">
                 <Form.Label>Duración</Form.Label>
@@ -131,7 +131,7 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
                   placeholder="Duración"
                   autoFocus
                 />
-                {valErrors.estimated_time && <p>{valErrors.estimated_time}</p>}
+                {valErrors.estimated_time && <p className='error'>{valErrors.estimated_time}</p>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="descriptionInput">
                 <Form.Label>Descripción</Form.Label>
@@ -145,7 +145,7 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
                   placeholder="Descripción"
                   autoFocus
                 />
-                {valErrors.service_description && <p>{valErrors.service_description}</p>}
+                {valErrors.service_description && <p className='error'>{valErrors.service_description}</p>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="promoInput">
                 <Form.Label>Promoción</Form.Label>
@@ -157,9 +157,7 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
                   onChange={handleChange}
                   autoFocus
                 />
-                {valErrors.service_description && (
-              <p>{valErrors.service_description}</p>
-                )}
+
               </Form.Group>
               <Form.Group className="mb-3" controlId="promoPriceInput">
                 <Form.Label>Precio Promoción</Form.Label>
@@ -174,7 +172,7 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
                   />
                 </InputGroup>
                 {valErrors.promo_price && (
-              <p>{valErrors.promo_price}</p>
+              <p className='error'>{valErrors.promo_price}</p>
                 )}
               </Form.Group>
               <Form.Group className="mb-3" controlId="promoStartDateInput">
@@ -187,7 +185,7 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
                   autoFocus
                 />
                 {valErrors.promo_start_date && (
-              <p>{valErrors.promo_start_date}</p>
+              <p className='error'>{valErrors.promo_start_date}</p>
                 )}
               </Form.Group>
               <Form.Group className="mb-3" controlId="promoEndDateInput">
@@ -200,7 +198,7 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
                   autoFocus
                 />
                 {valErrors.promo_end_date && (
-              <p>{valErrors.promo_end_date}</p>
+              <p className='error'>{valErrors.promo_end_date}</p>
                 )}
               </Form.Group>
               <Form.Group className="mb-3">
@@ -218,12 +216,12 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
               <div>
                 <div className="d-flex align-items-center justify-content-center">
 
-                  <Button className="btn me-3" onClick={cancel}>
+                  <button className="btn me-3" onClick={cancel}>
                     Cancelar
-                  </Button>
-                  <Button className="btn" onClick={onSubmit}>
+                  </button>
+                  <button type="button" className="btn" onClick={onSubmit}>
                     Guardar
-                  </Button>
+                  </button>
                 </div>
               </div>
             </Form>

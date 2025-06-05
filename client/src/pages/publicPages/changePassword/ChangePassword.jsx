@@ -63,30 +63,32 @@ const ChangePassword = () => {
                   Contraseña nueva:
                 </Form.Label>
                 <Form.Control 
+                  type="password"
                   id="newPasswordTextImput"
                   name="newPassword"
                   value={changePassword.newPassword}
                   onChange={handleChange}
                   placeholder='Escribe tu contraseña'
                 />
-                {valErrors.newPassword && <p>{valErrors.newPassword}</p>}
+                {valErrors.newPassword && <p className='error'>{valErrors.newPassword}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='repeatPasswordTextInput'>
                   Repite contraseña:
                 </Form.Label>
                 <Form.Control 
+                  type="password"
                   id="repeatPasswordTextImput"
                   name="repeatPassword"
                   value={changePassword.repeatPassword}
                   onChange={handleChange}
                   placeholder='Repite contraseña'
                 />
-                {valErrors.repeatPassword && <p>{valErrors.repeatPassword}</p>}
+                {valErrors.repeatPassword && <p className='error'>{valErrors.repeatPassword}</p>}
               </Form.Group>
-              <p>{errorMsg}</p>
+              {/* <p>{errorMsg}</p> */}
               <div className='d-flex justify-content-center'>
-                <Button className='boton' onClick={onSubmit}>Cambiar</Button>
+                <button type="button" className='btn' onClick={onSubmit}>Cambiar</button>
               </div>
             </Form>
           </Col>

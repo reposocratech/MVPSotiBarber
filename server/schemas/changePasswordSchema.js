@@ -8,8 +8,8 @@ export const changePasswordSchema = z.object({
                     (val) => val === "" || /^(?=(.*[a-zA-Z]))(?=(.*\d))(?=(.*[!@#$%^&*(),.?":{}|<>]))[a-zA-Z\d!@#$%^&*(),.?":{}|<>]{6,}$/.test(val),
                     { message: "Contraseña no es válida" }
                 ),
-    repeatPassword: z.string().min(1,"Campo obligatorio").max(12, "Contraseña demasiado larga")
+    repeatPassword: z.string().min(1,"Campo obligatorio")
 }).refine((data)=>data.newPassword === data.repeatPassword, {
-    message: "las contraseñas no coinciden",
+    message: "Las contraseñas no coinciden",
     path: ["repeatPassword"]
 })

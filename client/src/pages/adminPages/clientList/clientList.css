@@ -3,16 +3,38 @@
   background-color: var(--color-componente);
   padding: 2rem;
   border-radius: 20px;
-  height: 20rem;
-  min-width: 20rem;
+  height: 23rem;
+  min-width: 24.1175rem;
   display: block;
 
   .table-scroll-wrapper {
-    max-height: calc(6 * 2.6rem);
+    max-height: calc(5 * 2.6rem);
+    min-height: calc(5 * 2.6rem); 
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--color-fondo) var(--color-componente);
     padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search{
+    width: 200px;
+  }
+
+  .search-input {
+    border-radius: 25px;
+    padding: 10px 20px;
+    background-color: var(--color-blanco);
+    border: none;
+    width: 100%;
+    max-width: 350px;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
   }
 
   table {
@@ -97,5 +119,8 @@
 
   @media(width < 500px){
     width: 350px;
+    min-width: 22rem;
+
+
   }
 }
