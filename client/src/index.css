@@ -45,9 +45,9 @@ h1, h2, h3{
   padding: 0.5rem 1.25rem;
   color: var(--color-blanco);
 
-  &:focus{
+  /* &:focus{
     background-color: var(--color-azul);
-  }
+  } */
 
   &:hover{
     background-color: var(--color-azul);

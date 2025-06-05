@@ -56,3 +56,36 @@ main {
 .inicio {
   color: var(--color-azul);
 }
+
+.posicion {
+  position: relative;
+  width: 100%;
+}
+
+.posicion {
+  padding-right: 40px; /* espacio para el ícono */
+  border-radius: 0.375rem;
+  z-index: 1;
+  position: relative;
+}
+
+.eye {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 2; /* 👈 Asegura que esté por encima */
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.eye:hover {
+  opacity: 1;
+}
+
+
+
+

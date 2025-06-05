@@ -171,8 +171,8 @@ const CreateEmployee = () => {
               {/* <p>{errorMsg}</p> */}
               <div className='d-flex justify-content-center gap-3'>
 
-                <button type="button" className='btn' onClick={onSubmit}>Registrar</button>
                 <button type="button" className='btn' onClick={()=>navigate("/admin/employeeList")}>Cancelar</button>
+                <button type="button" className='btn' onClick={onSubmit}>Registrar</button>
 
               </div>
             </Form>
