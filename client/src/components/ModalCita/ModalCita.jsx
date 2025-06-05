@@ -116,9 +116,14 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
     }
   }
 
+  const close = ()=>{
+    setValErrors({});
+    closeModal()
+  }
+
   console.log("ediiiit", editData)
   return (
-    <section className='sectForm'>
+    <>
       {event && (
         <Modal
           className='modal'
@@ -127,7 +132,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
-          <Modal.Header className='background' closeButton>
+          <Modal.Header className='background' >
             <Modal.Title id="contained-modal-title-vcenter">
               Editar cita
             </Modal.Title>
@@ -146,7 +151,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                                         onChange={handleChange}
                                         type="date"
                                       />
-                                      {valErrors.start_date && <p>{valErrors.start_date}</p>}
+                                      {valErrors.start_date && <p className='error'>{valErrors.start_date}</p>}
                                     </Form.Group>
                                     <Form.Group className="mb-3 hour">
                                       <Form.Label htmlFor="FinDayTextInput">
@@ -159,7 +164,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                                         onChange={handleChange}
                                         type="date"
                                       />
-                                      {valErrors.start_date && <p>{valErrors.start_date}</p>}
+                                      {valErrors.start_date && <p className='error' >{valErrors.start_date}</p>}
                                     </Form.Group>
                                   </div>
               <div className="separate">
@@ -174,7 +179,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                     onChange={handleChange}
                     type="time"
                   />
-                  {valErrors.start_hour && <p>{valErrors.start_hour}</p>}
+                  {valErrors.start_hour && <p className='error'>{valErrors.start_hour}</p>}
                 </Form.Group>
                 <Form.Group className="mb-3 hour">
                   <Form.Label htmlFor="EndHourTextInput">
@@ -187,7 +192,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                     onChange={handleChange}
                     type="time"
                   />
-                  {valErrors.end_hour && <p>{valErrors.end_hour}</p>}
+                  {valErrors.end_hour && <p className='error'>{valErrors.end_hour}</p>}
                 </Form.Group>
               </div>
               <Form.Group className="mb-3">
@@ -200,7 +205,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                   value={editData?.client_name || ''}
                   onChange={handleChange}
                 />
-                {valErrors.client_name && <p>{valErrors.client_name}</p>}
+                {valErrors.client_name && <p className='error'>{valErrors.client_name}</p>}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="ClientLastnameTextInput">
@@ -212,7 +217,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                   onChange={handleChange}
                 />
                 {valErrors.client_lastname && (
-                  <p>{valErrors.client_lastname}</p>
+                  <p className='error'>{valErrors.client_lastname}</p>
                 )}
               </Form.Group>
               <Form.Group>
@@ -231,7 +236,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                     </option>
                   ))}
                 </Form.Select>
-                {valErrors.employee_user_id && <p>{valErrors.employee_user_id}</p>}
+                {valErrors.employee_user_id && <p className='error'>{valErrors.employee_user_id}</p>}
               </Form.Group>
               <Form.Group>
                 <Form.Label htmlFor="ServicioTextInput">Servicio</Form.Label>
@@ -247,7 +252,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                     </option>
                   ))}
                 </Form.Select>
-                {valErrors.service_id && <p>{valErrors.service_id}</p>}
+                {valErrors.service_id && <p className='error'>{valErrors.service_id}</p>}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="PhoneTextInput">Teléfono</Form.Label>
@@ -256,7 +261,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                   value={editData?.client_phone || ''}
                   onChange={handleChange}
                 />
-                {valErrors.client_phone && <p>{valErrors.client_phone}</p>}
+                {valErrors.client_phone && <p className='error'>{valErrors.client_phone}</p>}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="ObservationsTextInput">
@@ -269,7 +274,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                   onChange={handleChange}
                   as="textarea"
                 />
-                {valErrors.observation && <p>{valErrors.observation}</p>}
+                {valErrors.observation && <p className='error'>{valErrors.observation}</p>}
               </Form.Group>
               <Form.Group>
                 <Form.Label htmlFor="statusTextInput">Estado</Form.Label>
@@ -282,7 +287,7 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
                   <option selected value={1}>Reservada</option>
                   <option value={3}>No presentado</option>
                 </Form.Select>
-                {valErrors.status && <p>{valErrors.status}</p>}
+                {valErrors.status && <p className='error'>{valErrors.status}</p>}
               </Form.Group>
               <p className='text-center text-danger'>{errorMsg}</p>
             </Form>
@@ -292,13 +297,13 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
               <Button onClick={cancelAppointment} className='red-btn'>Cancelar cita</Button>
               <div>
                 <Button className="boton ms-auto me-2" onClick={onSubmit}>Guardar</Button>
-                <Button onClick={closeModal}>Salir</Button>
+                <Button onClick={close}>Salir</Button>
               </div>
             </div>
           </Modal.Footer>
         </Modal>
       )}
-    </section>
+    </>
   );
 };
 

@@ -68,14 +68,14 @@ const ForgetPassword = () => {
                   onChange={handleChange}
                   placeholder='Introduce tu email'
                 />
-                {valErrors.email && <p>{valErrors.email}</p>}
+                {valErrors.email && <p className='error'>{valErrors.email}</p>}
               </Form.Group>
               <p>{errorMsg}</p>
               <div className='d-flex justify-content-center gap-3'>
                 <Button className='boton' onClick={onSubmit}>Enviar</Button>
                 <Button className='boton' onClick={()=>navigate("/login")}>Cancelar</Button>
               </div>
-              {showMsg && <p className='text-center pt-3'>Revisa tu email</p>}
+              {showMsg && <p className='text-center pt-3 text'>Revisa tu email</p>}
             </Form>
           </Col>
         </Row>
