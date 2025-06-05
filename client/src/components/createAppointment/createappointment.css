@@ -45,4 +45,20 @@
 
 .input {
   width: 466px !important;
+
+  @media (width < 500px) {
+    width: 320px !important;
+  }
+}
+
+.form-create-appointment {
+  @media (width < 500px) {
+    padding-inline-start: 1.7rem !important;
+  }
+}
+
+.fechas {
+  @media (width < 500px) {
+    width: 150px !important;
+  }
 }

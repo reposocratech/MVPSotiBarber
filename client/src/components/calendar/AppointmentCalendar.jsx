@@ -10,6 +10,7 @@ import { AuthContext } from '../../context/AuthContextProvider.jsx';
 import CreateAppointment from '../createAppointment/CreateAppointment.jsx';
 import ModalCita from '../ModalCita/ModalCita.jsx';
 import { Button, Form } from 'react-bootstrap';
+import CustomToolbar from '../customToolbar/CustomToolbar.jsx';
 
 const AppointmentCalendar = ({
   show,
@@ -156,6 +157,7 @@ const AppointmentCalendar = ({
         onSelectEvent={selectEvent}
         selectable
         onSelectSlot={selectSlot}
+        components={{ toolbar: CustomToolbar }}
         eventPropGetter={(event) => ({
           style: {
             backgroundColor: event.bgColor || 'var(--color-azul)',
