@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import {Button, Col, Container, Form, Row} from 'react-bootstrap';
+import { Col, Container, Form, Row} from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { loginSchema } from "../../../schemas/loginSchema.js"
 import './login.css'
@@ -96,7 +96,7 @@ const Login = () => {
               <p className='text-end forgot-password'> <Link className='text-decoration-none link' to="/forgetPassword">¿Has olvidado tu contraseña?</Link></p>
               <p className='text-center error'>{errorMsg}</p>
               <div className='d-flex justify-content-center align-items-center'>
-                <Button className='btn' onClick={onSubmit}>Entrar</Button>
+                <button type="button" className='btn' onClick={onSubmit}>Entrar</button>
               </div>
             </Form>
               <p className='text-center'>¿No estas registrado? <Link className='register-here' to="/register">Registrate aquí</Link></p>

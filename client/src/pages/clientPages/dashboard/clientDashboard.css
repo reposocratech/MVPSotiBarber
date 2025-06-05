@@ -41,21 +41,28 @@
     width: 48%;
   }
 
- .button {
+  button {
     background-color: var(--color-azul);
-    border: none;
-    padding: 0.625rem 2rem;        
+    border: 0;
+    padding: 0.625rem 2rem;  
+    border-radius: 0.3125rem;      
     font-size: 1rem;
     height: 2.875rem;             
-    min-width: 10rem;             
+    min-width: 10rem;  
+    color: var(--color-blanco);   
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 2rem;           
   }
 
-  .button:hover {
-    filter: brightness(85%);
+  button:focus{
+    background-color: var(--color-azul);
+  }
+
+  button:hover {
+    background-color: var(--color-azul);
+    filter: brightness(80%);
   }
 
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
+import { Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './createappointment.css';
 import { fetchData } from '../../helpers/axiosHelpers';
@@ -430,12 +430,12 @@ const CreateAppointment = ({
         </Modal.Body>
         <Modal.Footer className='background justify-content-center'>
           {/* <p>{errorMsg}</p> */}
-          <Button className="boton" onClick={onCancel}>
+          <button type="button" className="btn" onClick={onCancel}>
             Cancelar
-          </Button>
-          <Button className="boton" onClick={onSubmit}>
+          </button>
+          <button type="button" className="btn" onClick={onSubmit}>
             Guardar
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </>

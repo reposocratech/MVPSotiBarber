@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Col, Container, Form, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { fetchData } from '../../helpers/axiosHelpers'
 import { AuthContext } from '../../context/AuthContextProvider'
@@ -120,7 +120,7 @@ const CompleteRegister = ({onCompletar}) => {
               </Form.Group>
               {/* <p>{errorMsg}</p> */}
               <div className='d-flex justify-content-center'>
-                <Button className='boton' onClick={onSubmit}>Editar</Button>
+                <button type="button" className='btn' onClick={onSubmit}>Editar</button>
               </div>
             </Form>
           </Col>

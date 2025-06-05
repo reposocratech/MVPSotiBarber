@@ -100,7 +100,7 @@ const Register = () => {
               </Form.Group>
               {/* <p>{errorMsg}</p> */}
               <div className='d-flex justify-content-center'>
-                <Button className='boton' onClick={onSubmit}>Registrar</Button>
+                <button type="button" className='btn' onClick={onSubmit}>Registrar</button>
               </div>
             </Form>
             <p className='text-center'>¿Ya estás registrado? <Link className='inicio' to="/login">Inicia sesión aquí</Link></p>

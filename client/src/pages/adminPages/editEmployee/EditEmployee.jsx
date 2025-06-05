@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Col, Container, Form, Row } from "react-bootstrap"
+import { Col, Container, Form, Row } from "react-bootstrap"
 import image from "../../../assets/icons/uploadimage.svg"
 import "./editEmployee.css"
 import { AuthContext } from '../../../context/AuthContextProvider'
@@ -146,8 +146,11 @@ const EditEmployee = () => {
               </Form.Group>
               {/* <p>{errorMsg}</p> */}
               <div className='d-flex justify-content-center gap-3'>
-                <Button className='boton' onClick={onCancel}>Cancelar</Button>
-                <Button className='boton' onClick={onSubmit}>Editar</Button>
+
+                <button type="button" className='btn' onClick={onCancel}>Cancelar</button>
+                <button type="button" className='btn' onClick={onSubmit}>Editar</button>
+
+
               </div>
             </Form>
           </Col>

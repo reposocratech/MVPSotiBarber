@@ -43,15 +43,16 @@ export const EmployeeNavbar = () => {
             >
               <UserIcon />
             </div>
-            <Button
-              className="btn-nav"
+            <button
+              
+              className="btn"
               onClick={() => {
                 setIsOpen(false);
                 logOut();
               }}
             >
               Salir
-            </Button>
+            </button>
           </Nav>
         </Navbar.Collapse>
       </Container>

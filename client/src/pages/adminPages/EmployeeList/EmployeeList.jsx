@@ -77,9 +77,9 @@ const EmployeeList = () => {
         <Col className="d-flex justify-content-center align-items-center">
   <div className="table-employees d-flex flex-column align-items-center justify-content-center">
           <div className="d-flex justify-content-center align-items-center mb-3">
-            <Button onClick={() => navigate('/admin/createEmployee')}>
+            <button type="button" className="btn" onClick={() => navigate('/admin/createEmployee')}>
                     Crear empleado
-                  </Button>
+                  </button>
           </div>
     <div className="table-scroll-wrapper">
       <table>

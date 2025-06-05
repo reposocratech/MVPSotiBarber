@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import axios from "axios";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import phoneIcon from '../../../assets/icons/phone.png';
 import mailIcon from '../../../assets/icons/mail.png';
 import ubicationIcon from '../../../assets/icons/ubication.png';
@@ -97,7 +97,7 @@ const onSubmit = async (e) => {
                 </Form.Group>
 
                  <div className="d-flex justify-content-center">
-                  <Button className="boton" onClick={onSubmit}>Enviar mensaje</Button>
+                  <button type="button" className="btn" onClick={onSubmit}>Enviar mensaje</button>
                 </div>
                 {/* {confirmMessage && (<p className="text-center mt-3">{confirmMessage}</p>)} */}
               </Form>

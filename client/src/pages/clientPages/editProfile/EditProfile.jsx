@@ -146,10 +146,10 @@ const EditProfile = () => {
               </Form.Group>
               {/* <p>{errorMsg}</p> */}
               <div className="d-flex gap-2 justify-content-center">
-                <Button onClick={onSubmit}>Editar</Button>
-                <Button type="button" onClick={cancelEdit}>
+                <button type="button" className="btn" onClick={onSubmit}>Editar</button>
+                <button type="button" className="btn" onClick={cancelEdit}>
                   Cancelar
-                </Button>
+                </button>
               </div>
             </Form>
           </Col>

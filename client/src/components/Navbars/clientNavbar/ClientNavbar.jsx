@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 import './clientNavbar.css';
@@ -63,9 +63,9 @@ useEffect(() => {
               <UserIcon />
             </div>
 
-            <Button className="btn-nav" onClick={logOut}>
+            <button className="btn" onClick={logOut}>
               Salir
-            </Button>
+            </button>
           </Nav>
         </Navbar.Collapse>
       </Container>

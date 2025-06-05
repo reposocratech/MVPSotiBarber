@@ -206,7 +206,7 @@ const ServiceProfile = () => {
                       />
                     </td>
                     <td>
-                      <Button onClick={editService}>Editar</Button>
+                      <button type="button" className='btn' onClick={editService}>Editar</button>
                     </td>
                   </tr>
                 </tbody>

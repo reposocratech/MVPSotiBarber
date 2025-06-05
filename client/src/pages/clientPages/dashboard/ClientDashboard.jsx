@@ -140,12 +140,13 @@ const ClientDashboard = () => {
                       </h3>
                       <span>{user.phone}</span>
                     </div>
-                    <Button
+                    <button
+                      type="button"
                       className="button d-none d-lg-inline-block"
                       onClick={() => navigate('/client/editClient')}
                     >
                       Editar
-                    </Button>
+                    </button>
                   </div>
                 </div>
 
@@ -161,12 +162,13 @@ const ClientDashboard = () => {
                 </div>
 
                 <div className="btnmovil d-block d-lg-none text-center mt-3">
-                  <Button
-                    className="button"
+                  <button
+                    type="button"
+                    className="btn"
                     onClick={() => navigate('/client/editClient')}
                   >
                     Editar
-                  </Button>
+                  </button>
                 </div>
 
                 <div className="text-center mt-3">
