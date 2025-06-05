@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState} from 'react';
-import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
+import { Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { useNavigate, useParams} from 'react-router-dom';
 import image from '../../../assets/icons/uploadimage.svg';
 import { fetchData } from '../../../helpers/axiosHelpers';
@@ -225,12 +225,12 @@ const EditService = () => {
               </Form.Group>
               {/* <p className="text-center">{errorMsg}</p> */}
               <div className="d-flex align-items-center justify-content-center">
-                <Button className="btn" onClick={cancel}>
+                <button className="btn" onClick={cancel}>
                   Cancelar
-                </Button>
-                <Button className="btn" onClick={onSubmit}>
+                </button>
+                <button type="button" className="btn" onClick={onSubmit}>
                   Guardar
-                </Button>
+                </button>
               </div>
             </Form>
           </Col>

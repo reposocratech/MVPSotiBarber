@@ -48,8 +48,8 @@ export const PublicNavbar = () => {
             <NavLink className={({ isActive }) => isActive ? "active" : ""} to="/services" onClick={() => setIsOpen(false)}>Servicios</NavLink>
             <Nav.Link className={horarioActive ? "active" : ""} onClick={handleHorario}>Horario</Nav.Link>
             <NavLink className={({ isActive }) => isActive ? "active" : ""} to="/contact" onClick={() => setIsOpen(false)}>Contacto</NavLink>
-            <Button className='btn-nav' onClick={() => { navigate("/register"); setIsOpen(false); }}>Registro</Button>
-            <Button className='btn-nav' onClick={() => { navigate("/login"); setIsOpen(false); }}>Acceder</Button>
+            <button className='btn' onClick={() => { navigate("/register"); setIsOpen(false); }}>Registro</button>
+            <button className='btn' onClick={() => { navigate("/login"); setIsOpen(false); }}>Acceder</button>
           </Nav>
         </Navbar.Collapse>
       </Container>

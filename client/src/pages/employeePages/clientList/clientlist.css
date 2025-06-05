@@ -5,10 +5,10 @@
   border-radius: 20px;
   height: 28.125rem;
   display: block;
-  width: 55rem;
+  min-width: 23rem;
 
   .table-scroll-wrapper {
-    max-height: calc(6 * 2.6rem);
+    max-height: calc(7 * 2.6rem);
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--color-fondo) var(--color-componente);
@@ -137,7 +137,7 @@
           flex-shrink: 0;
           max-width: 40px;
 
-          .btn {
+          /* .btn {
             background-color: transparent;
             padding: 0;
             min-width: auto;
@@ -150,7 +150,7 @@
             .btn-icon {
               display: inline !important;
             }
-          }
+          } */
         }
       }
     }

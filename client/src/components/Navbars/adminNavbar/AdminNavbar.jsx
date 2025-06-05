@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 
-import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { UserIcon } from '../../userIcon/UserIcon';
@@ -61,9 +61,9 @@ export const AdminNavbar = () => {
             >
               <UserIcon />
             </div>
-            <Button className="btn-nav" onClick={logOut}>
+            <button className="btn" onClick={logOut}>
               Salir
-            </Button>
+            </button>
           </Nav>
         </Navbar.Collapse>
       </Container>

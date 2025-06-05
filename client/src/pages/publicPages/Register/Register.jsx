@@ -70,7 +70,7 @@ const Register = () => {
                   onChange={handleChange}
                   placeholder='ejemplo@ejemplo.com'
                 />
-                {valErrors.email && <p>{valErrors.email}</p>}
+                {valErrors.email && <p className="error">{valErrors.email}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='PasswordTextInput'>
@@ -83,7 +83,7 @@ const Register = () => {
                   onChange={handleChange}
                   placeholder='Escribe tu contraseña'
                 />
-                {valErrors.password && <p>{valErrors.password}</p>}
+                {valErrors.password && <p className="error">{valErrors.password}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='RepPasswordTextInput'>
@@ -96,11 +96,11 @@ const Register = () => {
                   onChange={handleChange}
                   placeholder='Repite tu contraseña'
                 />
-                {valErrors.repPassword && <p>{valErrors.repPassword}</p>}
+                {valErrors.repPassword && <p className="error">{valErrors.repPassword}</p>}
               </Form.Group>
-              <p>{errorMsg}</p>
+              {/* <p>{errorMsg}</p> */}
               <div className='d-flex justify-content-center'>
-                <Button className='boton' onClick={onSubmit}>Registrar</Button>
+                <button type="button" className='btn' onClick={onSubmit}>Registrar</button>
               </div>
             </Form>
             <p className='text-center'>¿Ya estás registrado? <Link className='inicio' to="/login">Inicia sesión aquí</Link></p>

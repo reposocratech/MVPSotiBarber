@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
+import { Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './createappointment.css';
 import { fetchData } from '../../helpers/axiosHelpers';
@@ -25,6 +25,7 @@ const CreateAppointment = ({
   appointmentDate,
   show,
   handleClose,
+  fetchAppointments,
   setEmployeeList,
   employeeList,
 }) => {
@@ -112,8 +113,11 @@ const CreateAppointment = ({
             null,
             token
           );
-
-          setClientResults(res.data.clients || []);
+          if(search.trim()===`${res.data.clients[0].user_name} ${res.data.clients[0].lastname}`){
+            setClientResults([])
+          }else{
+            setClientResults(res.data.clients || [])
+          }
           setAppointmentData({
             ...appointmentData,
             client_id: res.data.clients[0].user_id,
@@ -130,6 +134,7 @@ const CreateAppointment = ({
     fetchClients();
   }, [search, token]);
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAppointmentData({ ...appointmentData, [name]: value });
@@ -138,6 +143,7 @@ const CreateAppointment = ({
   const onSubmit = async () => {
     try {
 
+      console.log("AAAAPPIOSDIJFLSKD", appointmentData)
       createAppointmentSchema.parse(appointmentData)
 
       await fetchData(
@@ -186,6 +192,7 @@ const CreateAppointment = ({
       setEvents(formattedEvents);
       setAppointmentData(initialValue);
       setSearch("");
+      fetchAppointments();
       handleClose();
     } catch (error) {
       if(error instanceof ZodError){
@@ -204,7 +211,9 @@ const CreateAppointment = ({
   };
 
   const onCancel = async () => {
+    setValErrors({})
     setAppointmentData(initialValue);
+    setSearch("");
     handleClose();
   };
 
@@ -223,10 +232,15 @@ const CreateAppointment = ({
     setClientResults([]);
   };
 
-  console.log("aaaaaa", appointmentData)
+  const close = ()=>{
+    setValErrors({})
+    setSearch("");
+    handleClose();
+  }
+
   return (
-    <section className="sectForm">
-      <Modal show={show} onHide={handleClose}>
+    <>
+      <Modal show={show} onHide={close}>
         <Modal.Header className='background' closeButton>
           <Modal.Title>Añadir cita</Modal.Title>
         </Modal.Header>
@@ -241,10 +255,11 @@ const CreateAppointment = ({
                     </Form.Label>
                     <Form.Control
                       id="searchInput"
-                      type="text"
+                      type="search"
                       placeholder="Buscar"
                       value={search}
                       onChange={handleSearch}
+                      autoComplete='off'
                     />
                     {clientResults.length > 0 && (
                       <div className="dropdown-client-list">
@@ -275,7 +290,7 @@ const CreateAppointment = ({
                           onChange={handleChange}
                           type="date"
                         />
-                        {valErrors.start_date && <p>{valErrors.start_date}</p>}
+                        {valErrors.start_date && <p className='error'>{valErrors.start_date}</p>}
                       </Form.Group>
                       <Form.Group className="mb-3 hour">
                         <Form.Label htmlFor="FinDayTextInput">
@@ -288,7 +303,7 @@ const CreateAppointment = ({
                           onChange={handleChange}
                           type="date"
                         />
-                        {valErrors.start_date && <p>{valErrors.start_date}</p>}
+                        {valErrors.end_date && <p className='error'>{valErrors.end_date}</p>}
                       </Form.Group>
                     </div>
                   <div className="separate">
@@ -303,7 +318,7 @@ const CreateAppointment = ({
                         onChange={handleChange}
                         type="time"
                       />
-                      {valErrors.start_hour && <p>{valErrors.start_hour}</p>}
+                      {valErrors.start_hour && <p className='error'>{valErrors.start_hour}</p>}
                     </Form.Group>
                     <Form.Group className="mb-3 hour">
                       <Form.Label htmlFor="EndHourTextInput">
@@ -316,7 +331,7 @@ const CreateAppointment = ({
                         onChange={handleChange}
                         type="time"
                       />
-                      {valErrors.end_hour && <p>{valErrors.end_hour}</p>}
+                      {valErrors.end_hour && <p className='error'>{valErrors.end_hour}</p>}
                     </Form.Group>
                   </div>
                   <Form.Group className="mb-3">
@@ -327,8 +342,9 @@ const CreateAppointment = ({
                       className="input"
                       id="ClientNameTextImput"
                       value={appointmentData.client_name || ''}
+                      readOnly
                     />
-                    {valErrors.client_name && <p>{valErrors.client_name}</p>}
+                    {valErrors.client_name && <p className='error'>{valErrors.client_name}</p>}
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="ClientLastnameTextInput">
@@ -337,9 +353,10 @@ const CreateAppointment = ({
                     <Form.Control
                       id="ClientLastnameTextImput"
                       value={appointmentData.client_lastname || ''}
+                      readOnly
                     />
                     {valErrors.client_lastname && (
-                      <p>{valErrors.client_lastname}</p>
+                      <p className='error'>{valErrors.client_lastname}</p>
                     )}
                   </Form.Group>
                   <Form.Group>
@@ -360,7 +377,7 @@ const CreateAppointment = ({
                       ))}
                     </Form.Select>
                     {valErrors.employee_id && (
-                      <p>{valErrors.employee_id}</p>
+                      <p className='error'>{valErrors.employee_id}</p>
                     )}
                   </Form.Group>
                   <Form.Group>
@@ -381,16 +398,17 @@ const CreateAppointment = ({
                       ))}
                     </Form.Select>
                     {valErrors.service_id && (
-                      <p>{valErrors.service_id}</p>
+                      <p className='error'>{valErrors.service_id}</p>
                     )}
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="PhoneTextInput">Teléfono</Form.Label>
                     <Form.Control
+                    readOnly
                       id="PhoneTextImput"
                       value={appointmentData.phone || ''}
                     />
-                    {valErrors.phone && <p>{valErrors.phone}</p>}
+                    {valErrors.phone && <p className='error'>{valErrors.phone}</p>}
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="ObservationsTextInput">
@@ -403,7 +421,7 @@ const CreateAppointment = ({
                       onChange={handleChange}
                       as="textarea"
                     />
-                    {valErrors.observations && <p>{valErrors.observations}</p>}
+                    {valErrors.observations && <p className='error'>{valErrors.observations}</p>}
                   </Form.Group>
                 </Form>
               </Col>
@@ -412,15 +430,15 @@ const CreateAppointment = ({
         </Modal.Body>
         <Modal.Footer className='background justify-content-center'>
           {/* <p>{errorMsg}</p> */}
-          <Button className="boton" onClick={onCancel}>
+          <button type="button" className="btn" onClick={onCancel}>
             Cancelar
-          </Button>
-          <Button className="boton" onClick={onSubmit}>
+          </button>
+          <button type="button" className="btn" onClick={onSubmit}>
             Guardar
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
-    </section>
+    </>
   );
 };
 

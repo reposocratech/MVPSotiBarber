@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
+import { Col, Form, InputGroup, Row } from 'react-bootstrap';
 import { ZodError } from 'zod';
 import { useNavigate } from 'react-router-dom';
 import image from '../../assets/icons/uploadimage.svg';
@@ -112,7 +112,7 @@ export const FormCreateService = () => {
           onChange={handleChange}
           placeholder="Nombre"
         />
-        {valErrors.service_name && <p>{valErrors.service_name}</p>}
+        {valErrors.service_name && <p className='error' >{valErrors.service_name}</p>}
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="durationInput">Duración (minutos)</Form.Label>
@@ -124,7 +124,7 @@ export const FormCreateService = () => {
           onChange={handleChange}
           placeholder="Duración"
         />
-        {valErrors.estimated_time && <p>{valErrors.estimated_time}</p>}
+        {valErrors.estimated_time && <p className='error'>{valErrors.estimated_time}</p>}
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="priceInput">Precio</Form.Label>
@@ -139,7 +139,7 @@ export const FormCreateService = () => {
             placeholder="Precio"
           />
         </InputGroup>
-        {valErrors.price && <p>{valErrors.price}</p>}
+        {valErrors.price && <p className='error'>{valErrors.price}</p>}
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="descriptionInput">
@@ -156,7 +156,7 @@ export const FormCreateService = () => {
           placeholder="Descripción"
         />
         {valErrors.service_description && (
-          <p>{valErrors.service_description}</p>
+          <p className='error'>{valErrors.service_description}</p>
         )}
       </Form.Group>
       <Form.Group className="mb-3">
@@ -174,12 +174,12 @@ export const FormCreateService = () => {
         {/* <p className="text-center">{errorMsg}</p> */}
 
         <div className="d-flex justify-content-center align-items-center">
-          <Button onClick={cancel} className="btn me-3">
+          <button  onClick={cancel} className="btn me-3">
             Cancelar
-          </Button>
-          <Button className="btn" onClick={onSubmit}>
+          </button>
+          <button type="button" className="btn" onClick={onSubmit}>
             Añadir
-          </Button>
+          </button>
         </div>
       </div>
     </Form>
