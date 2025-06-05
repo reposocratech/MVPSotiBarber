@@ -116,7 +116,9 @@ const AppointmentCalendar = ({
     <div className="calendario-citas">
       <Form>
         <Form.Group>
-          <Form.Label htmlFor="EmpleadoTextInput">Filtrar citas por:</Form.Label>
+          <Form.Label htmlFor="EmpleadoTextInput">
+            Filtrar citas por:
+          </Form.Label>
           <Form.Select
             aria-label="Default select example"
             id="EmpleadoTextInput"
@@ -161,7 +163,8 @@ const AppointmentCalendar = ({
             borderRadius: '0.5rem',
             padding: '0.1rem 0.4rem',
             fontSize: '0.8rem',
-          }
+            margin: '0',
+          },
         })}
       />
 

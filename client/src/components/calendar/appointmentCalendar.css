@@ -97,6 +97,7 @@
   align-items: center;
   justify-content: center;
   line-height: normal;
+  
 }
 
 .rbc-event {
@@ -106,12 +107,16 @@
   font-size: 0.8rem;
   padding: 0.1rem 0.5rem;
   border-radius: 0.5rem;
-  margin: 0 0.4rem;
   max-height: 2.1rem;
   overflow: hidden;
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  width: 33.33% !important;   
+  margin: 0 !important;       
+  float: left; 
+
+
 }
 
 .rbc-toolbar-label {
@@ -131,5 +136,31 @@
 .rbc-calendar {
   border-radius: 0.8rem;
   overflow: hidden;
+}
+
+.rbc-time-content,
+.rbc-time-gutter,
+.rbc-time-view {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-fondo) var(--color-componente);
+}
+
+.rbc-time-content::-webkit-scrollbar,
+.rbc-time-gutter::-webkit-scrollbar,
+.rbc-time-view::-webkit-scrollbar {
+  width: 10px;
+}
+
+.rbc-time-content::-webkit-scrollbar-track,
+.rbc-time-gutter::-webkit-scrollbar-track,
+.rbc-time-view::-webkit-scrollbar-track {
+  background: var(--color-componente);
+}
+
+.rbc-time-content::-webkit-scrollbar-thumb,
+.rbc-time-gutter::-webkit-scrollbar-thumb,
+.rbc-time-view::-webkit-scrollbar-thumb {
+  background-color: var(--color-fondo);
+  border-radius: 10px;
 }
 
