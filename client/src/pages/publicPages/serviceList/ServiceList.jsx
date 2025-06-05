@@ -135,7 +135,7 @@ const ServiceList = () => {
                   className="filter"
                   onClick={() => setFilteredImages(shuffledPhotos)}
                 >
-                  All
+                  Todas
                 </button>
 
                 {enabledServices.map((service) => {

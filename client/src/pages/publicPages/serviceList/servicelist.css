@@ -81,22 +81,13 @@
 
 .filter {
   all: unset;
-  width: 120px;
   text-align: center;
   text-decoration: none;
+  width: 130px;
   color: var(--color-blanco);
   margin-inline: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
   background-color: var(--color-primario);
   cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover,
-  &:active {
-    font-weight: bold;
-    background-color: var(--color-primario-hover);
-  }
 
   @media (max-width: 500px) {
     width: 90%;

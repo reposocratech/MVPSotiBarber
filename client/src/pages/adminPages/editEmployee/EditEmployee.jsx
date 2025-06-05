@@ -93,7 +93,7 @@ const EditEmployee = () => {
                   value={editEmpData.user_name ? editEmpData.user_name : ""}
                   onChange={handleChange}
                 />
-                {valErrors.user_name && <p>{valErrors.user_name}</p>}
+                {valErrors.user_name && <p className='error'>{valErrors.user_name}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='LastnameTextInput'>
@@ -105,7 +105,7 @@ const EditEmployee = () => {
                   value={editEmpData.lastname ? editEmpData.lastname : ""}
                   onChange={handleChange}
                 />
-                {valErrors.lastname && <p>{valErrors.lastname}</p>}
+                {valErrors.lastname && <p className='error'>{valErrors.lastname}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='PhoneTextInput'>
@@ -117,7 +117,7 @@ const EditEmployee = () => {
                   value={editEmpData.phone ? editEmpData.phone : ""}
                   onChange={handleChange}
                 />
-                {valErrors.phone && <p>{valErrors.phone}</p>}
+                {valErrors.phone && <p className='error'>{valErrors.phone}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='DescriptionTextInput'>
@@ -131,7 +131,7 @@ const EditEmployee = () => {
                   onChange={handleChange}
                   as='textarea'
                 />
-                {valErrors.description || ""}
+                {valErrors.description && <p className='error'>{valErrors.description}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='ImageInput' className='cursor-pointer'>
@@ -144,10 +144,10 @@ const EditEmployee = () => {
                   onChange={handleChangeFile}
                 />
               </Form.Group>
-              <p>{errorMsg}</p>
+              {/* <p>{errorMsg}</p> */}
               <div className='d-flex justify-content-center gap-3'>
-                <Button className='boton' onClick={onSubmit}>Editar</Button>
                 <Button className='boton' onClick={onCancel}>Cancelar</Button>
+                <Button className='boton' onClick={onSubmit}>Editar</Button>
               </div>
             </Form>
           </Col>
