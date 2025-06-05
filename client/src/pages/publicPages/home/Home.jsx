@@ -52,7 +52,7 @@ const Home = () => {
               </div>
               <article>
                 <p>
-                  En Soti, Creemos que cada persona merece un estilo único que
+                  En Soti, creemos que cada persona merece un estilo único que
                   refleje si individualidad. Nuestro equipo de profesionales
                   altamente capacitados está dedicado a brindarte una
                   experiencia de peluquería excepcional en un ambiente elegante

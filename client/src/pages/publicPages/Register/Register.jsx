@@ -52,7 +52,7 @@ const Register = () => {
   }
 
   return (
-    <section className='sectForm'>
+    <section className='sectForm padding-y-section'>
       <Container>
         <Row className='engloba'>
           <Col md={12} lg={6} className='cols'>

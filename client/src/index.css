@@ -2,6 +2,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 :root {
   --color-negro: #212121;
   --color-fondo: #3D3D3D;
@@ -9,6 +14,7 @@
   --color-azul: #607D8B;
   --color-blanco: rgb(223, 221, 221);
 }
+
 
 body {
     background-color: var(--color-fondo);

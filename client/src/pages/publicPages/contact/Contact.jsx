@@ -99,7 +99,7 @@ const onSubmit = async (e) => {
                  <div className="d-flex justify-content-center">
                   <Button className="boton" onClick={onSubmit}>Enviar mensaje</Button>
                 </div>
-                {confirmMessage && (<p className="text-center mt-3">{confirmMessage}</p>)}
+                {/* {confirmMessage && (<p className="text-center mt-3">{confirmMessage}</p>)} */}
               </Form>
             </div>
           </Col>
