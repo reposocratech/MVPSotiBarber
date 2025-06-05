@@ -78,7 +78,7 @@ const Login = () => {
                   onChange={handleChange}
                   placeholder='ejemplo@ejemplo.com'
                   />
-                  {valErrors.email && <p>{valErrors.email}</p>}
+                  {valErrors.email && <p className='error'>{valErrors.email}</p>}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="passwordInput">
@@ -91,10 +91,10 @@ const Login = () => {
                   onChange={handleChange}
                   placeholder='Introduce contraseña'
                   />
-                  {valErrors.password && <p>{valErrors.password}</p>}                  
+                  {valErrors.password && <p className='error'>{valErrors.password}</p>}                  
               </Form.Group>
               <p className='text-end forgot-password'> <Link className='text-decoration-none link' to="/forgetPassword">¿Has olvidado tu contraseña?</Link></p>
-              <p className='text-center'>{errorMsg}</p>
+              <p className='text-center error'>{errorMsg}</p>
               <div className='d-flex justify-content-center align-items-center'>
                 <button type="button" className='btn' onClick={onSubmit}>Entrar</button>
               </div>

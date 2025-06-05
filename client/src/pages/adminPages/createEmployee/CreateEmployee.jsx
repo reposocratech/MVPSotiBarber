@@ -88,7 +88,7 @@ const CreateEmployee = () => {
                   onChange={handleChange}
                   placeholder='Introduce el nombre del empleado'
                 />
-                {valErrors.user_name && <p>{valErrors.user_name}</p>}
+                {valErrors.user_name && <p className='error'>{valErrors.user_name}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='LastnameTextInput'>
@@ -101,7 +101,7 @@ const CreateEmployee = () => {
                   onChange={handleChange}
                   placeholder='Introduce los apellidos del empleado'
                 />
-                {valErrors.lastname && <p>{valErrors.lastname}</p>}
+                {valErrors.lastname && <p className='error'>{valErrors.lastname}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='PhoneTextInput'>
@@ -114,7 +114,7 @@ const CreateEmployee = () => {
                   onChange={handleChange}
                   placeholder='Introduce el teléfono del empleado'
                 />
-                {valErrors.phone && <p>{valErrors.phone}</p>}
+                {valErrors.phone && <p className='error'>{valErrors.phone}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='EmailTextInput'>
@@ -127,7 +127,7 @@ const CreateEmployee = () => {
                   onChange={handleChange}
                   placeholder='Introduce el email del empleado'
                 />
-                {valErrors.email && <p>{valErrors.email}</p>}
+                {valErrors.email && <p className='error'>{valErrors.email}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='PasswordTextInput'>
@@ -140,7 +140,7 @@ const CreateEmployee = () => {
                   onChange={handleChange}
                   placeholder='Introduce la contraseña del empleado'
                 />
-                {valErrors.password && <p>{valErrors.password}</p>}
+                {valErrors.password && <p className='error'>{valErrors.password}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='NameTextInput'>
@@ -155,7 +155,7 @@ const CreateEmployee = () => {
                   placeholder='Introduce una descripción del empleado'
                   as='textarea'
                 />
-                {valErrors.description && <p>{valErrors.description}</p>}
+                {valErrors.description && <p className='error'>{valErrors.description}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='ImageInput' className='cursor-pointer'>
@@ -168,10 +168,12 @@ const CreateEmployee = () => {
                   onChange={handleChangeFile}
                 />
               </Form.Group>
-              <p>{errorMsg}</p>
+              {/* <p>{errorMsg}</p> */}
               <div className='d-flex justify-content-center gap-3'>
+
                 <button type="button" className='btn' onClick={onSubmit}>Registrar</button>
                 <button type="button" className='btn' onClick={()=>navigate("/admin/employeeList")}>Cancelar</button>
+
               </div>
             </Form>
           </Col>

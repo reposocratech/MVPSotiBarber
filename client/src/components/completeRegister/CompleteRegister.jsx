@@ -74,7 +74,7 @@ const CompleteRegister = ({onCompletar}) => {
                   onChange={handleChange}
                   placeholder='Introduce tu nombre'
                 />
-                {valErrors.user_name && <p>{valErrors.user_name}</p>}
+                {valErrors.user_name && <p className='error'>{valErrors.user_name}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='LastNameTextInput'>
@@ -87,7 +87,7 @@ const CompleteRegister = ({onCompletar}) => {
                   onChange={handleChange}
                   placeholder='Introduce tus apellidos'
                 />
-                {valErrors.lastname && <p>{valErrors.lastname}</p>}
+                {valErrors.lastname && <p className='error'>{valErrors.lastname}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='BirthdateTextInput'>
@@ -103,7 +103,7 @@ const CompleteRegister = ({onCompletar}) => {
                 <div className='d-flex justify-content-end'>
                   <p>y tendrás un regalo el día de tu cumpleaños</p>
                 </div>
-                {valErrors.birth_date && <p>{valErrors.birth_date}</p>}
+                {valErrors.birth_date && <p className='error'>{valErrors.birth_date}</p>}
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label htmlFor='PhoneTextInput'>
@@ -116,9 +116,9 @@ const CompleteRegister = ({onCompletar}) => {
                   onChange={handleChange}
                   placeholder='Introduce tu número de teléfono'
                 />
-                {valErrors.phone && <p>{valErrors.phone}</p>}
+                {valErrors.phone && <p className='error'>{valErrors.phone}</p>}
               </Form.Group>
-              <p>{errorMsg}</p>
+              {/* <p>{errorMsg}</p> */}
               <div className='d-flex justify-content-center'>
                 <button type="button" className='btn' onClick={onSubmit}>Editar</button>
               </div>

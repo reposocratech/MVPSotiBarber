@@ -73,14 +73,14 @@ const EmployeeList = () => {
           <h3>Empleados</h3>
           <div className="blue-line"></div>
         </div>
+        <Row>
+        <Col className="d-flex justify-content-center align-items-center">
+  <div className="table-employees d-flex flex-column align-items-center justify-content-center">
           <div className="d-flex justify-content-center align-items-center mb-3">
             <button type="button" className="btn" onClick={() => navigate('/admin/createEmployee')}>
                     Crear empleado
                   </button>
           </div>
-        <Row>
-        <Col className="d-flex justify-content-center align-items-center">
-  <div className="table-employees d-flex flex-column align-items-center justify-content-center">
     <div className="table-scroll-wrapper">
       <table>
         <tbody>

@@ -112,6 +112,7 @@ const AppointmentCalendar = ({
     setFilterAppointmentBy(e.target.value);
   };
 
+
   return (
     <div className="calendario-citas">
       <Form>
@@ -181,6 +182,7 @@ const AppointmentCalendar = ({
         appointmentDate={appointmentDate}
         employeeList={employeeList}
         handleClose={handleClose}
+        fetchAppointments={fetchAppointments}
         show={show}
         setEmployeeList={setEmployeeList}
       />

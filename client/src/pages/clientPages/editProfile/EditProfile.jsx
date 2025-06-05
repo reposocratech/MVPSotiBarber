@@ -76,6 +76,7 @@ const EditProfile = () => {
       }
     }
   };
+  console.log("EDITA DATAAAA", editData)
 
   return (
     <section className="edit-user padding-y-section">
@@ -88,11 +89,11 @@ const EditProfile = () => {
                 <Form.Control
                   id="NameImput"
                   name="user_name"
-                  placeholder="Enter your name"
+                  placeholder="Introduce nombre"
                   onChange={handleChange}
                   value={editData.user_name ? editData.user_name : ''}
                 />
-                 {valErrors.user_name && <p>{valErrors.user_name}</p>}
+                 {valErrors.user_name && <p className='error'>{valErrors.user_name}</p>}
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -100,11 +101,11 @@ const EditProfile = () => {
                 <Form.Control
                   id="LastNameImput"
                   name="lastname"
-                  placeholder="Enter your lastname"
+                  placeholder="Introduce tus apellidos"
                   onChange={handleChange}
                   value={editData.lastname ? editData.lastname : ''}
                 />
-                {valErrors.lastname && <p>{valErrors.lastname}</p>}
+                {valErrors.lastname && <p className='error'>{valErrors.lastname}</p>}
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -118,6 +119,7 @@ const EditProfile = () => {
                   onChange={handleChange}
                  value={editData.birth_date ? editData.birth_date.slice(0, 10) : ''}
                 />
+                {valErrors.birth_date && <p className='error'>{valErrors.birth_date}</p>}
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -125,11 +127,11 @@ const EditProfile = () => {
                 <Form.Control
                   id="PhoneImput"
                   name="phone"
-                  placeholder="Enter your phone number"
+                  placeholder="Introduce tu número de teléfono"
                   onChange={handleChange}
                   value={editData.phone ? editData.phone : ''}
                 />
-                {valErrors.phone && <p>{valErrors.phone}</p>}
+                {valErrors.phone && <p className='error'>{valErrors.phone}</p>}
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -142,7 +144,7 @@ const EditProfile = () => {
                   onChange={handleChangeFile}
                 />
               </Form.Group>
-              <p>{errorMsg}</p>
+              {/* <p>{errorMsg}</p> */}
               <div className="d-flex gap-2 justify-content-center">
                 <button type="button" className="btn" onClick={onSubmit}>Editar</button>
                 <button type="button" className="btn" onClick={cancelEdit}>
