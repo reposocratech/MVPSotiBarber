@@ -35,7 +35,7 @@ export const ClientFooter = () => {
 
         <Row>
           <Col className="footer-copy">
-            <small>© 2025 Soti Peluquería. Todos los derechos reservados.</small>
+            <small>© 2025 Soti Barber Studio. Todos los derechos reservados.</small>
           </Col>
         </Row>
       </Container>

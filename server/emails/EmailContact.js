@@ -30,13 +30,13 @@ const EmailContact = ({ name, email, message }) =>
         React.createElement(Text, null, `Nuevo mensaje de contacto`),
         React.createElement(Text, null, `Nombre: ${name}`),
         React.createElement(Text, null, `Email: ${email}`),
-        React.createElement(Text, null, `Message: ${message}`),
+        React.createElement(Text, null, `${message}`),
         React.createElement(Text, {
           style: {
             color: '#aaa',
             fontSize: '12px'
           }
-        }, "© 2025 Peluquería Soti - Todos los derechos reservados.")
+        }, "© 2025 Soti Barber Studio - Todos los derechos reservados.")
       )
     )
   );

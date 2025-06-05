@@ -411,7 +411,7 @@ const CreateAppointment = ({
           </Container>
         </Modal.Body>
         <Modal.Footer className='background justify-content-center'>
-          <p>{errorMsg}</p>
+          {/* <p>{errorMsg}</p> */}
           <Button className="boton" onClick={onCancel}>
             Cancelar
           </Button>

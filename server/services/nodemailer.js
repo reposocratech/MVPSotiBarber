@@ -26,7 +26,7 @@ async function sendMail(email, tokenconfirm){
   transporter.sendMail({
     from: "Miriam <miriamespejortega@gmail.com>",
     to: email,
-    subject: "Confirma tu cuenta - Peluquería Soti",
+    subject: "Confirma tu cuenta - Soti Barber Studio",
     text: "Por favor, confirma tu cuenta haciendo clic en el botón del correo.",
     html: htmlEmail,
     attachments: [

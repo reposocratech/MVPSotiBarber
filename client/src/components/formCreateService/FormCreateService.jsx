@@ -35,7 +35,8 @@ export const FormCreateService = () => {
     ) {
       if (name === 'price') {
         value = value.replace(',', '.');
-      } else if (name !== 'service_description') {
+      } 
+      else if (name !== 'service_description' && name !== 'service_name') {
         value = value.trim();
       }
 
@@ -95,8 +96,10 @@ export const FormCreateService = () => {
     }
   };
 
+  console.log("LSADFJLSKDFJ", service)
+
   return (
-    <Form className="form-create-service form-add-service">
+    <Form className="formularios form-add-service">
       <div className="d-flex flex-column align-items-center justify-content-center">
         <h3>Añade un servicio</h3>
       </div>

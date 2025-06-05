@@ -26,9 +26,9 @@ const EmailConfirm = ({ email, token }) =>
           width: "100",
           alt: "Logo Soti"
         }),
-        React.createElement(Heading, null, "Peluquería Soti"),
+        React.createElement(Heading, null, "Soti Barber Studio"),
         React.createElement(Text, null, `Hola ${email},`),
-        React.createElement(Text, null, "Gracias por registrarte en Peluquería Soti. Por favor, confirma tu correo electrónico:"),
+        React.createElement(Text, null, "Gracias por registrarte en Soti Barber Studio. Por favor, confirma tu correo electrónico:"),
         React.createElement(Button, {
           href: `http://localhost:5173/accountConfirm/?token=${token}`,
           style: {
@@ -45,7 +45,7 @@ const EmailConfirm = ({ email, token }) =>
             color: '#aaa',
             fontSize: '12px'
           }
-        }, "© 2025 Peluquería Soti - Todos los derechos reservados.")
+        }, "© 2025 Soti Barber Studio - Todos los derechos reservados.")
       )
     )
   );

@@ -69,13 +69,13 @@ const Service = () => {
   };
 
   return (
-    <section className="padding-y-section">
+    <section className="padding-y-section sectForm">
       <Container fluid="xxl">
         <div className="d-flex flex-column align-items-center justify-content-center py-4">
           <h3>Servicios</h3>
           <div className="blue-line"></div>
         </div>
-        <Row>
+        <Row className='engloba'>
           {services.length !== 0 && (
             <Col className="d-flex justify-content-center align-items-center">
               <div className="table-services d-flex flex-column align-items-center justify-content-center">
@@ -112,7 +112,7 @@ const Service = () => {
                                   className="enabled"
                                   type="switch"
                                   id={`custom-switch-${e.service_id}`}
-                                  checked={e.service_is_enabled === 1}
+                                  checked={e.service_is_enabled === 0}
                                   onChange={() => enableSwitch(e.service_id)}
                                 />
                               </Form>
@@ -153,7 +153,7 @@ const Service = () => {
                               className="enabled"
                               type="switch"
                               id={`custom-switch-${service.service_id}`}
-                              checked={service.service_is_enabled === 1}
+                              checked={service.service_is_enabled === 0}
                               onChange={() => enableSwitch(service.service_id)}
                             />
                           </div>
@@ -177,7 +177,7 @@ const Service = () => {
             </Button>
           )}
           {!isMobile && (
-            <Col className="d-flex justify-content-center align-items-center my-4">
+            <Col className="cols d-flex justify-content-center align-items-center my-4">
               <FormCreateService />
             </Col>
           )}

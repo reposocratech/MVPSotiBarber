@@ -43,7 +43,7 @@ const EmailChangePassword = ({ email, token }) =>
             color: '#aaa',
             fontSize: '12px'
           }
-        }, "© 2025 Peluquería Soti - Todos los derechos reservados.")
+        }, "© 2025 Soti Barber Studio - Todos los derechos reservados.")
       )
     )
   );

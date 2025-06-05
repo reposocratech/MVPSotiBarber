@@ -19,75 +19,76 @@ const EmployeeClientProfile = () => {
   const [noPresentadas, setNoPresentadas] = useState(0);
 
   useEffect(() => {
-  if (!id) return;
+    if (!id) return;
 
-  const fetchDataCliente = async () => {
-    try {
-      const userRes = await fetchData(
-        `employee/clientProfile/${id}`,
-        'get',
-        null,
-        token
-      );
-      setUser(userRes.data || userRes);
+    const fetchDataCliente = async () => {
+      try {
+        const userRes = await fetchData(
+          `employee/clientProfile/${id}`,
+          'get',
+          null,
+          token
+        );
+        setUser(userRes.data || userRes);
 
-      const res = await fetchData(
-        `client/appointments/${id}`,
-        'get',
-        null,
-        token
-      );
+        const res = await fetchData(
+          `client/appointments/${id}`,
+          'get',
+          null,
+          token
+        );
 
-      const resCortes = await fetchData(
-        `client/cortes-count/${id}`,
-        'get',
-        null,
-        token
-      );
+        const resCortes = await fetchData(
+          `client/cortes-count/${id}`,
+          'get',
+          null,
+          token
+        );
 
-      const citasSimples = res.data || res;
+        const citasSimples = res.data || res;
 
-      const citas = citasSimples.map((cita) => {
-        const isCancelada = cita.status === 2;
-        const isNoPresentada = cita.status === 3;
+        const citas = citasSimples.map((cita) => {
+          const isCancelada = cita.status === 2;
+          const isNoPresentada = cita.status === 3;
 
-        return {
-          ...cita,
-          tipoVisible: isCancelada
-            ? 'Cancelada'
-            : isNoPresentada
-            ? 'No presentado'
-            : cita.tipo_cita,
-          precio: isCancelada || isNoPresentada ? 0 : parseFloat(cita.precio) || 0
-        };
-      });
+          return {
+            ...cita,
+            tipoVisible: isCancelada
+              ? 'Cancelada'
+              : isNoPresentada
+              ? 'No presentado'
+              : cita.tipo_cita,
+            precio:
+              isCancelada || isNoPresentada ? 0 : parseFloat(cita.precio) || 0,
+          };
+        });
 
-      setAppointments(citas);
+        setAppointments(citas);
 
-      
-      const citasValidas = citas.filter(cita => cita.status !== 2 && cita.status !== 3);
-      setServiciosTotales(citasValidas.length);
+        const citasValidas = citas.filter(
+          (cita) => cita.status !== 2 && cita.status !== 3
+        );
+        setServiciosTotales(citasValidas.length);
 
-      
-      const gasto = citas.reduce((acc, cita) => {
-        if (cita.status === 2) return acc; 
-        if (cita.status === 3) return acc - cita.precio; 
-        return acc + cita.precio;
-      }, 0);
-      setTotalGasto(gasto);
+        const gasto = citas.reduce((acc, cita) => {
+          if (cita.status === 2) return acc;
+          if (cita.status === 3) return acc - cita.precio;
+          return acc + cita.precio;
+        }, 0);
+        setTotalGasto(gasto);
 
-      const { totalCortes = 0 } = resCortes.data || resCortes;
-      setTotalCortes(totalCortes);
+        const { totalCortes = 0 } = resCortes.data || resCortes;
+        setTotalCortes(totalCortes);
 
-      setCanceladas(citas.filter(cita => cita.status === 2).length);
-      setNoPresentadas(citas.filter(cita => cita.status === 3).length);
-    } catch (err) {
-      console.error("Error cargando citas o cliente:", err);
-    }
-  };
+        setCanceladas(citas.filter((cita) => cita.status === 2).length);
+        setNoPresentadas(citas.filter((cita) => cita.status === 3).length);
+      } catch (err) {
+        console.error('Error cargando citas o cliente:', err);
+      }
+    };
 
-  fetchDataCliente();
-}, [id]);
+    fetchDataCliente();
+  }, [id]);
 
   const filteredAppointments = appointments.filter((cita) => {
     const search = searchTerm.toLowerCase();
@@ -106,22 +107,19 @@ const EmployeeClientProfile = () => {
     );
   });
 
-  if (!user || !user.user_name) return <p className="text-center">Cargando cliente...</p>;
+  if (!user || !user.user_name)
+    return <p className="text-center">Cargando cliente...</p>;
 
   return (
-    <Container>
-      <section className="padding-y-section">
-        <Row>
-          <Col className="pb-4">
-            <h2 className="titulomvl text-center">
-              Perfil de {user.user_name} {user.lastname}
-            </h2>
-            <div className="blue-line"></div>
-          </Col>
-        </Row>
-      </section>
+    <section className="padding-y-section">
+      <Container>
+        <div className="d-flex flex-column align-items-center justify-content-center mb-3">
+          <h2 className="titulomvl text-center p-0">
+            Perfil de {user.user_name} {user.lastname}
+          </h2>
+          <div className="blue-line"></div>
+        </div>
 
-      <section>
         <Row className="tablet-row mb-5 align-items-stretch justify-content-center">
           <Col md={5} className="col-profile">
             <div className="client-profile p-4 rounded">
@@ -183,20 +181,20 @@ const EmployeeClientProfile = () => {
                 </div>
               </div>
 
-               <div className="tabla-head mb-2 d-flex justify-content-between px-4">
-                  <div className="col-fecha fw-semibold text-white text-center">
-                    Fecha
-                  </div>
-                  <div className="col-tipo fw-semibold text-white text-center">
-                    Tipo de cita
-                  </div>
-                  <div className="col-empleado fw-semibold text-white text-center">
-                    Empleado
-                  </div>
-                  <div className="col-precio fw-semibold text-white text-center">
-                    Precio
-                  </div>
+              <div className="tabla-head mb-2 d-flex justify-content-between px-4">
+                <div className="col-fecha fw-semibold text-white text-center">
+                  Fecha
                 </div>
+                <div className="col-tipo fw-semibold text-white text-center">
+                  Tipo de cita
+                </div>
+                <div className="col-empleado fw-semibold text-white text-center">
+                  Empleado
+                </div>
+                <div className="col-precio fw-semibold text-white text-center">
+                  Precio
+                </div>
+              </div>
 
               <div className="mt-3 rounded p-3 table-scroll-wrapper">
                 <table className="tabla-citas text-white mb-0">
@@ -207,21 +205,26 @@ const EmployeeClientProfile = () => {
                     <col className="col-precio" />
                   </colgroup>
                   <tbody>
-                    {(searchTerm ? filteredAppointments : appointments).length > 0 ? (
-                      (searchTerm ? filteredAppointments : appointments).map((cita, index) => (
-                        <tr key={index}>
-                          <td data-label="Fecha:">{cita.start_date}</td>
-                          <td data-label="Cita:">
-                            {cita.status === 2
-                              ? 'cancelada'
-                              : cita.status === 3
-                              ? 'no presentado'
-                              : cita.tipo_cita}
-                          </td>
-                          <td data-label="Empleado:">{cita.empleado}</td>
-                          <td data-label="Precio:">{parseFloat(cita.precio).toFixed(2)}€</td>
-                        </tr>
-                      ))
+                    {(searchTerm ? filteredAppointments : appointments).length >
+                    0 ? (
+                      (searchTerm ? filteredAppointments : appointments).map(
+                        (cita, index) => (
+                          <tr key={index}>
+                            <td data-label="Fecha:">{cita.start_date}</td>
+                            <td data-label="Cita:">
+                              {cita.status === 2
+                                ? 'cancelada'
+                                : cita.status === 3
+                                ? 'no presentado'
+                                : cita.tipo_cita}
+                            </td>
+                            <td data-label="Empleado:">{cita.empleado}</td>
+                            <td data-label="Precio:">
+                              {parseFloat(cita.precio).toFixed(2)}€
+                            </td>
+                          </tr>
+                        )
+                      )
                     ) : (
                       <tr>
                         <td colSpan="4" className="fw-bold">
@@ -237,8 +240,8 @@ const EmployeeClientProfile = () => {
             </div>
           </Col>
         </Row>
-      </section>
-    </Container>
+      </Container>
+    </section>
   );
 };
 
