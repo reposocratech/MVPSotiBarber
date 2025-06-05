@@ -121,6 +121,7 @@ export const AppRoutes = () => {
               <Route path="/admin/createService" element={<CreateService/>} />
               <Route path="/admin/clientProfile/:id" element={<EmployeeClientProfile />} />
               <Route path="/admin/oneService/:id" element={<ServiceProfile/>} />
+              <Route path="/admin/calendar" element={<AdminDashboard/>} />
               
            
               {/* <Route path="/admin/createAppointment" element={<CreateAppointment/>} /> */}{/* DESCOMENTAR IMPORTACION!!! */}

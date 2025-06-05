@@ -18,7 +18,8 @@ const EmailConfirm = ({ email, token }) =>
         style: {
           backgroundColor: '#fff',
           padding: '30px',
-          borderRadius: '8px'
+          borderRadius: '8px',
+          textAlign:'center'
         }
       },
         React.createElement(Img, {

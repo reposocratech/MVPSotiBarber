@@ -19,7 +19,7 @@ export const AdminNavbar = () => {
       collapseOnSelect
     >
       <Container>
-        <Navbar.Brand className="titleNav" onClick={() => navigate('/')}>
+        <Navbar.Brand className="titleNav" onClick={() => navigate('/admin')}>
           <img src="/images/logo/logo_recortado.png" alt="logo Soti" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -45,6 +45,14 @@ export const AdminNavbar = () => {
               onClick={() => setIsOpen(false)}
             >
               Servicios
+            </NavLink>
+
+            <NavLink
+              className={({ isActive }) => (isActive ? 'active' : '')}
+              to="/admin/calendar"
+              onClick={() => setIsOpen(false)}
+            >
+              Calendario
             </NavLink>
 
             <div

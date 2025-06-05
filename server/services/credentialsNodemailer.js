@@ -26,7 +26,7 @@ async function sendMailCredential(email, tokenFP){
   transporter.sendMail({
     from: "Miriam <miriamespejortega@gmail.com>",
     to: email,
-    subject: "Estas son tus credenciales de la barbería",
+    subject: "Bienvenido al equipo 🎉",
     text: `email: ${email}
     password: 1234Ss$
     Por favor, cambia la contraseña accediendo <a href='http://localhost:5173/changePassword/?token=${tokenFP}'>aquí</a>`,
