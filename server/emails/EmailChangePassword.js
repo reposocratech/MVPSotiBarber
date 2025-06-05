@@ -18,13 +18,15 @@ const EmailChangePassword = ({ email, token }) =>
         style: {
           backgroundColor: '#fff',
           padding: '30px',
-          borderRadius: '8px'
+          borderRadius: '8px',
+          textAlign: 'center'
         }
       },
         React.createElement(Img, {
           src: "cid:logoSoti",
           width: "100",
-          alt: "Logo Soti"
+          alt: "Logo Soti",
+          style: { margin: '0 auto 20px' }
         }),
         React.createElement(Heading, null, "Soti Barber Studio"),
         React.createElement(Text, null, `Cambia tu contraseña pulsando aquí: `),

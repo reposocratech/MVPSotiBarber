@@ -120,7 +120,7 @@ const CompleteRegister = ({onCompletar}) => {
               </Form.Group>
               <p>{errorMsg}</p>
               <div className='d-flex justify-content-center'>
-                <Button className='boton' onClick={onSubmit}>Editar</Button>
+                <Button className='boton' onClick={onSubmit}>Aceptar</Button>
               </div>
             </Form>
           </Col>
