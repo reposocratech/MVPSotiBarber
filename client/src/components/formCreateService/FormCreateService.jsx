@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
+import { Col, Form, InputGroup, Row } from 'react-bootstrap';
 import { ZodError } from 'zod';
 import { useNavigate } from 'react-router-dom';
 import image from '../../assets/icons/uploadimage.svg';
@@ -174,12 +174,12 @@ export const FormCreateService = () => {
         {/* <p className="text-center">{errorMsg}</p> */}
 
         <div className="d-flex justify-content-center align-items-center">
-          <Button onClick={cancel} className="btn me-3">
+          <button  onClick={cancel} className="btn me-3">
             Cancelar
-          </Button>
-          <Button className="btn" onClick={onSubmit}>
+          </button>
+          <button type="button" className="btn" onClick={onSubmit}>
             Añadir
-          </Button>
+          </button>
         </div>
       </div>
     </Form>

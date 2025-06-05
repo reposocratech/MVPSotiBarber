@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './home.css';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { Element } from 'react-scroll';
 import { useLocation, useNavigate } from 'react-router-dom';
 import soti_barber from "../../../assets/images/soti-barber.webp"
@@ -64,7 +64,7 @@ const Home = () => {
                   enorgullece ofrecer un servicio personalizado adaptado a las
                   necesidades especificas de tu cabello.
                 </p>
-                <Button onClick={()=>navigate("/contact")} className="btn-home">Contáctanos</Button>
+                <button onClick={()=>navigate("/contact")} className="btn">Contáctanos</button>
               </article>
             </Col>
             <Col
@@ -95,7 +95,7 @@ const Home = () => {
                   detalle para que salgas con el look que te representa.
                 </p>
 
-                <Button onClick={()=>navigate("/services")} className="btn">Ir a servicios</Button>
+                <button onClick={()=>navigate("/services")} className="btn">Ir a servicios</button>
               </article>
             </Col>
             <Col

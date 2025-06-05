@@ -218,12 +218,12 @@ export const FormEditService = ({service, handleClose, onUpdated, cancel}) => {
               <div>
                 <div className="d-flex align-items-center justify-content-center">
 
-                  <Button className="btn me-3" onClick={cancel}>
+                  <button className="btn me-3" onClick={cancel}>
                     Cancelar
-                  </Button>
-                  <Button className="btn" onClick={onSubmit}>
+                  </button>
+                  <button type="button" className="btn" onClick={onSubmit}>
                     Guardar
-                  </Button>
+                  </button>
                 </div>
               </div>
             </Form>

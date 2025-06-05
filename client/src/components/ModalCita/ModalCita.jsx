@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Form, Modal } from 'react-bootstrap';
 import { fetchData } from '../../helpers/axiosHelpers';
 import { AuthContext } from '../../context/AuthContextProvider';
 import './modalcita.css';
@@ -289,10 +289,10 @@ const ModalCita = ({ setShowModal, showModal, event, closeModal, onUpdate }) => 
           </Modal.Body>
           <Modal.Footer className='background justify-content-center'>
             <div className="botones d-flex justify-content-between w-100">
-              <Button onClick={cancelAppointment} className='red-btn'>Cancelar cita</Button>
+              <button type="button" onClick={cancelAppointment} className='btn'>Cancelar cita</button>
               <div>
-                <Button className="boton ms-auto me-2" onClick={onSubmit}>Guardar</Button>
-                <Button onClick={closeModal}>Salir</Button>
+                <button  type="button" className="btn ms-auto me-2" onClick={onSubmit}>Guardar</button>
+                <button className="btn" onClick={closeModal}>Salir</button>
               </div>
             </div>
           </Modal.Footer>

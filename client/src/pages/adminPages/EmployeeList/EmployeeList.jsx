@@ -74,9 +74,9 @@ const EmployeeList = () => {
           <div className="blue-line"></div>
         </div>
           <div className="d-flex justify-content-center align-items-center mb-3">
-            <Button onClick={() => navigate('/admin/createEmployee')}>
+            <button type="button" className="btn" onClick={() => navigate('/admin/createEmployee')}>
                     Crear empleado
-                  </Button>
+                  </button>
           </div>
         <Row>
         <Col className="d-flex justify-content-center align-items-center">

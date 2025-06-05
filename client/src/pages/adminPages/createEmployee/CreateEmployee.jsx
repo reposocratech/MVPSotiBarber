@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Col, Container, Form, Row } from 'react-bootstrap'
 import { fetchData } from '../../../helpers/axiosHelpers';
 import image from "../../../assets/icons/uploadimage.svg"
 import "./createemployee.css"
@@ -170,8 +170,8 @@ const CreateEmployee = () => {
               </Form.Group>
               <p>{errorMsg}</p>
               <div className='d-flex justify-content-center gap-3'>
-                <Button className='boton' onClick={onSubmit}>Registrar</Button>
-                <Button className='boton' onClick={()=>navigate("/admin/employeeList")}>Cancelar</Button>
+                <button type="button" className='btn' onClick={onSubmit}>Registrar</button>
+                <button type="button" className='btn' onClick={()=>navigate("/admin/employeeList")}>Cancelar</button>
               </div>
             </Form>
           </Col>

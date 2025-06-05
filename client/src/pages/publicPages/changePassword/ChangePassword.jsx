@@ -86,7 +86,7 @@ const ChangePassword = () => {
               </Form.Group>
               <p>{errorMsg}</p>
               <div className='d-flex justify-content-center'>
-                <Button className='boton' onClick={onSubmit}>Cambiar</Button>
+                <button type="button" className='btn' onClick={onSubmit}>Cambiar</button>
               </div>
             </Form>
           </Col>
