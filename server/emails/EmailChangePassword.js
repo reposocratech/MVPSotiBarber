@@ -29,7 +29,7 @@ const EmailChangePassword = ({ email, token }) =>
           style: { margin: '0 auto 20px' }
         }),
         React.createElement(Heading, null, "Soti Barber Studio"),
-        React.createElement(Text, null, `Cambia tu contraseña pulsando aquí: `),
+        React.createElement(Text, null, `Cambia tu contraseña pulsando aquí `),
         React.createElement(Button, {
                   href: `http://localhost:5173/changePassword/?token=${token}`,
                   style: {
