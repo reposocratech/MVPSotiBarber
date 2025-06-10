@@ -12,13 +12,13 @@ import { uploadImageMulti } from "../../middleware/multerMultiple.js";
 
 const router = express.Router();
 
-router.post("/createService",uploadImage("service"), validateForms(createServiceSchema), verifyToken, adminControllers.createService);
+router.post("/createService", uploadImage("service"), validateForms(createServiceSchema), verifyToken, adminControllers.createService);
 router.get("/services", adminControllers.getAllServices);
 router.put("/enabledService/:id", verifyToken, adminControllers.enabledService)
 router.put("/editService", verifyToken, uploadImage("service"), adminControllers.editService)
 router.get("/employeeList", verifyToken,adminControllers.getAllEmployees);
 router.put("/enabledEmployee/:id", verifyToken, adminControllers.enabledEmployee)
-router.post("/createEmployee", uploadImage("users"), validateForms(createEmployeeSchema), verifyToken, adminControllers.createEmployee)
+router.post("/createEmployee",verifyToken, uploadImage("users"), validateForms(createEmployeeSchema), adminControllers.createEmployee)
 router.put("/editEmployee", uploadImage("users"), validateForms(editEmployeeSchema), verifyToken, adminControllers.editEmployee)
 router.post("/createAppointment",verifyToken, validateForms(createAppointmentSchema), adminControllers.createAppointment)
 router.put("/deleteService", verifyToken, adminControllers.deleteService);
@@ -35,13 +35,6 @@ router.post("/addImages", verifyToken, uploadImageMulti('servicesImages'), admin
 router.get("/getImages/:id", verifyToken, adminControllers.getImages)
 router.delete("/delImage/:service_id/:image_id/:file_name", verifyToken, adminControllers.delImage)
 router.post("/reorderServiceImages", verifyToken, adminControllers.reorderServiceImages)
-
-
-
-
-
-
-
 
 
 

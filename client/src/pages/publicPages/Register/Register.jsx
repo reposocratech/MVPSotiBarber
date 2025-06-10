@@ -103,7 +103,7 @@ const Register = () => {
                 />
                 {valErrors.repPassword && <p className="error">{valErrors.repPassword}</p>}
               </Form.Group>
-              {/* <p>{errorMsg}</p> */}
+              {/* <p className='error text-center'>{errorMsg}</p> */}
               <div className='d-flex justify-content-center'>
                 <button type="button" className='btn' onClick={onSubmit}>Registrar</button>
               </div>

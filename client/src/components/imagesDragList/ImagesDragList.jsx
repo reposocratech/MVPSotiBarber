@@ -29,7 +29,7 @@ const ImagesDragList = ({images, setImages, deleteImg, handleChange, service }) 
     }
   },[images])
 
-  console.log("newwwww", newOrder)
+
   const handleDragEnd = (event) => {
     const { active, over } = event;
 

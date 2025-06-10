@@ -14,16 +14,15 @@ import addImage from '../../../assets/icons/add_image.png';
 const ServiceProfile = () => {
   const { services, setServices, token } = useContext(AuthContext);
   const [service, setService] = useState({});
-  const [isMobile, setIsMobile] = useState(false);
+  //const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
   const [modalService, setModalService] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [images, setImages] = useState([]);
 
-  console.log("SERVICESSS", services)
   const service_id = useParams();
 
-  //PARA MEJORA EN EL FUTURO; EN LUGAR DE PINTAR MODALES EN MOVIL, CAMBIAR A VISTA NUEVA
+
   // useEffect(() => {
   //   const handleResizeScreen = () => {
   //     if (window.innerWidth <= 768) {
@@ -72,7 +71,7 @@ const ServiceProfile = () => {
       setShowModal(false);
       setModalService(null);
 
-      //esto hace que espere un momento antes de volverlo abrir, para que una vez se abra de nuevo, ya lo haya reseteado y borrado los datos del modal anterior
+  
       setTimeout(() => {
         setModalService(service);
         setShowModal(true);
@@ -97,7 +96,7 @@ const ServiceProfile = () => {
     );
   };
 
-  //PARA LA GALERIA
+  //GALERIA
   const handleChange = async (e, service_id) => {
     let uploadImgs = e.target.files;
 
@@ -109,7 +108,7 @@ const ServiceProfile = () => {
       newFormData.append('data', JSON.stringify(service_id));
 
       try {
-        let res = await fetchData(
+        await fetchData(
           'admin/addImages',
           'post',
           newFormData,
@@ -240,7 +239,7 @@ const ServiceProfile = () => {
                     deleteImg={deleteImg}
                   />
                 ) : (
-                  <div className="d-flex gap-3">
+                  <div className="d-flex gap-3 justify-content-center align-items-center">
                     <div className="d-flex align-items-center justify-content-center">
                       <p className="m-0">Agrega algunas fotos</p>
                     </div>

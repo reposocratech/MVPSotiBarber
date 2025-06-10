@@ -152,6 +152,10 @@
   background-color: var(--color-componente);
   padding: 2rem;
   border-radius: 1rem;
+
+  textarea{
+    background-color: var(--color-blanco);
+  }
   
 
 }

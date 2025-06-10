@@ -10,12 +10,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
+  host: process.env.EMAIL_HOST,
+  port: process.env.EMAIL_PORT,
   secure: false,
   auth: {
-    user: "miriamespejortega@gmail.com",
-    pass: "ulpmynrvlgmudkqc"
+    user: `${process.env.EMAIL_USER}`,
+    pass: `${process.env.EMAIL_PASS}`
   }
 })
 
@@ -25,7 +25,7 @@ async function sendMailCredential(email, tokenFP){
   const logoPath = path.join(__dirname, '../public/images/logo/logo_texto.png')
 
   transporter.sendMail({
-    from: "Miriam <miriamespejortega@gmail.com>",
+    from: `Soti Barber Studio <${process.env.EMAIL_USER}>`,
     to: email,
     subject: "Cambio de contraseña",
     text: "",

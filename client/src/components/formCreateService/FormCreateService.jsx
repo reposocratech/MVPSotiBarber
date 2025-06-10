@@ -54,6 +54,7 @@ export const FormCreateService = () => {
   }
 
   const cancel = () => {
+    setValErrors({})
     navigate('/admin/service');
   };
 
@@ -96,7 +97,7 @@ export const FormCreateService = () => {
     }
   };
 
-  console.log("LSADFJLSKDFJ", service)
+
 
   return (
     <Form className="formularios form-add-service">
@@ -174,7 +175,7 @@ export const FormCreateService = () => {
         {/* <p className="text-center">{errorMsg}</p> */}
 
         <div className="d-flex justify-content-center align-items-center">
-          <button  onClick={cancel} className="btn me-3">
+          <button type="button"  onClick={cancel} className="btn me-3">
             Cancelar
           </button>
           <button type="button" className="btn" onClick={onSubmit}>
