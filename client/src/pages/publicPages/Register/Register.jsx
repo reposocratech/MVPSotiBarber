@@ -29,6 +29,7 @@ const Register = () => {
         setErrorMsg("");
         setValErrors("");
         registerSchema.parse(registerData);
+
         let res = await fetchData ("client/register", "post", registerData);
     
         navigate("/login")
@@ -103,7 +104,7 @@ const Register = () => {
                 />
                 {valErrors.repPassword && <p className="error">{valErrors.repPassword}</p>}
               </Form.Group>
-              {/* <p>{errorMsg}</p> */}
+              {/* <p className='error text-center'>{errorMsg}</p> */}
               <div className='d-flex justify-content-center'>
                 <button type="button" className='btn' onClick={onSubmit}>Registrar</button>
               </div>
