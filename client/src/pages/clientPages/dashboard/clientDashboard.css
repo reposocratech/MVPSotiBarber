@@ -242,9 +242,17 @@
     margin-right: auto !important;
   }
 
-  .client-profile .btnmovil {
-    margin-top: 1rem;
-  }
+ .client-profile .btnmovil {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.client-profile .btnmovil .btn,
+.client-profile .btnmovil .button {
+  min-width: 150px;
+  margin: 0 auto;
+}
 
   .history {
     margin-top: 2rem;
@@ -327,11 +335,6 @@
     border-radius: 10px;
   }
 
- 
-  .btnmovil {
-    display: block !important;
-    margin: 1rem auto 0 auto;
-  }
 
   .d-lg-inline-block {
     display: none !important;
@@ -384,16 +387,19 @@
     margin: 0 auto;
   }
 
- 
   .client-profile .btnmovil {
-    display: flex ;
-    justify-content: center;
-    margin-top: 1.5rem;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+}
 
-  .client-profile .btnmovil .button {
-    margin: 0 auto;
-  }
+.client-profile .btnmovil .btn,
+.client-profile .btnmovil .button {
+  min-width: 150px;
+  margin: 0 auto;
+}
+
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {

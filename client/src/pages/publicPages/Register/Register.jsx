@@ -29,6 +29,7 @@ const Register = () => {
         setErrorMsg("");
         setValErrors("");
         registerSchema.parse(registerData);
+
         let res = await fetchData ("client/register", "post", registerData);
     
         navigate("/login")
