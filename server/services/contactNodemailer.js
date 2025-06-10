@@ -13,8 +13,8 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: "miriamespejortega@gmail.com",
-    pass: "ulpmynrvlgmudkqc"
+    user: "javisanchez800@gmail.com",
+    pass: "lbesrynschzgdlij"
   }
 })
 
@@ -25,7 +25,7 @@ async function sendMailContact(name, email, message){
 
   transporter.sendMail({
     from: email,
-    to: "Miriam <miriamespejortega@gmail.com>",
+    to: "Soti Barber <javisanchez800@gmail.com>",
     subject: "Nuevo mensaje de contacto",
     text: ``,
     html: htmlEmail,
