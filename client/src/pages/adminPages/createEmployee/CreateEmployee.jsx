@@ -86,7 +86,7 @@ const CreateEmployee = () => {
                   name="user_name"
                   value={employeeData.user_name}
                   onChange={handleChange}
-                  placeholder='Introduce el nombre del empleado'
+                  placeholder='Introduce el nombre'
                 />
                 {valErrors.user_name && <p className='error'>{valErrors.user_name}</p>}
               </Form.Group>
@@ -99,7 +99,7 @@ const CreateEmployee = () => {
                   name="lastname"
                   value={employeeData.lastname}
                   onChange={handleChange}
-                  placeholder='Introduce los apellidos del empleado'
+                  placeholder='Introduce los apellidos'
                 />
                 {valErrors.lastname && <p className='error'>{valErrors.lastname}</p>}
               </Form.Group>
@@ -112,7 +112,7 @@ const CreateEmployee = () => {
                   name="phone"
                   value={employeeData.phone}
                   onChange={handleChange}
-                  placeholder='Introduce el teléfono del empleado'
+                  placeholder='Introduce el teléfono'
                 />
                 {valErrors.phone && <p className='error'>{valErrors.phone}</p>}
               </Form.Group>
@@ -125,7 +125,7 @@ const CreateEmployee = () => {
                   name="email"
                   value={employeeData.email}
                   onChange={handleChange}
-                  placeholder='Introduce el email del empleado'
+                  placeholder='Introduce el email'
                 />
                 {valErrors.email && <p className='error'>{valErrors.email}</p>}
               </Form.Group>
@@ -138,7 +138,7 @@ const CreateEmployee = () => {
                   name="password"
                   value={employeeData.password}
                   onChange={handleChange}
-                  placeholder='Introduce la contraseña del empleado'
+                  placeholder='Introduce la contraseña'
                 />
                 {valErrors.password && <p className='error'>{valErrors.password}</p>}
               </Form.Group>
@@ -152,7 +152,7 @@ const CreateEmployee = () => {
                   name="description"
                   value={employeeData.description}
                   onChange={handleChange}
-                  placeholder='Introduce una descripción del empleado'
+                  placeholder='Introduce una descripción'
                   as='textarea'
                 />
                 {valErrors.description && <p className='error'>{valErrors.description}</p>}

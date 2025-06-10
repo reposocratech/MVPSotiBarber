@@ -292,19 +292,17 @@ class AdminDal {
     const serviceName = servicio[0]?.service_name?.toLowerCase() || '';
 
     if (serviceName.includes('corte') || serviceName.includes('rapa')) {
-    const [result] = await connection.query(
-      `SELECT COUNT(*) AS total_servicios
-       FROM appointment a
-       LEFT JOIN service s ON a.service_id = s.service_id
-       WHERE a.client_user_id = ?
-         AND a.status = 1
-         AND s.service_promo = 1`,
-      [client_id]
-    );
+
+      let sql = `SELECT COUNT(*) AS total_servicios
+      FROM appointment a
+      LEFT JOIN service s ON a.service_id = s.service_id
+      WHERE a.client_user_id = ?
+        AND a.status = 1`
+    const [result] = await connection.query(sql,[client_id]);
 
    
     const totalServiciosPrevios = result[0]?.total_servicios || 0;
-    const totalServiciosConActual = totalServiciosPrevios + 1;
+    const totalServiciosConActual = totalServiciosPrevios;
 
 
     console.log("Total de cortes/rapados:", totalServiciosConActual);
@@ -490,13 +488,8 @@ class AdminDal {
         await connection.query(sqlImage, values);
       })
 
-      // let sqlNewImages = 'SELECT * FROM image WHERE service_id = ? AND image_is_deleted = 0'
-      // let resultNewImgs = await connection.query(sqlNewImages, [service_id]);
-      
       await connection.commit();
-      // return resultNewImgs;
-      
- 
+
     } catch (error) {
       console.log(error);
       await connection.rollback();

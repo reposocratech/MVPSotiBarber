@@ -11,9 +11,7 @@ import { FormCreateService } from '../../../components/formCreateService/FormCre
 
 const Service = () => {
   const { token, services, setServices } = useContext(AuthContext);
-
   const [isMobile, setIsMobile] = useState(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -13,7 +13,7 @@ export const felicitar = () => cron.schedule('0 10 * * *', async()=>{
     for (const usuario of cumples) {
       
       await sendBirthdayMail(usuario.email, usuario.user_name); 
-      console.log("Feliz cumpleaños");
+      console.log(`Feliz cumpleaños ${usuario.email}`);
     }
     
 
