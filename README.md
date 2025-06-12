@@ -34,7 +34,7 @@ cd server
 npm install
 ```
 
-### 🎨 Backend (Server)
+### 🎨 Frontend (Client)
 ```bash
 cd client
 npm install
