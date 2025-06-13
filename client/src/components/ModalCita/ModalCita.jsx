@@ -119,7 +119,6 @@ const ModalCita = ({
     closeModal();
   };
 
-  console.log("EEEEDDIT", editData)
 
   return (
     <>
