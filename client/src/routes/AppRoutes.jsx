@@ -124,7 +124,7 @@ export const AppRoutes = () => {
               <Route path="/admin/calendar" element={<AdminDashboard/>} />
               
            
-              {/* <Route path="/admin/createAppointment" element={<CreateAppointment/>} /> */}{/* DESCOMENTAR IMPORTACION!!! */}
+              {/* <Route path="/admin/createAppointment" element={<CreateAppointment/>} /> */}
             </Route>
           </Route>
         </Routes>
