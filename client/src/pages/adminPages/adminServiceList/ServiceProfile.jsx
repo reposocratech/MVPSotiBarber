@@ -67,7 +67,7 @@ const ServiceProfile = () => {
       /* if (isMobile) {
         navigate(`/admin/editService/${service.service_id}`); */
       /* } else { */
-      //cierro y limpio el modal
+
       setShowModal(false);
       setModalService(null);
 
