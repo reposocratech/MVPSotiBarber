@@ -36,7 +36,6 @@ const ServiceList = () => {
     setFilteredImages(images);
   }, [images]);
 
-  console.log('IMAGESSS', images);
 
   const promoIsActive = (service) => {
     if (
